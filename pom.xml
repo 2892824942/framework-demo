@@ -17,6 +17,8 @@
         <spring-cloud-alibaba.version>2021.0.5.0</spring-cloud-alibaba.version>
         <spring.cloud.version>2021.0.5</spring.cloud.version>
         <mysql.version>8.0.33</mysql.version>
+        <ty-framework.version>0.2.11-SNAPSHOT</ty-framework.version>
+        <springdoc.version>1.6.15</springdoc.version>
     </properties>
 
     <modules>

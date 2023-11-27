@@ -18,7 +18,7 @@ spring:
   datasource:
     username: suyouliang
     password: '%M5sCQXNUq'
-    url: jdbc:mysql://121.40.156.55:3306/mysql?useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull
+    url: jdbc:mysql://121.40.156.55:3306/test_db?useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull
     driver-class-name: com.mysql.cj.jdbc.Driver
     #hikari数据库连接池
     hikari:
