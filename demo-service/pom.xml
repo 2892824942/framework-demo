@@ -44,6 +44,13 @@
             <artifactId>knife4j-openapi3-spring-boot-starter</artifactId>
         </dependency>
 
+        <!--mapstruct-->
+        <dependency>
+            <groupId>org.mapstruct</groupId>
+            <artifactId>mapstruct</artifactId>
+        </dependency>
+
+
         <dependency>
             <groupId>com.ty</groupId>
             <artifactId>ty-framework-mybatis-plus</artifactId>

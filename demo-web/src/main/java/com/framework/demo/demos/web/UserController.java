@@ -16,15 +16,15 @@
 
 package com.framework.demo.demos.web;
 
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.framework.demo.entity.User;
 import com.framework.demo.pojo.UserPageQuery;
+import com.framework.demo.pojo.UserSaveQuery;
 import com.framework.demo.service.IUserService;
 import com.ty.mid.framework.common.pojo.PageResult;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * @author
@@ -34,6 +34,7 @@ public class UserController {
 
     @Resource
     private IUserService userService;
+
     @GetMapping("/getById")
     public User hello(@RequestParam Long id) {
         return userService.getById(id);
@@ -47,19 +48,19 @@ public class UserController {
 
 
     @PostMapping("/save")
-    public PageResult<User> save(UserPageQuery query) {
-        return userService.getPage(query);
+    public Boolean save(@RequestBody UserSaveQuery query) {
+        return userService.save(query);
     }
 
 
     @PostMapping("/saveBatch")
-    public PageResult<User> saveBatch(@RequestBody UserPageQuery query) {
-        return userService.getPage(query);
+    public void saveBatch(@RequestBody List<UserSaveQuery> query) {
+        userService.saveBatch(query);
     }
 
-    @DeleteMapping("/delete")
-    public PageResult<User> delete( UserPageQuery query) {
-        return userService.getPage(query);
+    @DeleteMapping("/delete/{id}")
+    public Boolean delete(@PathVariable(value = "id") Long id) {
+        return userService.deleteById(id);
     }
 
 }
