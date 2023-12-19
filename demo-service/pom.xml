@@ -28,6 +28,21 @@
             <groupId>com.alibaba.cloud</groupId>
             <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
         </dependency>
+        <!-- service 框架依赖-->
+        <dependency>
+            <groupId>com.ty</groupId>
+            <artifactId>ty-framework-mybatis-plus-starter</artifactId>
+        </dependency>
+        <!-- swagger-->
+
+        <dependency>
+            <groupId>org.springdoc</groupId>  <!-- 接口文档 -->
+            <artifactId>springdoc-openapi-ui</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.github.xiaoymin</groupId> <!-- 接口文档 -->
+            <artifactId>knife4j-openapi3-spring-boot-starter</artifactId>
+        </dependency>
 
         <dependency>
             <groupId>com.ty</groupId>

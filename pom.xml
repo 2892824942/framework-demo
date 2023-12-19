@@ -17,7 +17,8 @@
         <spring-cloud-alibaba.version>2021.0.5.0</spring-cloud-alibaba.version>
         <spring.cloud.version>2021.0.5</spring.cloud.version>
         <mysql.version>8.0.33</mysql.version>
-        <ty-framework.version>0.2.11-SNAPSHOT</ty-framework.version>
+        <swagger-annotation.version>1.5.20</swagger-annotation.version>
+        <ty-framework.version>0.0.1-SNAPSHOT</ty-framework.version>
         <springdoc.version>1.6.15</springdoc.version>
     </properties>
 
@@ -26,7 +27,6 @@
         <module>demo-web</module>
         <module>demo-service</module>
     </modules>
-
     <dependencies>
         <dependency>
             <groupId>mysql</groupId>
@@ -49,11 +49,6 @@
         <dependency>
             <groupId>com.alibaba.cloud</groupId>
             <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.mybatis.spring.boot</groupId>
-            <artifactId>mybatis-spring-boot-starter</artifactId>
-            <version>2.2.2</version>
         </dependency>
 
         <dependency>
@@ -98,6 +93,15 @@
                         <artifactId>spring-boot-starter-tomcat</artifactId>
                     </exclusion>
                 </exclusions>
+            </dependency>
+            <!-- 导入 框架依赖 -->
+            <dependency>
+                <!-- Import dependency management from Spring Boot -->
+                <groupId>com.ty</groupId>
+                <artifactId>ty-framework-dependencies</artifactId>
+                <version>${ty-framework.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
             </dependency>
             <dependency>
                 <groupId>org.springframework.cloud</groupId>
