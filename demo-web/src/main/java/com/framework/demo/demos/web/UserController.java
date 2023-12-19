@@ -41,24 +41,24 @@ public class UserController {
 
 
     @GetMapping("/getPage")
-    public PageResult<User> getPage(@RequestParam UserPageQuery query) {
+    public PageResult<User> getPage(UserPageQuery query) {
         return userService.getPage(query);
     }
 
 
-    @GetMapping("/save")
-    public PageResult<User> save(@RequestParam UserPageQuery query) {
+    @PostMapping("/save")
+    public PageResult<User> save(UserPageQuery query) {
         return userService.getPage(query);
     }
 
 
-    @GetMapping("/saveBatch")
-    public PageResult<User> saveBatch(@RequestParam UserPageQuery query) {
+    @PostMapping("/saveBatch")
+    public PageResult<User> saveBatch(@RequestBody UserPageQuery query) {
         return userService.getPage(query);
     }
 
-    @GetMapping("/delete")
-    public PageResult<User> delete(@RequestParam UserPageQuery query) {
+    @DeleteMapping("/delete")
+    public PageResult<User> delete( UserPageQuery query) {
         return userService.getPage(query);
     }
 
