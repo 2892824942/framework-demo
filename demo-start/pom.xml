@@ -11,6 +11,64 @@
     <artifactId>demo-start</artifactId>
     <name>demo-start</name>
     <description>入口模块，引导工程启动以及基础配置</description>
+
+    <profiles>
+        <profile>
+            <id>本地环境</id>
+            <properties>
+                <SPRING_PROFILES>local</SPRING_PROFILES>
+                <JAVA_OPTS>-Duser.timezone=Asia/Shanghai -Dlog4j2.disable.jmx=true
+                    -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=${remote.debug.port}
+                </JAVA_OPTS>
+            </properties>
+        </profile>
+
+        <profile>
+            <id>开发环境</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <SPRING_PROFILES>dev</SPRING_PROFILES>
+                <JAVA_OPTS>-Duser.timezone=Asia/Shanghai -Dlog4j2.disable.jmx=true
+                    -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=${remote.debug.port}
+                    -javaagent:/opt/glowroot/glowroot.jar -javaagent:/opt/xrebel/xrebel.jar
+                </JAVA_OPTS>
+            </properties>
+        </profile>
+
+        <profile>
+            <id>测试环境</id>
+            <properties>
+                <SPRING_PROFILES>test</SPRING_PROFILES>
+                <JAVA_OPTS>-Duser.timezone=Asia/Shanghai -Dlog4j2.disable.jmx=true
+                    -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=${remote.debug.port}
+                    -javaagent:/opt/glowroot/glowroot.jar -javaagent:/opt/xrebel/xrebel.jar
+                </JAVA_OPTS>
+            </properties>
+        </profile>
+
+        <profile>
+            <id>预发环境</id>
+            <properties>
+                <SPRING_PROFILES>prep</SPRING_PROFILES>
+                <JAVA_OPTS>-Duser.timezone=Asia/Shanghai -Dlog4j2.disable.jmx=true
+                    -Dcom.sun.net.ssl.checkRevocation=false
+                </JAVA_OPTS>
+            </properties>
+        </profile>
+
+        <profile>
+            <id>生产环境</id>
+            <properties>
+                <SPRING_PROFILES>prod</SPRING_PROFILES>
+                <JAVA_OPTS>-Duser.timezone=Asia/Shanghai -Dlog4j2.disable.jmx=true
+                    -Dcom.sun.net.ssl.checkRevocation=false
+                </JAVA_OPTS>
+            </properties>
+        </profile>
+    </profiles>
+
     <dependencies>
         <dependency>
             <groupId>mysql</groupId>
@@ -90,7 +148,28 @@
     </dependencies>
 
     <build>
+        <filters> <!-- 指定使用的filter文件，根据profile设置过滤文件 -->
+            <filter>src/main/resources/filter/${SPRING_PROFILES}.properties</filter>
+        </filters>
+        <!--开启资源过滤：将resources中配置文件的变量利用profile进行替换-->
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <!--允许进行资源过滤-->
+                <filtering>true</filtering>
+                <excludes>
+                    <exclude>filter</exclude>
+                </excludes>
+                <includes>
+                    <include>*.yml</include>
+                </includes>
+            </resource>
+        </resources>
         <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>

@@ -36,7 +36,7 @@ public class UserController {
     private IUserService userService;
 
     @GetMapping("/getById")
-    public User hello(@RequestParam Long id) {
+    public User getById(@RequestParam Long id) {
         return userService.getById(id);
     }
 

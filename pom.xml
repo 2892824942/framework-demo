@@ -20,6 +20,8 @@
         <swagger-annotation.version>1.5.20</swagger-annotation.version>
         <ty-framework.version>0.0.1-SNAPSHOT</ty-framework.version>
         <springdoc.version>1.6.15</springdoc.version>
+        <remote.debug.port>50005</remote.debug.port>
+        <maven-deploy.version>2.8.2</maven-deploy.version>
     </properties>
 
     <modules>
@@ -27,6 +29,7 @@
         <module>demo-web</module>
         <module>demo-service</module>
     </modules>
+
     <dependencies>
         <dependency>
             <groupId>mysql</groupId>
@@ -144,6 +147,7 @@
     </dependencyManagement>
 
     <build>
+
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
