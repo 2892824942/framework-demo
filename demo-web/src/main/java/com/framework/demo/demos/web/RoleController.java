@@ -16,10 +16,11 @@
 
 package com.framework.demo.demos.web;
 
+import com.framework.demo.entity.Role;
 import com.framework.demo.entity.User;
-import com.framework.demo.pojo.user.UserPageQuery;
-import com.framework.demo.pojo.user.UserSaveQuery;
-import com.framework.demo.service.IUserService;
+import com.framework.demo.pojo.role.RolePageQuery;
+import com.framework.demo.pojo.role.RoleSaveQuery;
+import com.framework.demo.service.IRoleService;
 import com.ty.mid.framework.common.pojo.PageResult;
 import org.springframework.web.bind.annotation.*;
 
@@ -31,37 +32,37 @@ import java.util.List;
  */
 @RestController("user控制器")
 @RequestMapping("user")
-public class UserController {
+public class RoleController {
 
     @Resource
-    private IUserService userService;
+    private IRoleService roleService;
 
-    @GetMapping("/getById")
-    public User getById(@RequestParam Long id) {
-        return userService.getById(id);
+    @GetMapping("/getByCode")
+    public Role getByCode(@RequestParam String code) {
+        return roleService.getByCode(code);
     }
 
 
     @PostMapping("/getPage")
-    public PageResult<User> getPage(@RequestBody UserPageQuery query) {
-        return userService.getPage(query);
+    public PageResult<Role> getPage(@RequestBody RolePageQuery query) {
+        return roleService.getPage(query);
     }
 
 
     @PostMapping("/save")
-    public Boolean save(@RequestBody UserSaveQuery query) {
-        return userService.save(query);
+    public Boolean save(@RequestBody RoleSaveQuery query) {
+        return roleService.save(query);
     }
 
 
     @PostMapping("/saveBatch")
-    public void saveBatch(@RequestBody List<UserSaveQuery> query) {
-        userService.saveBatch(query);
+    public void saveBatch(@RequestBody List<RoleSaveQuery> query) {
+        roleService.saveBatch(query);
     }
 
     @DeleteMapping("/delete/{id}")
     public Boolean delete(@PathVariable(value = "id") Long id) {
-        return userService.deleteById(id);
+        return roleService.deleteById(id);
     }
 
 }

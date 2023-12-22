@@ -1,8 +1,8 @@
 package com.framework.demo.coverter;
 
 import com.framework.demo.entity.User;
-import com.framework.demo.pojo.UserSaveQuery;
-import com.framework.demo.pojo.UserUpdateQuery;
+import com.framework.demo.pojo.user.UserSaveQuery;
+import com.framework.demo.pojo.user.UserUpdateQuery;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 

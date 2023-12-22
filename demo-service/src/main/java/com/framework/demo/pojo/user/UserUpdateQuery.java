@@ -1,4 +1,4 @@
-package com.framework.demo.pojo;
+package com.framework.demo.pojo.user;
 
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.ty.mid.framework.common.pojo.PageParam;

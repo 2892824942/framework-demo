@@ -1,10 +1,13 @@
-package com.framework.demo.pojo;
+package com.framework.demo.pojo.user;
 
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.ty.mid.framework.common.pojo.PageParam;
+import com.ty.mid.framework.mybatisplus.core.type.LongListTypeHandler;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.util.List;
 
 /**
  * <p>
@@ -20,7 +23,6 @@ import lombok.Setter;
 public class UserSaveQuery {
 
     @Schema(description = "姓名")
-    @TableField("`name`")
     private String name;
 
     @Schema(description = "年龄")
@@ -28,4 +30,10 @@ public class UserSaveQuery {
 
     @Schema(description = "邮箱")
     private String email;
+
+    @Schema(description = "密码")
+    private String password;
+
+    @Schema(description = "角色id列表")
+    private List<Long> roleIds;
 }
