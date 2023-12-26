@@ -1,8 +1,5 @@
 package com.framework.demo.pojo.user;
 
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.ty.mid.framework.common.pojo.PageParam;
-import com.ty.mid.framework.mybatisplus.core.type.LongListTypeHandler;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 import lombok.Setter;

@@ -17,6 +17,7 @@
 package com.framework.demo.demos.web;
 
 import com.framework.demo.entity.User;
+import com.framework.demo.entity.bo.UserFullBO;
 import com.framework.demo.pojo.user.UserPageQuery;
 import com.framework.demo.pojo.user.UserSaveQuery;
 import com.framework.demo.service.IUserService;
@@ -43,7 +44,7 @@ public class UserController {
 
 
     @PostMapping("/getPage")
-    public PageResult<User> getPage(@RequestBody UserPageQuery query) {
+    public PageResult<UserFullBO> getPage(@RequestBody UserPageQuery query) {
         return userService.getPage(query);
     }
 

@@ -7,6 +7,7 @@ import com.framework.demo.pojo.role.RoleUpdateQuery;
 import com.framework.demo.pojo.user.UserSaveQuery;
 import com.framework.demo.pojo.user.UserUpdateQuery;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
 
 /**
@@ -19,7 +20,9 @@ public interface RoleConvert {
 
     RoleConvert INSTANCE = Mappers.getMapper(RoleConvert.class);
 
+    //@Mapping(source = "extra",target = "extra")
     Role convert(RoleSaveQuery roleSaveQuery);
 
+    //@Mapping(source = "extra",target = "extra")
     Role convert(RoleUpdateQuery roleUpdateQuery);
 }

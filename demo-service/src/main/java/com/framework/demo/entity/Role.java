@@ -4,6 +4,7 @@ package com.framework.demo.entity;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.extension.handlers.JacksonTypeHandler;
 import com.ty.mid.framework.mybatisplus.core.dataobject.BaseDO;
 import com.ty.mid.framework.mybatisplus.core.type.JsonLongSetTypeHandler;
 import lombok.Data;
@@ -45,5 +46,18 @@ public class Role extends BaseDO {
      */
     @TableField(typeHandler = JsonLongSetTypeHandler.class)
     private Set<Long> dataScopeDeptIds;
+
+    /**
+     * 数据范围(指定部门id数组)
+     *
+     */
+    @TableField(typeHandler = JacksonTypeHandler.class)
+    private Extra extra;
+
+    @Data
+    public static class Extra{
+        private Boolean canAppLogin;
+        private String showName;
+    }
 
 }

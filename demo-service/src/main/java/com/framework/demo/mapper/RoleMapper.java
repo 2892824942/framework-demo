@@ -20,7 +20,7 @@ import org.apache.ibatis.annotations.Param;
  * @since 2023-11-27
  */
 @Mapper
-public interface RoleMapper extends BaseMapperX<Role> {
+public interface RoleMapper extends BaseMapperX<Role,Long> {
 
     default PageResult<Role> selectPage(@Param("rolePageQuery") RolePageQuery rolePageQuery){
 

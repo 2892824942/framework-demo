@@ -35,4 +35,7 @@ public class UserPageQuery extends PageParam {
 
     @Schema(description = "邮箱")
     private String email;
+
+    @Schema(description = "地址code")
+    private String addrCode;
 }

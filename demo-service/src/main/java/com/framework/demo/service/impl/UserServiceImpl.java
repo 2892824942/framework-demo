@@ -4,6 +4,7 @@ package com.framework.demo.service.impl;
 import cn.hutool.core.collection.CollUtil;
 import com.framework.demo.coverter.UserConvert;
 import com.framework.demo.entity.User;
+import com.framework.demo.entity.bo.UserFullBO;
 import com.framework.demo.mapper.UserMapper;
 import com.framework.demo.pojo.user.UserPageQuery;
 import com.framework.demo.pojo.user.UserSaveQuery;
@@ -34,9 +35,8 @@ public class UserServiceImpl implements IUserService {
     }
 
     @Override
-    public PageResult<User> getPage(UserPageQuery userPageQuery) {
-        PageResult<User> pageResult=userMapper.selectPage(userPageQuery);
-        return pageResult;
+    public PageResult<UserFullBO> getPage(UserPageQuery userPageQuery) {
+        return userMapper.selectJoinPage(userPageQuery);
     }
 
     @Override

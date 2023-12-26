@@ -30,8 +30,8 @@ import java.util.List;
 /**
  * @author
  */
-@RestController("user控制器")
-@RequestMapping("user")
+@RestController("角色控制器")
+@RequestMapping("role")
 public class RoleController {
 
     @Resource

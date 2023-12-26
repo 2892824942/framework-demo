@@ -1,6 +1,7 @@
 package com.framework.demo.pojo.role;
 
 import com.baomidou.mybatisplus.annotation.TableField;
+import com.framework.demo.entity.Role.Extra;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 import lombok.Setter;
@@ -45,4 +46,7 @@ public class RoleUpdateQuery {
      */
     @Schema(description = "数据范围(指定部门id数组)")
     private Set<Long> dataScopeDeptIds;
+
+    @Schema(description = "扩展字段")
+    private Extra extra;
 }

@@ -1,6 +1,8 @@
 package com.framework.demo.pojo.role;
 
 import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.extension.handlers.JacksonTypeHandler;
+import com.framework.demo.entity.Role;
 import com.ty.mid.framework.mybatisplus.core.type.JsonLongSetTypeHandler;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
@@ -44,4 +46,10 @@ public class RoleSaveQuery {
      */
     @Schema(description = "数据范围(指定部门id数组)")
     private Set<Long> dataScopeDeptIds;
+
+    /**
+     * 扩展字段
+     */
+    @Schema(description = "扩展字段")
+    private Role.Extra extra;
 }

@@ -3,6 +3,7 @@ package com.framework.demo.entity;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.ty.mid.framework.mybatisplus.core.dataobject.BaseDO;
+import com.ty.mid.framework.mybatisplus.core.type.DefaultTypeHandler;
 import com.ty.mid.framework.mybatisplus.core.type.EncryptTypeHandler;
 import com.ty.mid.framework.mybatisplus.core.type.LongListTypeHandler;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -41,8 +42,13 @@ public class User extends BaseDO {
     private List<Long> roleIds;
 
     @Schema(description = "年龄")
+    @TableField(value = "`age`", typeHandler = DefaultTypeHandler.class)
     private Integer age;
 
     @Schema(description = "邮箱")
     private String email;
+
+    @Schema(description = "用户地址code")
+    @TableField(value = "`addr_code`")
+    private String addrCode;
 }
