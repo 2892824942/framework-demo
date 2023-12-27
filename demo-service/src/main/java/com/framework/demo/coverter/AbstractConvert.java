@@ -1,0 +1,119 @@
+package com.framework.demo.coverter;
+
+import cn.hutool.core.collection.CollUtil;
+import cn.hutool.core.util.StrUtil;
+import com.framework.demo.dto.AddrDTO;
+import com.framework.demo.dto.RoleDTO;
+import com.framework.demo.entity.Address;
+import com.framework.demo.entity.Role;
+import com.framework.demo.entity.User;
+import com.framework.demo.mapper.AddressMapper;
+import com.framework.demo.mapper.RoleMapper;
+import com.framework.demo.mapper.UserMapper;
+import com.google.common.collect.Lists;
+import com.ty.mid.framework.common.dto.AbstractNameDTO;
+import com.ty.mid.framework.common.util.SafeGetUtil;
+import com.ty.mid.framework.common.util.collection.CollectionUtils;
+import com.ty.mid.framework.core.spring.SpringContextHelper;
+import com.ty.mid.framework.core.util.StringUtils;
+import org.mapstruct.AfterMapping;
+import org.mapstruct.Mapper;
+import org.mapstruct.MappingTarget;
+
+import java.util.*;
+import java.util.stream.Collectors;
+
+/**
+ * 用户入值 Covert
+ *
+ * @author 芋道源码
+ */
+@Mapper
+public interface AbstractConvert {
+    String COMMA = ",";
+
+    @AfterMapping
+    default void handleAbstractNameDTO(@MappingTarget AbstractNameDTO abstractNameDTO) {
+        UserMapper userMapper = SpringContextHelper.getBean(UserMapper.class);
+        List<Long> userIdList = Lists.newArrayList(abstractNameDTO.getCreator(), abstractNameDTO.getUpdater());
+        Map<Long, User> userMap = userMapper.selectMap(User::getId, userIdList);
+        abstractNameDTO.setCreatorName(SafeGetUtil.getString(userMap.get(abstractNameDTO.getCreator()), User::getName));
+        abstractNameDTO.setUpdaterName(SafeGetUtil.getString(userMap.get(abstractNameDTO.getUpdater()), User::getName));
+    }
+
+
+    @AfterMapping
+    default void handleAbstractNameDTOList(@MappingTarget List<AbstractNameDTO> abstractNameDTOList) {
+        if (CollUtil.isEmpty(abstractNameDTOList)) {
+            return;
+        }
+        List<Long> creatorIdList = CollectionUtils.convertList(abstractNameDTOList, AbstractNameDTO::getCreator);
+        List<Long> updaterIdList = CollectionUtils.convertList(abstractNameDTOList, AbstractNameDTO::getUpdater);
+        Collection<Long> userIdList = CollUtil.addAll(creatorIdList, updaterIdList);
+        UserMapper userMapper = SpringContextHelper.getBean(UserMapper.class);
+
+        Map<Long, User> userMap = userMapper.selectMap(User::getId, userIdList);
+        abstractNameDTOList.forEach(abstractNameDTO -> {
+            abstractNameDTO.setCreatorName(SafeGetUtil.getString(userMap.get(abstractNameDTO.getCreator()), User::getName));
+            abstractNameDTO.setUpdaterName(SafeGetUtil.getString(userMap.get(abstractNameDTO.getUpdater()), User::getName));
+        });
+    }
+
+    default List<RoleDTO> convertRole1(String roleIdStr) {
+        if (!StringUtils.hasText(roleIdStr)) {
+            return Collections.emptyList();
+        }
+        return convertRole(Arrays.stream(StrUtil.splitToLong(roleIdStr, COMMA)).boxed().collect(Collectors.toList()));
+    }
+
+    default List<RoleDTO> convertRole(List<Long> codeList) {
+        if (CollUtil.isEmpty(codeList)) {
+            return Collections.emptyList();
+        }
+        RoleMapper roleMapper = SpringContextHelper.getBean(RoleMapper.class);
+
+        Map<Long, Role> roleMap = SafeGetUtil.get(roleMapper.selectMap(Role::getId, codeList));
+        return codeList.stream().map(code -> {
+            Role role = roleMap.get(code);
+            if (Objects.isNull(role)) {
+                return null;
+            }
+            RoleDTO roleDTO = new RoleDTO();
+            roleDTO.setName(role.getName());
+            roleDTO.setCode(role.getCode());
+            roleDTO.setSort(role.getSort());
+            return roleDTO;
+        }).filter(Objects::nonNull).collect(Collectors.toList());
+    }
+
+    default AddrDTO convertAddr(String codeStr) {
+        if (!StringUtils.hasText(codeStr)) {
+            return null;
+        }
+        List<AddrDTO> addrDTOS = convertAddr(Collections.singletonList(codeStr));
+        Iterator<AddrDTO> iterator = addrDTOS.iterator();
+        if (iterator.hasNext()) {
+            return iterator.next();
+        }
+        return null;
+    }
+
+    default List<AddrDTO> convertAddr(List<String> codeList) {
+        if (CollUtil.isEmpty(codeList)) {
+            return Collections.emptyList();
+        }
+        AddressMapper addressMapper = SpringContextHelper.getBean(AddressMapper.class);
+
+        Map<Long, Address> addrMap = SafeGetUtil.get(addressMapper.selectMap(Address::getCode, codeList));
+        return codeList.stream().map(code -> {
+            Address address = addrMap.get(code);
+            if (Objects.isNull(address)) {
+                return null;
+            }
+            AddrDTO addrDTO = new AddrDTO();
+            addrDTO.setName(address.getName());
+            addrDTO.setCode(address.getCode());
+            return addrDTO;
+        }).filter(Objects::nonNull).collect(Collectors.toList());
+    }
+}

@@ -13,6 +13,7 @@ import com.framework.demo.pojo.user.UserPageQuery;
 import com.framework.demo.pojo.user.UserSaveQuery;
 import com.framework.demo.service.IRoleService;
 import com.ty.mid.framework.common.pojo.PageResult;
+import org.mapstruct.factory.Mappers;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -46,6 +47,7 @@ public class RoleServiceImpl implements IRoleService {
 
     @Override
     public Boolean save(RoleSaveQuery query) {
+
         Role role = RoleConvert.INSTANCE.convert(query);
         return roleMapper.insert(role)>0;
     }

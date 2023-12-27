@@ -2,6 +2,7 @@ package com.framework.demo.service.impl;
 
 
 import cn.hutool.core.collection.CollUtil;
+import cn.hutool.core.collection.CollectionUtil;
 import com.framework.demo.coverter.UserConvert;
 import com.framework.demo.entity.User;
 import com.framework.demo.entity.bo.UserFullBO;
@@ -36,7 +37,14 @@ public class UserServiceImpl implements IUserService {
 
     @Override
     public PageResult<UserFullBO> getPage(UserPageQuery userPageQuery) {
-        return userMapper.selectJoinPage(userPageQuery);
+        PageResult<UserFullBO> userFullBOPageResult = userMapper.selectJoinPage(userPageQuery);
+        List<UserFullBO> list = userFullBOPageResult.getList();
+        if (CollectionUtil.isEmpty(list)) {
+            return userFullBOPageResult;
+        }
+        //组装用户名
+        return userFullBOPageResult;
+
     }
 
     @Override
