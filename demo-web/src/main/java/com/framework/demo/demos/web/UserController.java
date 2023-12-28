@@ -16,9 +16,10 @@
 
 package com.framework.demo.demos.web;
 
+import com.framework.demo.dto.UserFullDTO;
 import com.framework.demo.entity.User;
 import com.framework.demo.entity.bo.UserFullBO;
-import com.framework.demo.pojo.user.UserPageQuery;
+import com.framework.demo.pojo.user.UserQuery;
 import com.framework.demo.pojo.user.UserSaveQuery;
 import com.framework.demo.service.IUserService;
 import com.ty.mid.framework.common.pojo.PageResult;
@@ -44,8 +45,13 @@ public class UserController {
 
 
     @PostMapping("/getPage")
-    public PageResult<UserFullBO> getPage(@RequestBody UserPageQuery query) {
+    public PageResult<UserFullBO> getPage(@RequestBody UserQuery query) {
         return userService.getPage(query);
+    }
+
+    @PostMapping("/getList")
+    public List<UserFullDTO> getList(@RequestBody UserQuery query) {
+        return userService.getFullList(query);
     }
 
 

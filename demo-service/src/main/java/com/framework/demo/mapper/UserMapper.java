@@ -2,10 +2,9 @@ package com.framework.demo.mapper;
 
 
 import com.framework.demo.entity.Address;
-import com.framework.demo.entity.Role;
 import com.framework.demo.entity.User;
 import com.framework.demo.entity.bo.UserFullBO;
-import com.framework.demo.pojo.user.UserPageQuery;
+import com.framework.demo.pojo.user.UserQuery;
 import com.ty.mid.framework.common.pojo.PageResult;
 import com.ty.mid.framework.mybatisplus.core.mapper.BaseMapperX;
 import com.ty.mid.framework.mybatisplus.core.query.LambdaQueryWrapperX;
@@ -24,26 +23,26 @@ import org.apache.ibatis.annotations.Param;
 @Mapper
 public interface UserMapper extends BaseMapperX<User,Long> {
 
-    default PageResult<UserFullBO> selectJoinPage(@Param("userPageQuery") UserPageQuery userPageQuery){
+    default PageResult<UserFullBO> selectJoinPage(@Param("userPageQuery") UserQuery userQuery){
         MPJLambdaWrapperX<User> wrapper = new MPJLambdaWrapperX<User>()
                 .selectAll(User.class)
                 .selectAs(Address::getName, UserFullBO::getAddrName)
                 .leftJoin(Address.class, "addr", on -> on
                         .eq(Address::getCode, User::getAddrCode))
-                .eqIfPresent(User::getCreator, userPageQuery.getId())
-                .likeIfPresent(User::getName, userPageQuery.getName())
-                .eqIfPresent(User::getAge, userPageQuery.getAge());
+                .eqIfPresent(User::getCreator, userQuery.getId())
+                .likeIfPresent(User::getName, userQuery.getName())
+                .eqIfPresent(User::getAge, userQuery.getAge());
 
-        return selectJoinPage(UserFullBO.class,userPageQuery, wrapper);
+        return selectJoinPage(UserFullBO.class, userQuery, wrapper);
     };
 
-    default PageResult<User> selectPage(@Param("userPageQuery") UserPageQuery userPageQuery){
+    default PageResult<User> selectPage(@Param("userPageQuery") UserQuery userQuery){
         LambdaQueryWrapperX<User> wrapper = new LambdaQueryWrapperX<User>()
-                .eqIfPresent(User::getId, userPageQuery.getId())
-                .likeIfPresent(User::getName, userPageQuery.getName())
-                .eqIfPresent(User::getAge, userPageQuery.getAge())
-                .eqIfPresent(User::getAddrCode, userPageQuery.getAddrCode());
+                .eqIfPresent(User::getId, userQuery.getId())
+                .likeIfPresent(User::getName, userQuery.getName())
+                .eqIfPresent(User::getAge, userQuery.getAge())
+                .eqIfPresent(User::getAddrCode, userQuery.getAddrCode());
 
-        return selectPage(userPageQuery, wrapper);
+        return selectPage(userQuery, wrapper);
     };
 }

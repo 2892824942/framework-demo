@@ -4,16 +4,21 @@ package com.framework.demo.service.impl;
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.collection.CollectionUtil;
 import com.framework.demo.coverter.UserConvert;
+import com.framework.demo.coverter.bussiness.ClassWrapperEnum;
+import com.framework.demo.coverter.out.UserDTOConvert;
+import com.framework.demo.dto.UserFullDTO;
 import com.framework.demo.entity.User;
 import com.framework.demo.entity.bo.UserFullBO;
 import com.framework.demo.mapper.UserMapper;
-import com.framework.demo.pojo.user.UserPageQuery;
+import com.framework.demo.pojo.user.UserQuery;
 import com.framework.demo.pojo.user.UserSaveQuery;
 import com.framework.demo.service.IUserService;
+import com.ty.mid.framework.common.pojo.PageParam;
 import com.ty.mid.framework.common.pojo.PageResult;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -36,14 +41,28 @@ public class UserServiceImpl implements IUserService {
     }
 
     @Override
-    public PageResult<UserFullBO> getPage(UserPageQuery userPageQuery) {
-        PageResult<UserFullBO> userFullBOPageResult = userMapper.selectJoinPage(userPageQuery);
+    public PageResult<UserFullBO> getPage(UserQuery userQuery) {
+        PageResult<UserFullBO> userFullBOPageResult = userMapper.selectJoinPage(userQuery);
         List<UserFullBO> list = userFullBOPageResult.getList();
         if (CollectionUtil.isEmpty(list)) {
             return userFullBOPageResult;
         }
         //组装用户名
         return userFullBOPageResult;
+
+    }
+
+    @Override
+    public List<UserFullDTO> getFullList(UserQuery userQuery) {
+        userQuery.setPageNo(PageParam.PAGE_SIZE_NONE);
+        PageResult<User> userPageResult = userMapper.selectPage(userQuery);
+        List<User> userList = userPageResult.getList();
+        if (CollectionUtil.isEmpty(userList)) {
+            return Collections.emptyList();
+        }
+        List<UserFullDTO> fullDTOs = UserDTOConvert.INSTANCE.convert(userList);
+        ClassWrapperEnum.autoWrapper(userList,fullDTOs);
+        return fullDTOs;
 
     }
 

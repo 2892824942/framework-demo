@@ -3,17 +3,12 @@ package com.framework.demo.service.impl;
 
 import cn.hutool.core.collection.CollUtil;
 import com.framework.demo.coverter.RoleConvert;
-import com.framework.demo.coverter.UserConvert;
 import com.framework.demo.entity.Role;
-import com.framework.demo.entity.User;
 import com.framework.demo.mapper.RoleMapper;
 import com.framework.demo.pojo.role.RolePageQuery;
 import com.framework.demo.pojo.role.RoleSaveQuery;
-import com.framework.demo.pojo.user.UserPageQuery;
-import com.framework.demo.pojo.user.UserSaveQuery;
 import com.framework.demo.service.IRoleService;
 import com.ty.mid.framework.common.pojo.PageResult;
-import org.mapstruct.factory.Mappers;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;

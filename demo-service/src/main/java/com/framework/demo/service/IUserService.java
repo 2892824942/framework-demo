@@ -1,9 +1,10 @@
 package com.framework.demo.service;
 
 
+import com.framework.demo.dto.UserFullDTO;
 import com.framework.demo.entity.User;
 import com.framework.demo.entity.bo.UserFullBO;
-import com.framework.demo.pojo.user.UserPageQuery;
+import com.framework.demo.pojo.user.UserQuery;
 import com.framework.demo.pojo.user.UserSaveQuery;
 import com.ty.mid.framework.common.pojo.PageResult;
 
@@ -21,7 +22,9 @@ public interface IUserService {
 
     User getById(Long id);
 
-    PageResult<UserFullBO> getPage(UserPageQuery userPageQuery);
+    PageResult<UserFullBO> getPage(UserQuery userQuery);
+
+    List<UserFullDTO> getFullList(UserQuery userQuery);
 
     Boolean save(UserSaveQuery query);
 
