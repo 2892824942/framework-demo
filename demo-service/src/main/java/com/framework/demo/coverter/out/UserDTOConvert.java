@@ -1,6 +1,6 @@
 package com.framework.demo.coverter.out;
 
-import com.framework.demo.coverter.AbstractConvert;
+import com.framework.demo.coverter.BaseConvert;
 import com.framework.demo.dto.UserAddrDTO;
 import com.framework.demo.dto.UserFullDTO;
 import com.framework.demo.entity.User;
@@ -16,7 +16,7 @@ import java.util.List;
  * @author 芋道源码
  */
 @Mapper
-public interface UserDTOConvert extends AbstractConvert {
+public interface UserDTOConvert extends BaseConvert {
 
     UserDTOConvert INSTANCE = Mappers.getMapper(UserDTOConvert.class);
 

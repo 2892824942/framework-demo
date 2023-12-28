@@ -2,23 +2,13 @@ package com.framework.demo.coverter;
 
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.StrUtil;
-import com.framework.demo.dto.AddrDTO;
 import com.framework.demo.dto.RoleDTO;
-import com.framework.demo.entity.Address;
 import com.framework.demo.entity.Role;
-import com.framework.demo.entity.User;
-import com.framework.demo.mapper.AddressMapper;
 import com.framework.demo.mapper.RoleMapper;
-import com.framework.demo.mapper.UserMapper;
-import com.google.common.collect.Lists;
-import com.ty.mid.framework.common.dto.AbstractNameDTO;
 import com.ty.mid.framework.common.util.SafeGetUtil;
-import com.ty.mid.framework.common.util.collection.CollectionUtils;
 import com.ty.mid.framework.core.spring.SpringContextHelper;
 import com.ty.mid.framework.core.util.StringUtils;
-import org.mapstruct.AfterMapping;
 import org.mapstruct.Mapper;
-import org.mapstruct.MappingTarget;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -29,7 +19,7 @@ import java.util.stream.Collectors;
  * @author 芋道源码
  */
 @Mapper
-public interface AbstractConvert {
+public interface BaseConvert {
     String COMMA = ",";
 
 //    @AfterMapping

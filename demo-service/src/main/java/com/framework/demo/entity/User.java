@@ -41,6 +41,7 @@ public class User extends BaseDO {
 
     @Schema(description = "角色id列表,多个使用,号隔开")
     @TableField(value = "`role_ids`", typeHandler = LongListTypeHandler.class)
+    @BMapping(ClassWrapperEnum.ROLE_DTO)
     private List<Long> roleIds;
 
     @Schema(description = "年龄")

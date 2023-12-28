@@ -5,6 +5,7 @@ import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.collection.CollectionUtil;
 import com.framework.demo.coverter.UserConvert;
 import com.framework.demo.coverter.bussiness.ClassWrapperEnum;
+import com.framework.demo.coverter.bussiness.MappingProvider;
 import com.framework.demo.coverter.out.UserDTOConvert;
 import com.framework.demo.dto.UserFullDTO;
 import com.framework.demo.entity.User;
@@ -61,7 +62,7 @@ public class UserServiceImpl implements IUserService {
             return Collections.emptyList();
         }
         List<UserFullDTO> fullDTOs = UserDTOConvert.INSTANCE.convert(userList);
-        ClassWrapperEnum.autoWrapper(userList,fullDTOs);
+        MappingProvider.autoWrapper(userList,fullDTOs);
         return fullDTOs;
 
     }
