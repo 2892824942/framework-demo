@@ -2,8 +2,8 @@ package com.framework.demo.entity;
 
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.framework.demo.coverter.bussiness.BMapping;
-import com.framework.demo.coverter.bussiness.ClassWrapperEnum;
+import com.framework.demo.coverter.business.BMapping;
+import com.framework.demo.coverter.business.ClassWrapperEnum;
 import com.ty.mid.framework.mybatisplus.core.dataobject.BaseDO;
 import com.ty.mid.framework.mybatisplus.core.type.DefaultTypeHandler;
 import com.ty.mid.framework.mybatisplus.core.type.EncryptTypeHandler;

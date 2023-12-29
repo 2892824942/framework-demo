@@ -1,4 +1,4 @@
-package com.framework.demo.coverter.bussiness;
+package com.framework.demo.coverter.business;
 
 
 import java.lang.annotation.*;
@@ -13,7 +13,7 @@ import java.lang.annotation.*;
 @Documented
 public @interface BMapping {
     /**
-     * 业务装载器
+     * 业务字段装载器
      *
      * @return name
      */

@@ -1,11 +1,14 @@
-package com.framework.demo.coverter.bussiness;
+package com.framework.demo.coverter.business;
 
 import cn.hutool.core.collection.CollUtil;
+import cn.hutool.core.map.multi.RowKeyTable;
+import cn.hutool.core.map.multi.Table;
 import com.ty.mid.framework.common.entity.BaseIdDO;
 import com.ty.mid.framework.common.util.Validator;
 import lombok.extern.slf4j.Slf4j;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.util.*;
@@ -26,6 +29,11 @@ import java.util.stream.Collectors;
  */
 @Slf4j
 public class MappingProvider {
+    private static final Map<Class<?>, Method> CONTAINER = new HashMap<>();
+
+    public static Map<Class<?>, Method> getContainer() {
+        return MappingProvider.CONTAINER;
+    }
 
     public static <T extends BaseIdDO<Long>> void autoWrapper(T source, T target) {
         autoWrapper(Collections.singletonList(source), Collections.singletonList(target));
@@ -68,10 +76,30 @@ public class MappingProvider {
 
             });
             //3.获取核心数据
-            //TODO 兼容List<Long>形式标记
-            Map<Object, Object> dataMap = wrapperEnum.covert(idKeyMap.values());
+            //兼容List<Long>形式标记
+            //TODO 兼容 String:"A,B,C"? 如果需要 这个类可以抽像一下了
+            boolean isCollection = false;
+            Collection<Object> values = idKeyMap.values();
+            Object firstValue=idKeyMap.values().iterator().next();
+            if (Collection.class.isAssignableFrom(firstValue.getClass())) {
+                isCollection = true;
+                values = values.stream().map(val -> (Collection<?>) val).flatMap(col -> col.stream()).distinct().collect(Collectors.toList());
+            }
+            Map<Object, Object> dataMap = wrapperEnum.covert(values);
             for (T target : targetList) {
-                MappingProvider.setTargetField(target, targetField, dataMap.get(idKeyMap.get(target.getId())));
+                if (!isCollection){
+                    MappingProvider.setTargetField(target, targetField, dataMap.get(idKeyMap.get(target.getId())));
+                }else {
+                    //Collection兼容
+                    Object val = idKeyMap.get(target.getId());
+                    Collection<?> keyCollection = (Collection<?>) val;
+                    if (CollUtil.isEmpty(keyCollection)){
+                        continue;
+                    }
+                    List<Object> realDate = keyCollection.stream().map(key -> dataMap.get(key)).filter(Objects::nonNull).collect(Collectors.toList());
+                    MappingProvider.setTargetField(target, targetField, realDate);
+                }
+
             }
 
         }
