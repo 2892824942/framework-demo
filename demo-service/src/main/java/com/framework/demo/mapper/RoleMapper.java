@@ -19,30 +19,33 @@ import java.util.List;
 
 /**
  * <p>
- *  Mapper 接口
+ * Mapper 接口
  * </p>
  *
  * @author suyouliang
  * @since 2023-11-27
  */
 @Mapper
-public interface RoleMapper extends BaseMapperX<Role,Long> {
+public interface RoleMapper extends BaseMapperX<Role, Long> {
 
-    default PageResult<Role> selectPage(@Param("rolePageQuery") RolePageQuery rolePageQuery){
+    default PageResult<Role> selectPage(@Param("rolePageQuery") RolePageQuery rolePageQuery) {
 
         LambdaQueryWrapperX<Role> wrapper = new LambdaQueryWrapperX<Role>()
                 .inIfPresent(Role::getCode, rolePageQuery.getCodeList())
-                .likeIfPresent(Role::getName,rolePageQuery.getNameLike())
+                .likeIfPresent(Role::getName, rolePageQuery.getNameLike())
                 .inIfPresent(Role::getStatus, rolePageQuery.getStatusList());
 
         return selectPage(rolePageQuery, wrapper);
-    };
+    }
+
+    ;
+
     default List<RoleDTO> covertRole(Collection<Long> roleIdList) {
         if (CollUtil.isEmpty(roleIdList)) {
             return Collections.emptyList();
         }
         RoleMapper roleMapper = SpringContextHelper.getBean(RoleMapper.class);
         List<Role> roleList = roleMapper.selectList(Role::getId, roleIdList);
-        return RoleDTOConvert.INSTANCE.covert(roleList);
+        return RoleDTOConvert.INSTANCE.convert(roleList);
     }
 }

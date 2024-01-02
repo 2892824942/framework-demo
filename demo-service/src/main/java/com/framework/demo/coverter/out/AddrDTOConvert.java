@@ -18,7 +18,7 @@ public interface AddrDTOConvert extends BaseConvert {
 
     AddrDTOConvert INSTANCE = Mappers.getMapper(AddrDTOConvert.class);
 
-    AddrDTO covert(Address address);
+    AddrDTO convert(Address address);
 
-    List<AddrDTO> covert(List<Address> address);
+    List<AddrDTO> convert(List<Address> address);
 }

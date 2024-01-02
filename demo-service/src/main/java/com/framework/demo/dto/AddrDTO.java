@@ -1,10 +1,9 @@
 package com.framework.demo.dto;
 
+import com.ty.mid.framework.common.entity.BaseIdDO;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 import lombok.Setter;
-
-import java.io.Serializable;
 
 /**
  * 角色基本对象
@@ -16,9 +15,11 @@ import java.io.Serializable;
 @Schema(description = "角色基本对象")
 @Getter
 @Setter
-public class AddrDTO implements Serializable {
+public class AddrDTO implements BaseIdDO<Long> {
 
     private static final long serialVersionUID = 1L;
+    @Schema(description = "id")
+    private Long id;
 
     @Schema(description = "地址名称")
     private String name;

@@ -2,12 +2,14 @@ package com.framework.demo.entity;
 
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.framework.demo.coverter.business.BMapping;
-import com.framework.demo.coverter.business.ClassWrapperEnum;
+import com.framework.demo.dto.AddrDTO;
+import com.framework.demo.dto.RoleDTO;
+import com.framework.demo.mapper.RoleMapper;
 import com.ty.mid.framework.mybatisplus.core.dataobject.BaseDO;
 import com.ty.mid.framework.mybatisplus.core.type.DefaultTypeHandler;
 import com.ty.mid.framework.mybatisplus.core.type.EncryptTypeHandler;
 import com.ty.mid.framework.mybatisplus.core.type.LongListTypeHandler;
+import com.ty.mid.framework.mybatisplus.service.wrapper.core.BMapping;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 import lombok.Setter;
@@ -41,7 +43,7 @@ public class User extends BaseDO {
 
     @Schema(description = "角色id列表,多个使用,号隔开")
     @TableField(value = "`role_ids`", typeHandler = LongListTypeHandler.class)
-    @BMapping(ClassWrapperEnum.ROLE_DTO)
+    @BMapping(value = RoleDTO.class)
     private List<Long> roleIds;
 
     @Schema(description = "年龄")
@@ -53,6 +55,6 @@ public class User extends BaseDO {
 
     @Schema(description = "用户地址code")
     @TableField(value = "`addr_code`")
-    @BMapping(ClassWrapperEnum.ADDR_DTO)
+    @BMapping(AddrDTO.class)
     private String addrCode;
 }

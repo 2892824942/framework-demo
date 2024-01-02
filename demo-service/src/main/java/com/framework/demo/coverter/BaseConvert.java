@@ -1,7 +1,6 @@
 package com.framework.demo.coverter;
 
 import cn.hutool.core.collection.CollUtil;
-import com.framework.demo.coverter.business.MappingProvider;
 import com.framework.demo.entity.User;
 import com.framework.demo.mapper.UserMapper;
 import com.ty.mid.framework.common.dto.AbstractNameDTO;
@@ -9,6 +8,7 @@ import com.ty.mid.framework.common.entity.BaseIdDO;
 import com.ty.mid.framework.common.util.SafeGetUtil;
 import com.ty.mid.framework.common.util.collection.CollectionUtils;
 import com.ty.mid.framework.core.spring.SpringContextHelper;
+import com.ty.mid.framework.mybatisplus.service.wrapper.core.MappingProvider;
 import org.mapstruct.AfterMapping;
 import org.mapstruct.BeforeMapping;
 import org.mapstruct.Mapper;
@@ -60,8 +60,6 @@ public interface BaseConvert {
         }
         MappingProvider.autoWrapper(source, target);
     }
-
-
     @AfterMapping
     default <S extends BaseIdDO<Long>, T extends BaseIdDO<Long>> void handleList(List<S> sourceList, @MappingTarget List<T> targetList) {
         //必须在自动装载前清除,否则自动装载过程,影响其他自动装载项读取自己的上下文
@@ -77,8 +75,6 @@ public interface BaseConvert {
         }
         handleAbstractNameDTOList(Collections.singletonList(abstractNameDTO));
     }
-
-
     @AfterMapping
     default <T extends AbstractNameDTO> void handleAbstractNameDTOList(@MappingTarget List<T> abstractNameDTOList) {
         if (CollUtil.isEmpty(abstractNameDTOList)) {
@@ -91,14 +87,11 @@ public interface BaseConvert {
             return;
         }
         UserMapper userMapper = SpringContextHelper.getBean(UserMapper.class);
-
         Map<Long, User> userMap = userMapper.selectMap(User::getId, userIdList);
         abstractNameDTOList.forEach(abstractNameDTO -> {
             abstractNameDTO.setCreatorName(SafeGetUtil.getString(userMap.get(abstractNameDTO.getCreator()), User::getName));
             abstractNameDTO.setUpdaterName(SafeGetUtil.getString(userMap.get(abstractNameDTO.getUpdater()), User::getName));
         });
     }
-
-
 }
 

@@ -18,17 +18,5 @@ import java.util.List;
  * @author suyouliang
  * @since 2023-11-27
  */
-public interface IUserService {
-
-    User getById(Long id);
-
-    PageResult<UserFullBO> getPage(UserQuery userQuery);
-
-    List<UserFullDTO> getFullList(UserQuery userQuery);
-
-    Boolean save(UserSaveQuery query);
-
-    void saveBatch(List<UserSaveQuery> query);
-
-    Boolean deleteById(Long id);
+public interface IAddressService {
 }

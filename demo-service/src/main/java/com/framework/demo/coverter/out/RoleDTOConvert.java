@@ -18,6 +18,7 @@ public interface RoleDTOConvert extends BaseConvert {
 
     RoleDTOConvert INSTANCE = Mappers.getMapper(RoleDTOConvert.class);
 
-    RoleDTO covert(Role role);
-    List<RoleDTO> covert(List<Role> role);
+    RoleDTO convert(Role role);
+
+    List<RoleDTO> convert(List<Role> role);
 }

@@ -14,6 +14,7 @@ import com.framework.demo.pojo.user.UserSaveQuery;
 import com.framework.demo.service.IUserService;
 import com.ty.mid.framework.common.pojo.PageParam;
 import com.ty.mid.framework.common.pojo.PageResult;
+import com.ty.mid.framework.mybatisplus.service.wrapper.AutoWrapService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -30,7 +31,7 @@ import java.util.stream.Collectors;
  * @since 2023-11-27
  */
 @Service
-public class UserServiceImpl implements IUserService {
+public class UserServiceImpl extends AutoWrapService<User, UserFullDTO, UserMapper> implements IUserService {
 
     @Resource
     private UserMapper userMapper;
@@ -85,4 +86,6 @@ public class UserServiceImpl implements IUserService {
     public Boolean deleteById(Long id) {
         return userMapper.deleteById(id) > 0;
     }
+
+
 }

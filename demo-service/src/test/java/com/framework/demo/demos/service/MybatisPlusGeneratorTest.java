@@ -18,7 +18,7 @@ class MybatisPlusGeneratorTest {
         hello();
     }
 
-    public static void  hello() {
+    public static void hello() {
         // 使用元数据查询的方式生成代码,默认已经根据jdbcType来适配java类型,支持使用typeConvertHandler来转换需要映射的类型映射
         FastAutoGenerator.create(new DataSourceConfig.Builder("jdbc:mysql://121.40.156.55:3306/test_db?useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull", "suyouliang", "%M5sCQXNUq")
                         .schema("mybatis-plus")
@@ -38,7 +38,7 @@ class MybatisPlusGeneratorTest {
                         .entityBuilder().enableLombok().addTableFills(
                                 new Column("create_time", FieldFill.INSERT)
                         ).build())
-                .templateConfig((a)->new TemplateConfig.Builder()
+                .templateConfig((a) -> new TemplateConfig.Builder()
                         .disable(TemplateType.ENTITY)
                         .entity("/entity/entity.java")
                         .service("/service/service.java")
@@ -47,7 +47,7 @@ class MybatisPlusGeneratorTest {
                         .xml("/mappers/mapper.xml")
                         .controller("/web/controller.java")
                         .build())
-                   .templateEngine(new FreemarkerTemplateEngine())
+                .templateEngine(new FreemarkerTemplateEngine())
 
                 .execute();
     }

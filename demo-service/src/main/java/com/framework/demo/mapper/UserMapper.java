@@ -14,16 +14,16 @@ import org.apache.ibatis.annotations.Param;
 
 /**
  * <p>
- *  Mapper 接口
+ * Mapper 接口
  * </p>
  *
  * @author suyouliang
  * @since 2023-11-27
  */
 @Mapper
-public interface UserMapper extends BaseMapperX<User,Long> {
+public interface UserMapper extends BaseMapperX<User, Long> {
 
-    default PageResult<UserFullBO> selectJoinPage(@Param("userPageQuery") UserQuery userQuery){
+    default PageResult<UserFullBO> selectJoinPage(@Param("userPageQuery") UserQuery userQuery) {
         MPJLambdaWrapperX<User> wrapper = new MPJLambdaWrapperX<User>()
                 .selectAll(User.class)
                 .selectAs(Address::getName, UserFullBO::getAddrName)
@@ -34,9 +34,11 @@ public interface UserMapper extends BaseMapperX<User,Long> {
                 .eqIfPresent(User::getAge, userQuery.getAge());
 
         return selectJoinPage(UserFullBO.class, userQuery, wrapper);
-    };
+    }
 
-    default PageResult<User> selectPage(@Param("userPageQuery") UserQuery userQuery){
+    ;
+
+    default PageResult<User> selectPage(@Param("userPageQuery") UserQuery userQuery) {
         LambdaQueryWrapperX<User> wrapper = new LambdaQueryWrapperX<User>()
                 .eqIfPresent(User::getId, userQuery.getId())
                 .likeIfPresent(User::getName, userQuery.getName())
@@ -44,5 +46,7 @@ public interface UserMapper extends BaseMapperX<User,Long> {
                 .eqIfPresent(User::getAddrCode, userQuery.getAddrCode());
 
         return selectPage(userQuery, wrapper);
-    };
+    }
+
+    ;
 }

@@ -1,6 +1,5 @@
 package com.framework.demo.pojo.role;
 
-import com.baomidou.mybatisplus.annotation.TableField;
 import com.ty.mid.framework.common.pojo.PageParam;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
@@ -10,7 +9,7 @@ import java.util.List;
 
 /**
  * <p>
- * 
+ *
  * </p>
  *
  * @author suyouliang
@@ -25,7 +24,7 @@ public class RolePageQuery extends PageParam {
     private List<String> codeList;
     /**
      * 角色状态
-     *
+     * <p>
      * 枚举 {@link com.ty.mid.framework.common.constant.EnableStatusEnum}
      */
     @Schema(description = "状态列表")

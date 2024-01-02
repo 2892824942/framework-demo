@@ -1,6 +1,5 @@
 package com.framework.demo.pojo.role;
 
-import com.baomidou.mybatisplus.annotation.TableField;
 import com.framework.demo.entity.Role.Extra;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
@@ -10,7 +9,7 @@ import java.util.Set;
 
 /**
  * <p>
- * 
+ *
  * </p>
  *
  * @author suyouliang
@@ -34,7 +33,6 @@ public class RoleUpdateQuery {
     @Schema(description = "角色排序")
     private Integer sort;
     /**
-     *
      * 枚举 {@link com.ty.mid.framework.common.constant.EnableStatusEnum}
      */
     @Schema(description = "角色状态")
@@ -42,7 +40,6 @@ public class RoleUpdateQuery {
 
     /**
      * 数据范围(指定部门id数组)
-     *
      */
     @Schema(description = "数据范围(指定部门id数组)")
     private Set<Long> dataScopeDeptIds;

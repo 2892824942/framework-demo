@@ -1,6 +1,5 @@
 package com.framework.demo.entity.bo;
 
-import com.baomidou.mybatisplus.annotation.TableField;
 import com.framework.demo.entity.User;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;

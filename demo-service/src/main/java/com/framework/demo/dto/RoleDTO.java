@@ -1,13 +1,9 @@
 package com.framework.demo.dto;
 
-import com.ty.mid.framework.common.dto.AbstractNameDTO;
 import com.ty.mid.framework.common.entity.BaseIdDO;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 import lombok.Setter;
-
-import java.io.Serializable;
-import java.util.List;
 
 /**
  * 角色基本对象
@@ -19,10 +15,10 @@ import java.util.List;
 @Schema(description = "角色基本对象")
 @Getter
 @Setter
-public class RoleDTO implements BaseIdDO<Long>, Serializable {
+public class RoleDTO implements BaseIdDO<Long> {
 
     private static final long serialVersionUID = 1L;
-    @Schema(description = "角色名称")
+    @Schema(description = "id")
     private Long id;
 
     @Schema(description = "角色名称")

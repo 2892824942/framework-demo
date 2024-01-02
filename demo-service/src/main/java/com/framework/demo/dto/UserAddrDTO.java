@@ -1,6 +1,5 @@
 package com.framework.demo.dto;
 
-import com.baomidou.mybatisplus.annotation.TableField;
 import com.ty.mid.framework.common.dto.AbstractNameDTO;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;

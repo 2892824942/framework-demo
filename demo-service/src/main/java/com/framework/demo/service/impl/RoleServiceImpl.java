@@ -5,18 +5,23 @@ import cn.hutool.core.collection.CollUtil;
 import com.framework.demo.coverter.RoleConvert;
 import com.framework.demo.coverter.out.RoleDTOConvert;
 import com.framework.demo.dto.RoleDTO;
+import com.framework.demo.dto.UserFullDTO;
 import com.framework.demo.entity.Role;
+import com.framework.demo.entity.User;
 import com.framework.demo.mapper.RoleMapper;
+import com.framework.demo.mapper.UserMapper;
 import com.framework.demo.pojo.role.RolePageQuery;
 import com.framework.demo.pojo.role.RoleSaveQuery;
 import com.framework.demo.service.IRoleService;
 import com.ty.mid.framework.common.pojo.PageResult;
+import com.ty.mid.framework.mybatisplus.service.wrapper.AutoWrapService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
@@ -28,7 +33,7 @@ import java.util.stream.Collectors;
  * @since 2023-11-27
  */
 @Service
-public class RoleServiceImpl implements IRoleService {
+public class RoleServiceImpl extends AutoWrapService<Role, RoleDTO, RoleMapper> implements IRoleService {
 
     @Resource
     private RoleMapper roleMapper;
@@ -49,8 +54,9 @@ public class RoleServiceImpl implements IRoleService {
         if (CollUtil.isEmpty(roleIdList)) {
             return Collections.emptyList();
         }
+
         List<Role> roleList = roleMapper.selectList(Role::getId, roleIdList);
-        return RoleDTOConvert.INSTANCE.covert(roleList);
+        return RoleDTOConvert.INSTANCE.convert(roleList);
     }
 
     @Override
@@ -74,4 +80,5 @@ public class RoleServiceImpl implements IRoleService {
     public Boolean deleteById(Long id) {
         return roleMapper.deleteById(id) > 0;
     }
+
 }
