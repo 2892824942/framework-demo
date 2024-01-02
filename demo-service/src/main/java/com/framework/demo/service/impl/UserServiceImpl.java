@@ -4,7 +4,6 @@ package com.framework.demo.service.impl;
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.collection.CollectionUtil;
 import com.framework.demo.coverter.UserConvert;
-import com.framework.demo.coverter.business.MappingProvider;
 import com.framework.demo.coverter.out.UserDTOConvert;
 import com.framework.demo.dto.UserFullDTO;
 import com.framework.demo.entity.User;
@@ -24,7 +23,7 @@ import java.util.stream.Collectors;
 
 /**
  * <p>
- *  服务实现类
+ * 服务实现类
  * </p>
  *
  * @author suyouliang
@@ -35,6 +34,7 @@ public class UserServiceImpl implements IUserService {
 
     @Resource
     private UserMapper userMapper;
+
     @Override
     public User getById(Long id) {
         return userMapper.selectById(id);
@@ -61,7 +61,6 @@ public class UserServiceImpl implements IUserService {
             return Collections.emptyList();
         }
         List<UserFullDTO> fullDTOs = UserDTOConvert.INSTANCE.convert(userList);
-        MappingProvider.autoWrapper(userList,fullDTOs);
         return fullDTOs;
 
     }
@@ -69,12 +68,12 @@ public class UserServiceImpl implements IUserService {
     @Override
     public Boolean save(UserSaveQuery query) {
         User user = UserConvert.INSTANCE.convert(query);
-        return userMapper.insert(user) >0;
+        return userMapper.insert(user) > 0;
     }
 
     @Override
     public void saveBatch(List<UserSaveQuery> queryList) {
-        if (CollUtil.isEmpty(queryList)){
+        if (CollUtil.isEmpty(queryList)) {
             return;
         }
         List<User> userList = queryList.stream().map(UserConvert.INSTANCE::convert).collect(Collectors.toList());
@@ -84,6 +83,6 @@ public class UserServiceImpl implements IUserService {
 
     @Override
     public Boolean deleteById(Long id) {
-       return userMapper.deleteById(id)>0;
+        return userMapper.deleteById(id) > 0;
     }
 }

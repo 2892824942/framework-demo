@@ -1,17 +1,21 @@
 package com.framework.demo.coverter;
 
 import cn.hutool.core.collection.CollUtil;
-import cn.hutool.core.util.StrUtil;
-import com.framework.demo.dto.RoleDTO;
-import com.framework.demo.entity.Role;
-import com.framework.demo.mapper.RoleMapper;
+import com.framework.demo.coverter.business.MappingProvider;
+import com.framework.demo.entity.User;
+import com.framework.demo.mapper.UserMapper;
+import com.google.common.collect.Lists;
+import com.ty.mid.framework.common.dto.AbstractNameDTO;
+import com.ty.mid.framework.common.entity.BaseIdDO;
 import com.ty.mid.framework.common.util.SafeGetUtil;
+import com.ty.mid.framework.common.util.collection.CollectionUtils;
 import com.ty.mid.framework.core.spring.SpringContextHelper;
-import com.ty.mid.framework.core.util.StringUtils;
+import org.mapstruct.AfterMapping;
+import org.mapstruct.BeforeMapping;
 import org.mapstruct.Mapper;
+import org.mapstruct.MappingTarget;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 /**
  * 用户入值 Covert
@@ -20,60 +24,82 @@ import java.util.stream.Collectors;
  */
 @Mapper
 public interface BaseConvert {
-    String COMMA = ",";
+    String SKIP_FLAG = "skip";
+    ThreadLocal<Map<String, Object>> METHOD_CONTEXT = new ThreadLocal<>();
 
-//    @AfterMapping
-//    default void handleAbstractNameDTO(@MappingTarget AbstractNameDTO abstractNameDTO) {
-//        UserMapper userMapper = SpringContextHelper.getBean(UserMapper.class);
-//        List<Long> userIdList = Lists.newArrayList(abstractNameDTO.getCreator(), abstractNameDTO.getUpdater());
-//        Map<Long, User> userMap = userMapper.selectMap(User::getId, userIdList);
-//        abstractNameDTO.setCreatorName(SafeGetUtil.getString(userMap.get(abstractNameDTO.getCreator()), User::getName));
-//        abstractNameDTO.setUpdaterName(SafeGetUtil.getString(userMap.get(abstractNameDTO.getUpdater()), User::getName));
-//    }
-//
-//
-//    @AfterMapping
-//    default <T extends AbstractNameDTO> void handleAbstractNameDTOList(@MappingTarget List<T> abstractNameDTOList) {
-//        if (CollUtil.isEmpty(abstractNameDTOList)) {
-//            return;
-//        }
-//        List<Long> creatorIdList = CollectionUtils.convertList(abstractNameDTOList, AbstractNameDTO::getCreator);
-//        List<Long> updaterIdList = CollectionUtils.convertList(abstractNameDTOList, AbstractNameDTO::getUpdater);
-//        Collection<Long> userIdList = CollUtil.addAll(creatorIdList, updaterIdList);
-//        UserMapper userMapper = SpringContextHelper.getBean(UserMapper.class);
-//
-//        Map<Long, User> userMap = userMapper.selectMap(User::getId, userIdList);
-//        abstractNameDTOList.forEach(abstractNameDTO -> {
-//            abstractNameDTO.setCreatorName(SafeGetUtil.getString(userMap.get(abstractNameDTO.getCreator()), User::getName));
-//            abstractNameDTO.setUpdaterName(SafeGetUtil.getString(userMap.get(abstractNameDTO.getUpdater()), User::getName));
-//        });
-//    }
-
-    default List<RoleDTO> convertRole1(String roleIdStr) {
-        if (!StringUtils.hasText(roleIdStr)) {
-            return Collections.emptyList();
+    static void setMethodContext(String key, Object value) {
+        Map<String, Object> contextMap = METHOD_CONTEXT.get();
+        if (contextMap == null) {
+            contextMap = new HashMap<>();
+            METHOD_CONTEXT.set(contextMap);
         }
-        return convertRole(Arrays.stream(StrUtil.splitToLong(roleIdStr, COMMA)).boxed().collect(Collectors.toList()));
+        contextMap.put(key, value);
     }
 
-    default List<RoleDTO> convertRole(List<Long> codeList) {
-        if (CollUtil.isEmpty(codeList)) {
-            return Collections.emptyList();
-        }
-        RoleMapper roleMapper = SpringContextHelper.getBean(RoleMapper.class);
-
-        Map<Long, Role> roleMap = SafeGetUtil.get(roleMapper.selectMap(Role::getId, codeList));
-        return codeList.stream().map(code -> {
-            Role role = roleMap.get(code);
-            if (Objects.isNull(role)) {
-                return null;
-            }
-            RoleDTO roleDTO = new RoleDTO();
-            roleDTO.setName(role.getName());
-            roleDTO.setCode(role.getCode());
-            roleDTO.setSort(role.getSort());
-            return roleDTO;
-        }).filter(Objects::nonNull).collect(Collectors.toList());
+    static Object getMethodContext(String key) {
+        Map<String, Object> contextMap = METHOD_CONTEXT.get();
+        return (contextMap != null) ? contextMap.get(key) : null;
     }
+
+    static Boolean exit(String key) {
+        return Objects.nonNull(getMethodContext(key));
+    }
+
+    static void clearMethodContext() {
+        METHOD_CONTEXT.remove();
+    }
+
+    @BeforeMapping
+    default <S extends BaseIdDO<Long>> void tagList(List<S> sourceList) {
+        setMethodContext(SKIP_FLAG, Boolean.TRUE);
+    }
+
+    @AfterMapping
+    default <S extends BaseIdDO<Long>, T extends BaseIdDO<Long>> void handle(S source, @MappingTarget T target) {
+        if (exit(SKIP_FLAG)) {
+            return;
+        }
+        MappingProvider.autoWrapper(source, target);
+    }
+
+
+    @AfterMapping
+    default <S extends BaseIdDO<Long>, T extends BaseIdDO<Long>> void handleList(List<S> sourceList, @MappingTarget List<T> targetList) {
+        //必须在自动装载前清除,否则自动装载过程,影响其他自动装载项读取自己的上下文
+        clearMethodContext();
+        MappingProvider.autoWrapper(sourceList, targetList);
+
+    }
+
+    @AfterMapping
+    default void handleAbstractNameDTO(@MappingTarget AbstractNameDTO abstractNameDTO) {
+        if (exit(SKIP_FLAG)) {
+            return;
+        }
+        handleAbstractNameDTOList(Collections.singletonList(abstractNameDTO));
+    }
+
+
+    @AfterMapping
+    default <T extends AbstractNameDTO> void handleAbstractNameDTOList(@MappingTarget List<T> abstractNameDTOList) {
+        if (CollUtil.isEmpty(abstractNameDTOList)) {
+            return;
+        }
+        List<Long> creatorIdList = CollectionUtils.convertList(abstractNameDTOList, AbstractNameDTO::getCreator);
+        List<Long> updaterIdList = CollectionUtils.convertList(abstractNameDTOList, AbstractNameDTO::getUpdater);
+        Collection<Long> userIdList = CollUtil.addAll(creatorIdList, updaterIdList);
+        if (CollUtil.isEmpty(userIdList)){
+            return;
+        }
+        UserMapper userMapper = SpringContextHelper.getBean(UserMapper.class);
+
+        Map<Long, User> userMap = userMapper.selectMap(User::getId, userIdList);
+        abstractNameDTOList.forEach(abstractNameDTO -> {
+            abstractNameDTO.setCreatorName(SafeGetUtil.getString(userMap.get(abstractNameDTO.getCreator()), User::getName));
+            abstractNameDTO.setUpdaterName(SafeGetUtil.getString(userMap.get(abstractNameDTO.getUpdater()), User::getName));
+        });
+    }
+
 
 }
+
