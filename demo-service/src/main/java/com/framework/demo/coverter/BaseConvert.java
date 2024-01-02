@@ -4,7 +4,6 @@ import cn.hutool.core.collection.CollUtil;
 import com.framework.demo.coverter.business.MappingProvider;
 import com.framework.demo.entity.User;
 import com.framework.demo.mapper.UserMapper;
-import com.google.common.collect.Lists;
 import com.ty.mid.framework.common.dto.AbstractNameDTO;
 import com.ty.mid.framework.common.entity.BaseIdDO;
 import com.ty.mid.framework.common.util.SafeGetUtil;
@@ -88,7 +87,7 @@ public interface BaseConvert {
         List<Long> creatorIdList = CollectionUtils.convertList(abstractNameDTOList, AbstractNameDTO::getCreator);
         List<Long> updaterIdList = CollectionUtils.convertList(abstractNameDTOList, AbstractNameDTO::getUpdater);
         Collection<Long> userIdList = CollUtil.addAll(creatorIdList, updaterIdList);
-        if (CollUtil.isEmpty(userIdList)){
+        if (CollUtil.isEmpty(userIdList)) {
             return;
         }
         UserMapper userMapper = SpringContextHelper.getBean(UserMapper.class);
