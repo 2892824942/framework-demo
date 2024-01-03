@@ -1,8 +1,8 @@
 package com.framework.demo.coverter.out;
 
-import com.framework.demo.coverter.BaseConvert;
 import com.framework.demo.dto.UserAddrDTO;
 import com.framework.demo.dto.UserFullDTO;
+import com.framework.demo.dto.UserInfoDTO;
 import com.framework.demo.entity.User;
 import com.framework.demo.entity.bo.UserFullBO;
 import org.mapstruct.Mapper;
@@ -25,5 +25,7 @@ public interface UserDTOConvert extends BaseConvert {
     UserFullDTO convert(User user);
 
     List<UserFullDTO> convert(List<User> user);
+
+    List<UserInfoDTO> convert2Info(List<User> user);
 
 }

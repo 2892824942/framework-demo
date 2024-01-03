@@ -1,16 +1,9 @@
 package com.framework.demo.mapper;
 
 
-import cn.hutool.core.collection.CollUtil;
-import com.framework.demo.coverter.out.AddrDTOConvert;
-import com.framework.demo.dto.AddrDTO;
 import com.framework.demo.entity.Address;
 import com.ty.mid.framework.mybatisplus.core.mapper.BaseMapperX;
 import org.apache.ibatis.annotations.Mapper;
-
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
 
 /**
  * <p>
@@ -22,11 +15,5 @@ import java.util.List;
  */
 @Mapper
 public interface AddressMapper extends BaseMapperX<Address, Long> {
-    default List<AddrDTO> convertAddr(Collection<String> codeList) {
-        if (CollUtil.isEmpty(codeList)) {
-            return Collections.emptyList();
-        }
-        List<Address> addresses = selectList(Address::getCode, codeList);
-        return AddrDTOConvert.INSTANCE.convert(addresses);
-    }
+
 }

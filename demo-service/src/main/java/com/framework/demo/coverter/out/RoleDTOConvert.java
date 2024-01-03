@@ -1,7 +1,7 @@
 package com.framework.demo.coverter.out;
 
-import com.framework.demo.coverter.BaseConvert;
 import com.framework.demo.dto.RoleDTO;
+import com.framework.demo.dto.RoleSimpleDTO;
 import com.framework.demo.entity.Role;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
@@ -21,4 +21,6 @@ public interface RoleDTOConvert extends BaseConvert {
     RoleDTO convert(Role role);
 
     List<RoleDTO> convert(List<Role> role);
+
+    List<RoleSimpleDTO> convert2Simple(List<Role> role);
 }

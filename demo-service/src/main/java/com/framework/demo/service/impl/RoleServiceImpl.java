@@ -5,16 +5,16 @@ import cn.hutool.core.collection.CollUtil;
 import com.framework.demo.coverter.RoleConvert;
 import com.framework.demo.coverter.out.RoleDTOConvert;
 import com.framework.demo.dto.RoleDTO;
-import com.framework.demo.dto.UserFullDTO;
+import com.framework.demo.dto.RoleSimpleDTO;
 import com.framework.demo.entity.Role;
-import com.framework.demo.entity.User;
 import com.framework.demo.mapper.RoleMapper;
-import com.framework.demo.mapper.UserMapper;
 import com.framework.demo.pojo.role.RolePageQuery;
 import com.framework.demo.pojo.role.RoleSaveQuery;
 import com.framework.demo.service.IRoleService;
 import com.ty.mid.framework.common.pojo.PageResult;
 import com.ty.mid.framework.mybatisplus.service.wrapper.AutoWrapService;
+import com.ty.mid.framework.mybatisplus.service.wrapper.core.AutoWrapper;
+import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -22,6 +22,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 /**
@@ -48,6 +49,7 @@ public class RoleServiceImpl extends AutoWrapService<Role, RoleDTO, RoleMapper> 
     public PageResult<Role> getPage(RolePageQuery rolePageQuery) {
         return roleMapper.selectPage(rolePageQuery);
     }
+
 
     @Override
     public List<RoleDTO> covertRole(Collection<Long> roleIdList) {
@@ -81,4 +83,20 @@ public class RoleServiceImpl extends AutoWrapService<Role, RoleDTO, RoleMapper> 
         return roleMapper.deleteById(id) > 0;
     }
 
+
+    @Bean
+    public AutoWrapper<Role, RoleSimpleDTO, RoleMapper> roleSimpleDTOAutoWrapper() {
+        //注意:不可以省略后面的泛型否则报错
+        return new AutoWrapper<Role, RoleSimpleDTO, RoleMapper>() {
+            @Override
+            public Map<?, RoleSimpleDTO> autoWrap(Collection<?> collection) {
+                List<Role> mDo = roleMapper.selectList(Role::getId, collection);
+                List<RoleSimpleDTO> roleSimpleDTOS = RoleDTOConvert.INSTANCE.convert2Simple(mDo);
+                if (CollUtil.isEmpty(roleSimpleDTOS)) {
+                    return Collections.emptyMap();
+                }
+                return roleSimpleDTOS.stream().collect(Collectors.toMap(RoleSimpleDTO::getId, Function.identity(), (a, b) -> a));
+            }
+        };
+    }
 }

@@ -11,6 +11,7 @@ import com.ty.mid.framework.mybatisplus.service.wrapper.AutoWrapService;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
 
@@ -27,7 +28,7 @@ public class AddressServiceImpl extends AutoWrapService<Address, AddrDTO, Addres
 
     @Override
     public Map<?, AddrDTO> autoWrap(Collection<?> collection) {
-        Function<Address, AddrDTO> function = AddrDTOConvert.INSTANCE::convert;
-        return convert(GenericsUtil.check2Collection(collection),Address::getCode, AddrDTO::getCode, function);
+        Function<List<Address>, List<AddrDTO>> function = AddrDTOConvert.INSTANCE::convert;
+        return convert(GenericsUtil.check2Collection(collection), Address::getCode, AddrDTO::getCode, function);
     }
 }

@@ -16,7 +16,9 @@
 
 package com.framework.demo.demos.web;
 
+import com.framework.demo.dto.UserAddrDTO;
 import com.framework.demo.dto.UserFullDTO;
+import com.framework.demo.dto.UserInfoDTO;
 import com.framework.demo.entity.User;
 import com.framework.demo.entity.bo.UserFullBO;
 import com.framework.demo.pojo.user.UserQuery;
@@ -52,6 +54,11 @@ public class UserController {
     @PostMapping("/getList")
     public List<UserFullDTO> getList(@RequestBody UserQuery query) {
         return userService.getFullList(query);
+    }
+
+    @PostMapping("/getInfoList")
+    public List<UserInfoDTO> getInfoList(@RequestBody UserQuery query) {
+        return userService.getInfoList(query);
     }
 
 

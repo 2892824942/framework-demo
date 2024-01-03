@@ -1,6 +1,5 @@
 package com.framework.demo.coverter.out;
 
-import com.framework.demo.coverter.BaseConvert;
 import com.framework.demo.dto.AddrDTO;
 import com.framework.demo.entity.Address;
 import org.mapstruct.Mapper;

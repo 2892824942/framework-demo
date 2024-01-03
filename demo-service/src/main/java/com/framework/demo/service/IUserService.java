@@ -2,6 +2,7 @@ package com.framework.demo.service;
 
 
 import com.framework.demo.dto.UserFullDTO;
+import com.framework.demo.dto.UserInfoDTO;
 import com.framework.demo.entity.User;
 import com.framework.demo.entity.bo.UserFullBO;
 import com.framework.demo.pojo.user.UserQuery;
@@ -25,6 +26,8 @@ public interface IUserService {
     PageResult<UserFullBO> getPage(UserQuery userQuery);
 
     List<UserFullDTO> getFullList(UserQuery userQuery);
+
+    List<UserInfoDTO> getInfoList(UserQuery userQuery);
 
     Boolean save(UserSaveQuery query);
 

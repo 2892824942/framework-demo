@@ -6,6 +6,7 @@ import cn.hutool.core.collection.CollectionUtil;
 import com.framework.demo.coverter.UserConvert;
 import com.framework.demo.coverter.out.UserDTOConvert;
 import com.framework.demo.dto.UserFullDTO;
+import com.framework.demo.dto.UserInfoDTO;
 import com.framework.demo.entity.User;
 import com.framework.demo.entity.bo.UserFullBO;
 import com.framework.demo.mapper.UserMapper;
@@ -64,6 +65,17 @@ public class UserServiceImpl extends AutoWrapService<User, UserFullDTO, UserMapp
         List<UserFullDTO> fullDTOs = UserDTOConvert.INSTANCE.convert(userList);
         return fullDTOs;
 
+    }
+
+    @Override
+    public List<UserInfoDTO> getInfoList(UserQuery userQuery) {
+        userQuery.setPageNo(PageParam.PAGE_SIZE_NONE);
+        PageResult<User> userPageResult = userMapper.selectPage(userQuery);
+        List<User> userList = userPageResult.getList();
+        if (CollectionUtil.isEmpty(userList)) {
+            return Collections.emptyList();
+        }
+        return UserDTOConvert.INSTANCE.convert2Info(userList);
     }
 
     @Override
