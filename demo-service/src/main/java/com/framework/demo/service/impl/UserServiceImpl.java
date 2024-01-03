@@ -62,8 +62,7 @@ public class UserServiceImpl extends AutoWrapService<User, UserFullDTO, UserMapp
         if (CollectionUtil.isEmpty(userList)) {
             return Collections.emptyList();
         }
-        List<UserFullDTO> fullDTOs = UserDTOConvert.INSTANCE.convert(userList);
-        return fullDTOs;
+        return UserDTOConvert.INSTANCE.convert(userList);
 
     }
 
