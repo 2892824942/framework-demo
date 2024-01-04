@@ -17,8 +17,7 @@
 package com.framework.demo.demos.web;
 
 import com.framework.demo.entity.Role;
-import com.framework.demo.entity.User;
-import com.framework.demo.pojo.role.RolePageQuery;
+import com.framework.demo.pojo.role.RoleQuery;
 import com.framework.demo.pojo.role.RoleSaveQuery;
 import com.framework.demo.service.IRoleService;
 import com.ty.mid.framework.common.pojo.PageResult;
@@ -44,7 +43,7 @@ public class RoleController {
 
 
     @PostMapping("/getPage")
-    public PageResult<Role> getPage(@RequestBody RolePageQuery query) {
+    public PageResult<Role> getPage(@RequestBody RoleQuery query) {
         return roleService.getPage(query);
     }
 

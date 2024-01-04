@@ -18,7 +18,7 @@ import java.util.List;
 @EqualsAndHashCode(callSuper = true)
 @Schema(description = "角色分页查询对象")
 @Data
-public class RolePageQuery extends PageParam {
+public class RoleQuery extends PageParam {
 
     @Schema(description = "编码列表")
     private List<String> codeList;

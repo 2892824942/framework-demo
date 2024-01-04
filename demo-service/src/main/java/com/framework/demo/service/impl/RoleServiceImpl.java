@@ -8,11 +8,11 @@ import com.framework.demo.dto.RoleDTO;
 import com.framework.demo.dto.RoleSimpleDTO;
 import com.framework.demo.entity.Role;
 import com.framework.demo.mapper.RoleMapper;
-import com.framework.demo.pojo.role.RolePageQuery;
+import com.framework.demo.pojo.role.RoleQuery;
 import com.framework.demo.pojo.role.RoleSaveQuery;
 import com.framework.demo.service.IRoleService;
 import com.ty.mid.framework.common.pojo.PageResult;
-import com.ty.mid.framework.mybatisplus.service.wrapper.AutoWrapService;
+import com.ty.mid.framework.mybatisplus.service.integrate.GenericAutoWrapService;
 import com.ty.mid.framework.mybatisplus.service.wrapper.core.AutoWrapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
@@ -34,7 +34,7 @@ import java.util.stream.Collectors;
  * @since 2023-11-27
  */
 @Service
-public class RoleServiceImpl extends AutoWrapService<Role, RoleDTO, RoleMapper> implements IRoleService {
+public class RoleServiceImpl extends GenericAutoWrapService<Role, RoleDTO, RoleMapper> implements IRoleService {
 
     @Resource
     private RoleMapper roleMapper;
@@ -46,8 +46,8 @@ public class RoleServiceImpl extends AutoWrapService<Role, RoleDTO, RoleMapper> 
     }
 
     @Override
-    public PageResult<Role> getPage(RolePageQuery rolePageQuery) {
-        return roleMapper.selectPage(rolePageQuery);
+    public PageResult<Role> getPage(RoleQuery roleQuery) {
+        return roleMapper.selectPage(roleQuery);
     }
 
 

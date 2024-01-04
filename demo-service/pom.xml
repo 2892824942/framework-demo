@@ -31,12 +31,17 @@
         <!-- service 框架依赖-->
         <dependency>
             <groupId>com.ty</groupId>
-            <artifactId>ty-framework-mybatis-plus-starter</artifactId>
+            <artifactId>ty-framework-service-starter</artifactId>
         </dependency>
 
         <dependency>
-            <groupId>com.ty</groupId>
-            <artifactId>ty-framework-service</artifactId>
+            <groupId>org.springframework.data</groupId>
+            <artifactId>spring-data-redis</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.github.ben-manes.caffeine</groupId>
+            <artifactId>caffeine</artifactId>
         </dependency>
         <!-- swagger-->
 

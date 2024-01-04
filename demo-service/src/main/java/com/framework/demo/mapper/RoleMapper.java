@@ -5,7 +5,7 @@ import cn.hutool.core.collection.CollUtil;
 import com.framework.demo.coverter.out.RoleDTOConvert;
 import com.framework.demo.dto.RoleDTO;
 import com.framework.demo.entity.Role;
-import com.framework.demo.pojo.role.RolePageQuery;
+import com.framework.demo.pojo.role.RoleQuery;
 import com.ty.mid.framework.common.pojo.PageResult;
 import com.ty.mid.framework.core.spring.SpringContextHelper;
 import com.ty.mid.framework.mybatisplus.core.mapper.BaseMapperX;
@@ -28,14 +28,14 @@ import java.util.List;
 @Mapper
 public interface RoleMapper extends BaseMapperX<Role, Long> {
 
-    default PageResult<Role> selectPage(@Param("rolePageQuery") RolePageQuery rolePageQuery) {
+    default PageResult<Role> selectPage(@Param("rolePageQuery") RoleQuery roleQuery) {
 
         LambdaQueryWrapperX<Role> wrapper = new LambdaQueryWrapperX<Role>()
-                .inIfPresent(Role::getCode, rolePageQuery.getCodeList())
-                .likeIfPresent(Role::getName, rolePageQuery.getNameLike())
-                .inIfPresent(Role::getStatus, rolePageQuery.getStatusList());
+                .inIfPresent(Role::getCode, roleQuery.getCodeList())
+                .likeIfPresent(Role::getName, roleQuery.getNameLike())
+                .inIfPresent(Role::getStatus, roleQuery.getStatusList());
 
-        return selectPage(rolePageQuery, wrapper);
+        return selectPage(roleQuery, wrapper);
     }
 
     ;

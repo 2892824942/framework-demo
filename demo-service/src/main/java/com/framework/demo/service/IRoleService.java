@@ -3,7 +3,7 @@ package com.framework.demo.service;
 
 import com.framework.demo.dto.RoleDTO;
 import com.framework.demo.entity.Role;
-import com.framework.demo.pojo.role.RolePageQuery;
+import com.framework.demo.pojo.role.RoleQuery;
 import com.framework.demo.pojo.role.RoleSaveQuery;
 import com.ty.mid.framework.common.pojo.PageResult;
 
@@ -22,7 +22,7 @@ public interface IRoleService {
 
     Role getByCode(String code);
 
-    PageResult<Role> getPage(RolePageQuery rolePageQuery);
+    PageResult<Role> getPage(RoleQuery roleQuery);
 
     List<RoleDTO> covertRole(Collection<Long> roleIdList);
 
