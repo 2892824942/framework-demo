@@ -1,7 +1,6 @@
 package com.framework.demo.service.impl;
 
 
-import com.fasterxml.jackson.core.type.TypeReference;
 import com.framework.demo.coverter.AddrConvert;
 import com.framework.demo.coverter.out.AddrDTOConvert;
 import com.framework.demo.dto.AddrDTO;
@@ -39,26 +38,19 @@ public class AddressServiceImpl extends MpAllCacheService<Address, AddrDTO, Addr
     }
 
     @Override
-    public String resolveMapKey(AddrDTO dto) {
-        return String.valueOf(dto.getId());
-    }
-
-    @Override
-    public TypeReference<AddrDTO> getTargetTypeReference() {
-        return new TypeReference<AddrDTO>() {
-        };
-    }
-
-    @Override
-    public TypeReference<Address> getSourceTypeReference() {
-        return new TypeReference<Address>() {
-        };
+    public Function<AddrDTO, String> defineMapKey() {
+        return AddrDTO::getCode;
     }
 
     @Override
     public AddrDTO getByCode(String code) {
         Address address = selectOne(Address::getCode, code);
         return AddrDTOConvert.INSTANCE.convert(address);
+    }
+
+    @Override
+    public AddrDTO getByCodeFromCache(String code) {
+        return getByKey( code);
     }
 
     @Override

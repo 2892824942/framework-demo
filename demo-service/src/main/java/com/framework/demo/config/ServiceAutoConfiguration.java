@@ -1,6 +1,7 @@
 package com.framework.demo.config;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.cache.jcache.JCacheCacheManager;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 
@@ -31,19 +32,23 @@ public class ServiceAutoConfiguration {
 //    }
 
     @Bean
-    public CacheManager jCacheCacheManager() {
+    public JCacheCacheManager jCacheCacheManager() {
         // 获取 Caffeine 的 CachingProvider
-        javax.cache.spi.CachingProvider cachingProvider = Caching.getCachingProvider("com.github.ben-manes.caffeine.jcache.spi.CaffeineCachingProvider");
+        javax.cache.spi.CachingProvider cachingProvider = Caching.getCachingProvider("com.github.benmanes.caffeine.jcache.spi.CaffeineCachingProvider");
 
+        // 创建 Caffeine CacheManager
+        CacheManager cacheManager = cachingProvider.getCacheManager();
+        return new JCacheCacheManager(cacheManager);
+    }
+
+    @Bean
+    public Configuration<?,?> configuration() {
         // 创建 Caffeine 缓存配置
         Configuration<Object, Object> caffeineConfig = new MutableConfiguration<>()
                 .setTypes(Object.class, Object.class)
                 .setStoreByValue(false) // 设置为 true 时，缓存的值会被拷贝而不是直接引用
                 .setExpiryPolicyFactory(CreatedExpiryPolicy.factoryOf(new Duration(TimeUnit.MINUTES, 10))); // 设置失效时间
-
-        // 创建 Caffeine CacheManager
-        return cachingProvider.getCacheManager();
+        return caffeineConfig;
     }
-
 
 }
