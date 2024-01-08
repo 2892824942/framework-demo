@@ -15,8 +15,7 @@ import com.framework.demo.pojo.user.UserSaveQuery;
 import com.framework.demo.service.IUserService;
 import com.ty.mid.framework.common.pojo.PageParam;
 import com.ty.mid.framework.common.pojo.PageResult;
-import com.ty.mid.framework.mybatisplus.service.integrate.GenericAutoWrapService;
-import com.ty.mid.framework.mybatisplus.service.wrapper.AutoWrapService;
+import com.ty.mid.framework.service.integrate.GenericAutoWrapService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;

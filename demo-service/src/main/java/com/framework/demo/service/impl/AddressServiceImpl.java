@@ -12,7 +12,7 @@ import com.framework.demo.service.IAddressService;
 import com.ty.mid.framework.common.pojo.PageParam;
 import com.ty.mid.framework.common.pojo.PageResult;
 import com.ty.mid.framework.common.util.GenericsUtil;
-import com.ty.mid.framework.mybatisplus.service.cache.mybatisplus.MpAllCacheService;
+import com.ty.mid.framework.service.cache.mybatisplus.MpAllCacheService;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;

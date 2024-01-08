@@ -12,8 +12,8 @@ import com.framework.demo.pojo.role.RoleQuery;
 import com.framework.demo.pojo.role.RoleSaveQuery;
 import com.framework.demo.service.IRoleService;
 import com.ty.mid.framework.common.pojo.PageResult;
-import com.ty.mid.framework.mybatisplus.service.integrate.GenericAutoWrapService;
-import com.ty.mid.framework.mybatisplus.service.wrapper.core.AutoWrapper;
+import com.ty.mid.framework.service.integrate.GenericAutoWrapService;
+import com.ty.mid.framework.service.wrapper.core.AutoWrapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
 

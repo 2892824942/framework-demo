@@ -4,7 +4,7 @@ import cn.hutool.core.collection.CollUtil;
 import com.framework.demo.entity.User;
 import com.framework.demo.mapper.UserMapper;
 import com.ty.mid.framework.core.spring.SpringContextHelper;
-import com.ty.mid.framework.mybatisplus.service.wrapper.core.BaseAutoConvert;
+import com.ty.mid.framework.service.wrapper.core.BaseAutoConvert;
 import org.mapstruct.Mapper;
 
 import java.util.Collection;

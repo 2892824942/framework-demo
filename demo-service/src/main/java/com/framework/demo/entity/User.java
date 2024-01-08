@@ -9,7 +9,7 @@ import com.ty.mid.framework.mybatisplus.core.dataobject.BaseDO;
 import com.ty.mid.framework.mybatisplus.core.type.DefaultTypeHandler;
 import com.ty.mid.framework.mybatisplus.core.type.EncryptTypeHandler;
 import com.ty.mid.framework.mybatisplus.core.type.LongListTypeHandler;
-import com.ty.mid.framework.mybatisplus.service.wrapper.core.BMapping;
+import com.ty.mid.framework.service.wrapper.core.BMapping;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 import lombok.Setter;
