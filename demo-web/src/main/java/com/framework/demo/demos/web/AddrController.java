@@ -43,5 +43,9 @@ public class AddrController {
         return addressService.getByCodeFromCache(code);
     }
 
+    @GetMapping("/getByCodes")
+    public List<AddrDTO> getByCodes(@RequestBody List<String> codes) {
+        return addressService.getByCodesFromCache(codes);
+    }
 
 }

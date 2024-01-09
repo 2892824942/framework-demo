@@ -19,6 +19,8 @@ import java.util.List;
 public interface IAddressService {
     AddrDTO getByCode(String code);
 
+    List<AddrDTO> getByCodesFromCache(List<String> codes);
+
     AddrDTO getByCodeFromCache(String code);
 
     List<AddrDTO> getList(AddrQuery addrQuery);

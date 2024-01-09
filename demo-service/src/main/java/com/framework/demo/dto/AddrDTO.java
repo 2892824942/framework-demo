@@ -4,6 +4,7 @@ import com.ty.mid.framework.common.entity.BaseIdDO;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 /**
  * 角色基本对象
@@ -15,6 +16,7 @@ import lombok.Setter;
 @Schema(description = "角色基本对象")
 @Getter
 @Setter
+@ToString
 public class AddrDTO implements BaseIdDO<Long> {
 
     private static final long serialVersionUID = 1L;

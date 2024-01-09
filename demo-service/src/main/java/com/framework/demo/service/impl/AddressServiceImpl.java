@@ -1,6 +1,7 @@
 package com.framework.demo.service.impl;
 
 
+import com.baomidou.mybatisplus.core.toolkit.support.SFunction;
 import com.framework.demo.coverter.AddrConvert;
 import com.framework.demo.coverter.out.AddrDTOConvert;
 import com.framework.demo.dto.AddrDTO;
@@ -15,10 +16,7 @@ import com.ty.mid.framework.common.util.GenericsUtil;
 import com.ty.mid.framework.service.cache.mybatisplus.MpAllCacheService;
 import org.springframework.stereotype.Service;
 
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.function.Function;
 
 /**
@@ -43,9 +41,20 @@ public class AddressServiceImpl extends MpAllCacheService<Address, AddrDTO, Addr
     }
 
     @Override
+    public SFunction<Address, String> defineSourceMapKey() {
+        return Address::getCode;
+    }
+
+    @Override
     public AddrDTO getByCode(String code) {
         Address address = selectOne(Address::getCode, code);
         return AddrDTOConvert.INSTANCE.convert(address);
+    }
+
+    @Override
+    public List<AddrDTO> getByCodesFromCache(List<String> codes) {
+        Map<String, AddrDTO> all = getAll(codes);
+        return new ArrayList<>(all.values());
     }
 
     @Override
@@ -86,4 +95,16 @@ public class AddressServiceImpl extends MpAllCacheService<Address, AddrDTO, Addr
         return convert(GenericsUtil.check2Collection(collection), Address::getCode, AddrDTO::getCode, function);
     }
 
+    public static void main(String[] args) {
+        SFunction<Address, ?> sFunction = (SFunction<Address, Object>) o -> {
+            AddrDTO t = AddrDTOConvert.INSTANCE.convert(o);
+            Function<AddrDTO, String> getCode = AddrDTO::getCode;
+            return getCode.apply(t);
+        };
+        Address address = new Address();
+        address.setCode("12343");
+        address.setName("aaa");
+        Object apply = sFunction.apply(address);
+        System.out.println(apply);
+    }
 }
