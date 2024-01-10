@@ -24,4 +24,5 @@ public class Address extends BaseDO {
      */
     private String code;
 
+
 }

@@ -10,6 +10,7 @@ import com.framework.demo.mapper.AddressMapper;
 import com.framework.demo.pojo.addr.AddrQuery;
 import com.framework.demo.pojo.addr.AddrSaveQuery;
 import com.framework.demo.service.IAddressService;
+import com.google.common.collect.Lists;
 import com.ty.mid.framework.common.pojo.PageParam;
 import com.ty.mid.framework.common.pojo.PageResult;
 import com.ty.mid.framework.common.util.GenericsUtil;
@@ -30,19 +31,11 @@ import java.util.function.Function;
 @Service
 public class AddressServiceImpl extends MpAllCacheService<Address, AddrDTO, AddressMapper> implements IAddressService {
 
-    @Override
-    public String getCacheName() {
-        return "addrCache";
-    }
+
 
     @Override
-    public Function<AddrDTO, String> defineMapKey() {
-        return AddrDTO::getCode;
-    }
-
-    @Override
-    public SFunction<Address, String> defineSourceMapKey() {
-        return Address::getCode;
+    public List<SFunction<Address, ?>> cacheDefineDOMapKeys() {
+        return Lists.newArrayList(Address::getCode, Address::getName);
     }
 
     @Override
@@ -53,13 +46,13 @@ public class AddressServiceImpl extends MpAllCacheService<Address, AddrDTO, Addr
 
     @Override
     public List<AddrDTO> getByCodesFromCache(List<String> codes) {
-        Map<String, AddrDTO> all = getAll(codes);
+        Map<String, AddrDTO> all = cacheGetAll(codes);
         return new ArrayList<>(all.values());
     }
 
     @Override
     public AddrDTO getByCodeFromCache(String code) {
-        return getByKey( code);
+        return cacheGetByKey( code);
     }
 
     @Override
