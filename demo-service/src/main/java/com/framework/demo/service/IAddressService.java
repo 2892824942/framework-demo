@@ -4,6 +4,7 @@ package com.framework.demo.service;
 import com.framework.demo.dto.AddrDTO;
 import com.framework.demo.pojo.addr.AddrQuery;
 import com.framework.demo.pojo.addr.AddrSaveQuery;
+import com.framework.demo.pojo.addr.AddrUpdateQuery;
 import com.framework.demo.pojo.role.RoleSaveQuery;
 
 import java.util.List;
@@ -26,6 +27,9 @@ public interface IAddressService {
     List<AddrDTO> getList(AddrQuery addrQuery);
 
     Boolean save(AddrSaveQuery query);
+
+
+    Boolean update(AddrUpdateQuery addrUpdateQuery);
 
     void saveBatch(List<AddrSaveQuery> query);
 
