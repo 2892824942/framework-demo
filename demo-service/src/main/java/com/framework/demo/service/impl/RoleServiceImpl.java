@@ -11,8 +11,10 @@ import com.framework.demo.mapper.RoleMapper;
 import com.framework.demo.pojo.role.RoleQuery;
 import com.framework.demo.pojo.role.RoleSaveQuery;
 import com.framework.demo.service.IRoleService;
+import com.ty.mid.framework.common.entity.BaseIdDO;
 import com.ty.mid.framework.common.pojo.PageResult;
 import com.ty.mid.framework.service.integrate.GenericAutoWrapService;
+import com.ty.mid.framework.service.wrapper.AutoWrapService;
 import com.ty.mid.framework.service.wrapper.core.AutoWrapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
@@ -85,18 +87,17 @@ public class RoleServiceImpl extends GenericAutoWrapService<Role, RoleDTO, RoleM
 
 
     @Bean
-    public AutoWrapper<Role, RoleSimpleDTO, RoleMapper> roleSimpleDTOAutoWrapper() {
+    public AutoWrapper<Role> roleSimpleDTOAutoWrapper() {
         //注意:不可以省略后面的泛型否则报错
-        return new AutoWrapper<Role, RoleSimpleDTO, RoleMapper>() {
+        return new AutoWrapService<Role, RoleSimpleDTO, RoleMapper>() {
             @Override
             public Map<?, RoleSimpleDTO> autoWrap(Collection<?> collection) {
-                List<Role> mDo = roleMapper.selectList(Role::getId, collection);
-                List<RoleSimpleDTO> roleSimpleDTOS = RoleDTOConvert.INSTANCE.convert2Simple(mDo);
-                if (CollUtil.isEmpty(roleSimpleDTOS)) {
-                    return Collections.emptyMap();
-                }
-                return roleSimpleDTOS.stream().collect(Collectors.toMap(RoleSimpleDTO::getId, Function.identity(), (a, b) -> a));
+                //return this.convert(collection);  //BeanUtil复制
+                return this.convert(collection, RoleDTOConvert.INSTANCE::convert2Simple);
             }
+
         };
     }
+
+
 }

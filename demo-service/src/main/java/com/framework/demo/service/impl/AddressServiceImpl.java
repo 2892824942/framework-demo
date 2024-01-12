@@ -130,14 +130,23 @@ public class AddressServiceImpl extends MpAllCacheService<Address, AddrDTO, Addr
      * @return
      */
 
+//    /**
+//     * 缓存Service:
+//     * 重写缓存定义key,这里缓存两个key没有实际意义,只是为了测试多个key作为缓存的场景
+//     * @return
+//     */
+//    @Override
+//    public List<SFunction<Address, ?>> cacheDefineDOMapKeys() {
+//        return Lists.newArrayList(Address::getCode, Address::getName);
+//    }
     /**
      * 缓存Service:
      * 重写缓存定义key,这里缓存两个key没有实际意义,只是为了测试多个key作为缓存的场景
      * @return
      */
     @Override
-    public List<SFunction<Address, ?>> cacheDefineDOMapKeys() {
-        return Lists.newArrayList(Address::getCode, Address::getName);
+    public SFunction<Address, ?> cacheDefineDOMapKey() {
+        return Address::getCode;
     }
     /**
      * 自动装载Service:
