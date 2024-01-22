@@ -48,7 +48,7 @@ spring:
       - nacos:demo.yaml?refresh=true
   redis:
     database: 0
-    host: http://121.40.156.55
+    host: 121.40.156.55
     pool:
       max-active: 8
       max-idle: 8
@@ -83,3 +83,8 @@ mybatis-plus-join:
   banner: false # 关闭控制台的 Banner 打印
   #关闭副表逻辑删除 mysql join语法是先过滤后join,如果开启,副表逻辑删除where会过滤left join出来的null,必须关掉
   sub-table-logic: false
+
+#↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓框架相关配置↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓
+application:
+  lock:
+    enable: true

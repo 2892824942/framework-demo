@@ -43,13 +43,14 @@ public class RoleServiceImpl extends GenericAutoWrapService<Role, RoleDTO, RoleM
 
 
     @Override
-    public Role getByCode(String code) {
-        return roleMapper.selectOne(Role::getCode, code);
+    public RoleDTO getByCode(String code) {
+        return RoleDTOConvert.INSTANCE.convert(roleMapper.selectOne(Role::getCode, code));
     }
 
     @Override
-    public PageResult<Role> getPage(RoleQuery roleQuery) {
-        return roleMapper.selectPage(roleQuery);
+    public PageResult<RoleDTO> getPage(RoleQuery roleQuery) {
+        PageResult<Role> rolePageResult = roleMapper.selectPage(roleQuery);
+        return covertPage(rolePageResult, RoleDTOConvert.INSTANCE::convert);
     }
 
 

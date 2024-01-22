@@ -20,9 +20,9 @@ import java.util.List;
  */
 public interface IRoleService {
 
-    Role getByCode(String code);
+    RoleDTO getByCode(String code);
 
-    PageResult<Role> getPage(RoleQuery roleQuery);
+    PageResult<RoleDTO> getPage(RoleQuery roleQuery);
 
     List<RoleDTO> covertRole(Collection<Long> roleIdList);
 

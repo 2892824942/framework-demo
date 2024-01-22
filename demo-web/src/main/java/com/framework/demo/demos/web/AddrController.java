@@ -22,7 +22,10 @@ import com.framework.demo.pojo.role.RoleQuery;
 import com.framework.demo.pojo.role.RoleSaveQuery;
 import com.framework.demo.service.IAddressService;
 import com.framework.demo.service.IRoleService;
+import com.ty.mid.framework.common.pojo.BaseResult;
 import com.ty.mid.framework.common.pojo.PageResult;
+import com.ty.mid.framework.lock.annotation.FailFastLock;
+import com.ty.mid.framework.lock.annotation.LockKey;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -39,13 +42,13 @@ public class AddrController {
     private IAddressService addressService;
 
     @GetMapping("/getByCode")
-    public AddrDTO getByCode(@RequestParam String code) {
-        return addressService.getByCodeFromCache(code);
+    public BaseResult<AddrDTO> getByCode(@RequestParam  String code) {
+        return BaseResult.success(addressService.getByCodeFromCache(code));
     }
 
     @GetMapping("/getByCodes")
-    public List<AddrDTO> getByCodes(@RequestBody List<String> codes) {
-        return addressService.getByCodesFromCache(codes);
+    public  BaseResult<List<AddrDTO>> getByCodes(@RequestBody List<String> codes) {
+        return BaseResult.success(addressService.getByCodesFromCache(codes));
     }
 
 }

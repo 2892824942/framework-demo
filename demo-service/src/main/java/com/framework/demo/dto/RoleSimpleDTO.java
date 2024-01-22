@@ -1,7 +1,7 @@
 package com.framework.demo.dto;
 
 import com.ty.mid.framework.common.entity.BaseIdDO;
-import com.ty.mid.framework.common.pojo.KVBaseResp;
+import com.ty.mid.framework.common.pojo.KVResp;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 import lombok.Setter;
@@ -31,6 +31,6 @@ public class RoleSimpleDTO implements BaseIdDO<Long> {
      * 枚举 {@link com.ty.mid.framework.common.constant.EnableStatusEnum}
      */
     @Schema(description = "角色状态")
-    private KVBaseResp<String, String> statusInfo;
+    private KVResp<String, String> statusInfo;
 
 }

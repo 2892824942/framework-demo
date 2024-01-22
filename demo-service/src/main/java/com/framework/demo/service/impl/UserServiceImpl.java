@@ -38,43 +38,30 @@ public class UserServiceImpl extends GenericAutoWrapService<User, UserFullDTO, U
     private UserMapper userMapper;
 
     @Override
-    public User getById(Long id) {
-        return userMapper.selectById(id);
+    public UserFullDTO getById(Long id) {
+        if (isNegative(id)) {
+            return null;
+        }
+        return UserDTOConvert.INSTANCE.convert(userMapper.selectById(id));
     }
 
     @Override
     public PageResult<UserFullBO> getPage(UserQuery userQuery) {
-        PageResult<UserFullBO> userFullBOPageResult = userMapper.selectJoinPage(userQuery);
-        List<UserFullBO> list = userFullBOPageResult.getList();
-        if (CollectionUtil.isEmpty(list)) {
-            return userFullBOPageResult;
-        }
-        //组装用户名
-        return userFullBOPageResult;
-
+        return userMapper.selectJoinPage(userQuery);
     }
 
     @Override
     public List<UserFullDTO> getFullList(UserQuery userQuery) {
-        userQuery.setPageNo(PageParam.PAGE_SIZE_NONE);
+        userQuery.openSelectAll();
         PageResult<User> userPageResult = userMapper.selectPage(userQuery);
-        List<User> userList = userPageResult.getList();
-        if (CollectionUtil.isEmpty(userList)) {
-            return Collections.emptyList();
-        }
-        return UserDTOConvert.INSTANCE.convert(userList);
-
+        return UserDTOConvert.INSTANCE.convert(userPageResult.getList());
     }
 
     @Override
     public List<UserInfoDTO> getInfoList(UserQuery userQuery) {
         userQuery.setPageNo(PageParam.PAGE_SIZE_NONE);
         PageResult<User> userPageResult = userMapper.selectPage(userQuery);
-        List<User> userList = userPageResult.getList();
-        if (CollectionUtil.isEmpty(userList)) {
-            return Collections.emptyList();
-        }
-        return UserDTOConvert.INSTANCE.convert2Info(userList);
+        return UserDTOConvert.INSTANCE.convert2Info(userPageResult.getList());
     }
 
     @Override

@@ -54,7 +54,7 @@ public class AddressServiceImpl extends MpAllCacheService<Address, AddrDTO, Addr
     public List<AddrDTO> getList(AddrQuery addrQuery) {
         addrQuery.setPageNo(PageParam.PAGE_SIZE_NONE);
         PageResult<Address> pageResult = baseMapper.getPage(addrQuery);
-        if (pageResult.hasEmptyData()) {
+        if (pageResult.isEmpty()) {
             return Collections.emptyList();
         }
         return AddrDTOConvert.INSTANCE.convert(pageResult.getList());

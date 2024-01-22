@@ -21,7 +21,7 @@ import java.util.List;
  */
 public interface IUserService {
 
-    User getById(Long id);
+    UserFullDTO getById(Long id);
 
     PageResult<UserFullBO> getPage(UserQuery userQuery);
 

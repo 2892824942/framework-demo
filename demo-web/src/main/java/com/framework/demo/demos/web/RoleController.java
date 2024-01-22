@@ -16,14 +16,19 @@
 
 package com.framework.demo.demos.web;
 
+import com.framework.demo.dto.RoleDTO;
 import com.framework.demo.entity.Role;
 import com.framework.demo.pojo.role.RoleQuery;
 import com.framework.demo.pojo.role.RoleSaveQuery;
 import com.framework.demo.service.IRoleService;
+import com.ty.mid.framework.common.pojo.BaseResult;
 import com.ty.mid.framework.common.pojo.PageResult;
+import com.ty.mid.framework.lock.annotation.FailFastLock;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import javax.jws.WebResult;
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -37,20 +42,21 @@ public class RoleController {
     private IRoleService roleService;
 
     @GetMapping("/getByCode")
-    public Role getByCode(@RequestParam String code) {
-        return roleService.getByCode(code);
+    public BaseResult<RoleDTO> getByCode(@RequestParam String code) {
+        return BaseResult.success(roleService.getByCode(code));
     }
 
 
     @PostMapping("/getPage")
-    public PageResult<Role> getPage(@RequestBody RoleQuery query) {
-        return roleService.getPage(query);
+    public BaseResult<List<RoleDTO>> getPage(@RequestBody RoleQuery query) {
+       return BaseResult.successPage(roleService.getPage(query));
     }
 
 
     @PostMapping("/save")
-    public Boolean save(@RequestBody RoleSaveQuery query) {
-        return roleService.save(query);
+    @FailFastLock(keys = {"#query.code"})
+    public BaseResult<Boolean> save(@RequestBody RoleSaveQuery query) {
+        return BaseResult.success(roleService.save(query));
     }
 
 
@@ -60,8 +66,8 @@ public class RoleController {
     }
 
     @DeleteMapping("/delete/{id}")
-    public Boolean delete(@PathVariable(value = "id") Long id) {
-        return roleService.deleteById(id);
+    public BaseResult<Boolean> delete(@PathVariable(value = "id") Long id) {
+        return BaseResult.success(roleService.deleteById(id));
     }
 
 }

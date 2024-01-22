@@ -24,6 +24,7 @@ import com.framework.demo.entity.bo.UserFullBO;
 import com.framework.demo.pojo.user.UserQuery;
 import com.framework.demo.pojo.user.UserSaveQuery;
 import com.framework.demo.service.IUserService;
+import com.ty.mid.framework.common.pojo.BaseResult;
 import com.ty.mid.framework.common.pojo.PageResult;
 import org.springframework.web.bind.annotation.*;
 
@@ -41,30 +42,32 @@ public class UserController {
     private IUserService userService;
 
     @GetMapping("/getById")
-    public User getById(@RequestParam Long id) {
-        return userService.getById(id);
+    public BaseResult<UserFullDTO> getById(@RequestParam Long id) {
+        return BaseResult.success(userService.getById(id));
     }
 
 
     @PostMapping("/getPage")
-    public PageResult<UserFullBO> getPage(@RequestBody UserQuery query) {
-        return userService.getPage(query);
+    public BaseResult<List<UserFullBO>> getPage(@RequestBody UserQuery query) {
+        PageResult<UserFullBO> page = userService.getPage(query);
+
+        return BaseResult.successPage(page);
     }
 
     @PostMapping("/getList")
-    public List<UserFullDTO> getList(@RequestBody UserQuery query) {
-        return userService.getFullList(query);
+    public BaseResult<List<UserFullDTO>> getList(@RequestBody UserQuery query) {
+        return BaseResult.success(userService.getFullList(query));
     }
 
     @PostMapping("/getInfoList")
-    public List<UserInfoDTO> getInfoList(@RequestBody UserQuery query) {
-        return userService.getInfoList(query);
+    public BaseResult<List<UserInfoDTO>> getInfoList(@RequestBody UserQuery query) {
+        return BaseResult.success(userService.getInfoList(query));
     }
 
 
     @PostMapping("/save")
-    public Boolean save(@RequestBody UserSaveQuery query) {
-        return userService.save(query);
+    public BaseResult<Boolean> save(@RequestBody UserSaveQuery query) {
+        return BaseResult.success(userService.save(query));
     }
 
 
@@ -74,8 +77,8 @@ public class UserController {
     }
 
     @DeleteMapping("/delete/{id}")
-    public Boolean delete(@PathVariable(value = "id") Long id) {
-        return userService.deleteById(id);
+    public BaseResult<Boolean> delete(@PathVariable(value = "id") Long id) {
+        return BaseResult.success(userService.deleteById(id));
     }
 
 }
