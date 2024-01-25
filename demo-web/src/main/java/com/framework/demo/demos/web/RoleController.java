@@ -24,6 +24,9 @@ import com.framework.demo.service.IRoleService;
 import com.ty.mid.framework.common.pojo.BaseResult;
 import com.ty.mid.framework.common.pojo.PageResult;
 import com.ty.mid.framework.lock.annotation.FailFastLock;
+import com.ty.mid.framework.lock.annotation.Lock;
+import com.ty.mid.framework.lock.config.LockConfig;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -37,6 +40,11 @@ import java.util.List;
 @RestController("角色控制器")
 @RequestMapping("role")
 public class RoleController {
+
+    @PostMapping("/test")
+    public BaseResult<Boolean> test(@RequestBody RoleSaveQuery query) {
+        return BaseResult.success(roleService.test(query));
+    }
 
     @Resource
     private IRoleService roleService;
@@ -54,7 +62,6 @@ public class RoleController {
 
 
     @PostMapping("/save")
-    @FailFastLock(keys = {"#query.code"})
     public BaseResult<Boolean> save(@RequestBody RoleSaveQuery query) {
         return BaseResult.success(roleService.save(query));
     }

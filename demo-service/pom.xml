@@ -48,6 +48,11 @@
             <groupId>com.github.ben-manes.caffeine</groupId>
             <artifactId>jcache</artifactId>
         </dependency>
+        <!--lock 框架依赖 -->
+        <dependency>
+            <groupId>com.ty</groupId>
+            <artifactId>ty-framework-lock-starter</artifactId>
+        </dependency>
         <!-- swagger-->
 
         <dependency>

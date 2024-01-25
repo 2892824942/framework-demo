@@ -28,6 +28,8 @@ public interface IRoleService {
 
     Boolean save(RoleSaveQuery query);
 
+    Boolean test(RoleSaveQuery query);
+
     void saveBatch(List<RoleSaveQuery> query);
 
     Boolean deleteById(Long id);

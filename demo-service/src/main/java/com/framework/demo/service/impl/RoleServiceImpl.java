@@ -13,11 +13,14 @@ import com.framework.demo.pojo.role.RoleSaveQuery;
 import com.framework.demo.service.IRoleService;
 import com.ty.mid.framework.common.entity.BaseIdDO;
 import com.ty.mid.framework.common.pojo.PageResult;
+import com.ty.mid.framework.lock.annotation.FailFastLock;
 import com.ty.mid.framework.service.integrate.GenericAutoWrapService;
 import com.ty.mid.framework.service.wrapper.AutoWrapService;
 import com.ty.mid.framework.service.wrapper.core.AutoWrapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.Collection;
@@ -40,6 +43,9 @@ public class RoleServiceImpl extends GenericAutoWrapService<Role, RoleDTO, RoleM
 
     @Resource
     private RoleMapper roleMapper;
+
+    @Resource
+    private IRoleService _self;
 
 
     @Override
@@ -65,10 +71,20 @@ public class RoleServiceImpl extends GenericAutoWrapService<Role, RoleDTO, RoleM
     }
 
     @Override
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
+    //@Transactional(rollbackFor = Exception.class)
+    @FailFastLock(keys = "#query.code")
     public Boolean save(RoleSaveQuery query) {
 
         Role role = RoleConvert.INSTANCE.convert(query);
         return roleMapper.insert(role) > 0;
+    }
+
+    @Override
+    @Transactional
+    public Boolean test(RoleSaveQuery query) {
+        _self.save(query);
+        return _self.save(query);
     }
 
     @Override

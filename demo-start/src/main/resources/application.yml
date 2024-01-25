@@ -35,10 +35,12 @@ spring:
     nacos:
       config:
         contextPath: /nacos
-        server-addr: http://121.40.156.55:8848
+        #server-addr: http://121.40.156.55:8848
+        server-addr: http://localhost:8848
       discovery:
         namespace: public
-        server-addr: http://121.40.156.55:8848
+        #server-addr: http://121.40.156.55:8848
+        server-addr: http://localhost:8848
     loadbalancer:
       cache:
         caffeine:
