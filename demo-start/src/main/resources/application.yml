@@ -35,12 +35,10 @@ spring:
     nacos:
       config:
         contextPath: /nacos
-        #server-addr: http://121.40.156.55:8848
-        server-addr: http://localhost:8848
+        server-addr: http://121.40.156.55:8848
       discovery:
         namespace: public
-        #server-addr: http://121.40.156.55:8848
-        server-addr: http://localhost:8848
+        server-addr: http://121.40.156.55:8848
     loadbalancer:
       cache:
         caffeine:
@@ -51,13 +49,14 @@ spring:
   redis:
     database: 0
     host: 121.40.156.55
+    port: 6379
+    password: '7g4QmjBwDU'
+    timeout: 1200
     pool:
       max-active: 8
       max-idle: 8
       max-wait: -1
       min-idle: 0
-    port: 6379
-    timeout: 1200
 
 
 
@@ -86,7 +85,13 @@ mybatis-plus-join:
   #关闭副表逻辑删除 mysql join语法是先过滤后join,如果开启,副表逻辑删除where会过滤left join出来的null,必须关掉
   sub-table-logic: false
 
+logging:
+  level:
+    com.ty.mid.framework.lock: debug
+
 #↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓框架相关配置↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓
-application:
+framework:
   lock:
     enable: true
+    implementer: redis
+    dialect: true

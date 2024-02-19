@@ -71,8 +71,8 @@ public class RoleServiceImpl extends GenericAutoWrapService<Role, RoleDTO, RoleM
     }
 
     @Override
-    @Transactional(propagation = Propagation.REQUIRES_NEW)
-    //@Transactional(rollbackFor = Exception.class)
+    //@Transactional(propagation = Propagation.REQUIRES_NEW)
+    @Transactional(rollbackFor = Exception.class)
     @FailFastLock(keys = "#query.code")
     public Boolean save(RoleSaveQuery query) {
 

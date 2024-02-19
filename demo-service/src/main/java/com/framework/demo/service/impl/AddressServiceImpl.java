@@ -1,6 +1,7 @@
 package com.framework.demo.service.impl;
 
 
+import com.alibaba.nacos.shaded.com.google.common.collect.Lists;
 import com.baomidou.mybatisplus.core.toolkit.support.SFunction;
 import com.framework.demo.coverter.AddrConvert;
 import com.framework.demo.coverter.out.AddrDTOConvert;
@@ -11,7 +12,6 @@ import com.framework.demo.pojo.addr.AddrQuery;
 import com.framework.demo.pojo.addr.AddrSaveQuery;
 import com.framework.demo.pojo.addr.AddrUpdateQuery;
 import com.framework.demo.service.IAddressService;
-import com.google.common.collect.Lists;
 import com.ty.mid.framework.common.pojo.PageParam;
 import com.ty.mid.framework.common.pojo.PageResult;
 import com.ty.mid.framework.common.util.GenericsUtil;
@@ -141,7 +141,6 @@ public class AddressServiceImpl extends MpAllCacheService<Address, AddrDTO, Addr
 //    }
     /**
      * 缓存Service:
-     * 重写缓存定义key,这里缓存两个key没有实际意义,只是为了测试多个key作为缓存的场景
      * @return
      */
     @Override
