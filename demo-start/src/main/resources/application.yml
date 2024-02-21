@@ -2,13 +2,18 @@ management:
   endpoint:
     health:
       show-details: always
+    beans:
+      enabled:
   endpoints:
     web:
       exposure:
         include: '*'
   server:
     port: 8081
-
+server:
+  port: 8888
+  servlet:
+    context-path:
 spring:
   main:
     allow-circular-references: true
@@ -95,3 +100,7 @@ framework:
     enable: true
     implementer: redis
     dialect: true
+    transaction-strategy: warming
+  web:
+    enable-api-log: true
+

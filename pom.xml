@@ -18,7 +18,7 @@
         <spring.cloud.version>2021.0.5</spring.cloud.version>
         <mysql.version>8.0.33</mysql.version>
         <swagger-annotation.version>1.5.20</swagger-annotation.version>
-        <ty-framework.version>0.0.1-SNAPSHOT</ty-framework.version>
+        <ty-framework.version>0.0.2-SNAPSHOT</ty-framework.version>
         <springdoc.version>1.6.15</springdoc.version>
         <remote.debug.port>50005</remote.debug.port>
         <mapstruct.version>1.5.5.Final</mapstruct.version>
@@ -62,12 +62,6 @@
             <artifactId>spring-boot-devtools</artifactId>
             <scope>runtime</scope>
             <optional>true</optional>
-        </dependency>
-        <dependency>
-            <groupId>com.taobao.arthas</groupId>
-            <artifactId>arthas-spring-boot-starter</artifactId>
-            <version>3.6.7</version>
-            <scope>runtime</scope>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -206,9 +200,9 @@
     </profiles>
 
     <build>
-        <filters> <!-- 指定使用的filter文件，根据profile设置过滤文件 -->
-            <filter>src/main/resources/filter/${SPRING_PROFILES}.properties</filter>
-        </filters>
+<!--        <filters> &lt;!&ndash; 指定使用的filter文件，根据profile设置过滤文件 &ndash;&gt;-->
+<!--            <filter>src/main/resources/filter/${SPRING_PROFILES}.properties</filter>-->
+<!--        </filters>-->
         <!--开启资源过滤：将resources中配置文件的变量利用profile进行替换-->
         <resources>
             <resource>
