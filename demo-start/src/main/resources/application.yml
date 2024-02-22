@@ -2,8 +2,6 @@ management:
   endpoint:
     health:
       show-details: always
-    beans:
-      enabled:
   endpoints:
     web:
       exposure:
@@ -13,7 +11,7 @@ management:
 server:
   port: 8888
   servlet:
-    context-path:
+    context-path: /test
 spring:
   main:
     allow-circular-references: true
@@ -93,6 +91,12 @@ mybatis-plus-join:
 logging:
   level:
     com.ty.mid.framework.lock: debug
+#knife4j相关配置,swagger增强
+knife4j:
+  enable: true
+  setting:
+    language: zh_cn
+    home-custom-path:
 
 #↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓框架相关配置↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓
 framework:
@@ -103,4 +107,19 @@ framework:
     transaction-strategy: warming
   web:
     enable-api-log: true
-
+    custom-api:
+      #TODO 加个api 路径替换的开关,不是所有人都想使用模块api前缀的..
+      core:
+        prefix: /core
+        controller: '**.web.**'
+      other:
+        prefix: /
+        controller: '**'
+  swagger:
+    author: suyouliang
+    version: 1.0.0
+    description: domo项目接口文档
+    title:  接口文档
+    url:  http://127.0.0.1:8080/swagger-ui/index.html
+    license-url: license-url
+    email: 282824942@qq.com
