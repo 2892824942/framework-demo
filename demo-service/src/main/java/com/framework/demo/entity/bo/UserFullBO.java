@@ -27,9 +27,4 @@ public class UserFullBO extends User {
     @Schema(description = "地址名称")
     private String addrName;
 
-    private LocalDate now = LocalDate.now();
-
-    private Date nowDate = new Date();
-
-
 }
