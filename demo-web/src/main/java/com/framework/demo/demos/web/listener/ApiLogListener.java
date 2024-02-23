@@ -13,7 +13,7 @@ public class ApiLogListener {
 
     @EventListener
     public void onApiAccessLogEvent(ApiAccessLogEvent event) {
-        log.info("api access log eventData: {}", JsonUtils.toJson(event.getSource()));
+        log.info("api access log eventData: \r\n{}", JsonUtils.toJson(event.getSource()));
     }
 
     @EventListener

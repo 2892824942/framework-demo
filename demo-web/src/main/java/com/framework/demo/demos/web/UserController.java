@@ -26,6 +26,7 @@ import com.framework.demo.pojo.user.UserSaveQuery;
 import com.framework.demo.service.IUserService;
 import com.ty.mid.framework.common.pojo.BaseResult;
 import com.ty.mid.framework.common.pojo.PageResult;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -34,7 +35,8 @@ import java.util.List;
 /**
  * @author
  */
-@RestController("user控制器")
+@Controller("user控制器")
+@ResponseBody
 @RequestMapping("user")
 public class UserController {
 

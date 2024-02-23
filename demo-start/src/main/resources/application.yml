@@ -49,17 +49,21 @@ spring:
   config:
     import:
       - nacos:demo.yaml?refresh=true
+  jackson:
+    date-format: "yyyy-MM-dd HH:mm:ss"
+    time-zone: "GMT+8"
   redis:
     database: 0
     host: 121.40.156.55
     port: 6379
     password: '7g4QmjBwDU'
     timeout: 1200
-    pool:
-      max-active: 8
-      max-idle: 8
-      max-wait: -1
-      min-idle: 0
+    lettuce:
+      pool:
+        max-active: 16
+        max-idle: 8
+        max-wait: -1
+        min-idle: 4
 
 
 
@@ -96,7 +100,7 @@ knife4j:
   enable: true
   setting:
     language: zh_cn
-    home-custom-path:
+
 
 #↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓框架相关配置↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓
 framework:
@@ -106,15 +110,15 @@ framework:
     dialect: true
     transaction-strategy: warming
   web:
-    enable-api-log: true
+    enable-mvc-url-prefix: true
     custom-api:
-      #TODO 加个api 路径替换的开关,不是所有人都想使用模块api前缀的..
       core:
         prefix: /core
         controller: '**.web.**'
       other:
         prefix: /
         controller: '**'
+
   swagger:
     author: suyouliang
     version: 1.0.0
