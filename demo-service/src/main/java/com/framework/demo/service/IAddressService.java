@@ -5,8 +5,6 @@ import com.framework.demo.dto.AddrDTO;
 import com.framework.demo.pojo.addr.AddrQuery;
 import com.framework.demo.pojo.addr.AddrSaveQuery;
 import com.framework.demo.pojo.addr.AddrUpdateQuery;
-import com.framework.demo.pojo.role.RoleSaveQuery;
-import org.springframework.cloud.context.config.annotation.RefreshScope;
 
 import java.util.List;
 

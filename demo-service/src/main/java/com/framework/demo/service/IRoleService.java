@@ -2,7 +2,6 @@ package com.framework.demo.service;
 
 
 import com.framework.demo.dto.RoleDTO;
-import com.framework.demo.entity.Role;
 import com.framework.demo.pojo.role.RoleQuery;
 import com.framework.demo.pojo.role.RoleSaveQuery;
 import com.ty.mid.framework.common.pojo.PageResult;

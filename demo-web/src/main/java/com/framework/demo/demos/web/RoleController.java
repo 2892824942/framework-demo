@@ -17,21 +17,13 @@
 package com.framework.demo.demos.web;
 
 import com.framework.demo.dto.RoleDTO;
-import com.framework.demo.entity.Role;
 import com.framework.demo.pojo.role.RoleQuery;
 import com.framework.demo.pojo.role.RoleSaveQuery;
 import com.framework.demo.service.IRoleService;
 import com.ty.mid.framework.common.pojo.BaseResult;
-import com.ty.mid.framework.common.pojo.PageResult;
-import com.ty.mid.framework.lock.annotation.FailFastLock;
-import com.ty.mid.framework.lock.annotation.Lock;
-import com.ty.mid.framework.lock.config.LockConfig;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
-import javax.jws.WebResult;
-import java.util.Collection;
 import java.util.List;
 
 /**
@@ -41,13 +33,13 @@ import java.util.List;
 @RequestMapping("role")
 public class RoleController {
 
+    @Resource
+    private IRoleService roleService;
+
     @PostMapping("/test")
     public BaseResult<Boolean> test(@RequestBody RoleSaveQuery query) {
         return BaseResult.success(roleService.test(query));
     }
-
-    @Resource
-    private IRoleService roleService;
 
     @GetMapping("/getByCode")
     public BaseResult<RoleDTO> getByCode(@RequestParam String code) {
@@ -57,7 +49,7 @@ public class RoleController {
 
     @PostMapping("/getPage")
     public BaseResult<List<RoleDTO>> getPage(@RequestBody RoleQuery query) {
-       return BaseResult.successPage(roleService.getPage(query));
+        return BaseResult.successPage(roleService.getPage(query));
     }
 
 

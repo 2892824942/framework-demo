@@ -16,13 +16,8 @@
  */
 package com.framework.demo.demos.nacosconfig;
 
-import java.io.IOException;
-import java.io.StringReader;
-import java.util.Properties;
-
-import javax.annotation.PostConstruct;
-import javax.annotation.PreDestroy;
-
+import com.alibaba.cloud.nacos.NacosConfigManager;
+import com.alibaba.nacos.api.config.listener.AbstractListener;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.ApplicationRunner;
@@ -30,8 +25,11 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import com.alibaba.cloud.nacos.NacosConfigManager;
-import com.alibaba.nacos.api.config.listener.AbstractListener;
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
+import java.io.IOException;
+import java.io.StringReader;
+import java.util.Properties;
 
 /**
  * @author <a href="mailto:chenxilzx1@gmail.com">theonefx</a>

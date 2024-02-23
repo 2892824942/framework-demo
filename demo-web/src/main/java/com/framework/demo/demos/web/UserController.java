@@ -16,10 +16,8 @@
 
 package com.framework.demo.demos.web;
 
-import com.framework.demo.dto.UserAddrDTO;
 import com.framework.demo.dto.UserFullDTO;
 import com.framework.demo.dto.UserInfoDTO;
-import com.framework.demo.entity.User;
 import com.framework.demo.entity.bo.UserFullBO;
 import com.framework.demo.pojo.user.UserQuery;
 import com.framework.demo.pojo.user.UserSaveQuery;

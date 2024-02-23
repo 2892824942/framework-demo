@@ -1,13 +1,9 @@
 package com.framework.demo.coverter;
 
 import com.framework.demo.entity.Address;
-import com.framework.demo.entity.Role;
 import com.framework.demo.pojo.addr.AddrSaveQuery;
 import com.framework.demo.pojo.addr.AddrUpdateQuery;
-import com.framework.demo.pojo.role.RoleSaveQuery;
-import com.framework.demo.pojo.role.RoleUpdateQuery;
 import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
 
 import java.util.List;

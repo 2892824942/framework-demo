@@ -47,7 +47,7 @@ public class AddressServiceImpl extends MpAllCacheService<Address, AddrDTO, Addr
 
     @Override
     public AddrDTO getByCodeFromCache(String code) {
-        return cacheGetByKey( code);
+        return cacheGetByKey(code);
     }
 
     @Override
@@ -67,6 +67,7 @@ public class AddressServiceImpl extends MpAllCacheService<Address, AddrDTO, Addr
 
     /**
      * 默认开启了ReadThrough,读取不到会自动查询数据库
+     *
      * @param query
      * @return
      */
@@ -80,6 +81,7 @@ public class AddressServiceImpl extends MpAllCacheService<Address, AddrDTO, Addr
     /**
      * 1.更新不会更新key相关字段,直接删除缓存即可
      * 2.更新会更新key相关字段,需要先查询数据库原始数据,update后需要删除前后两个值已达到缓存重新加载的目的
+     *
      * @param addrUpdateQuery
      * @return
      */
@@ -89,14 +91,15 @@ public class AddressServiceImpl extends MpAllCacheService<Address, AddrDTO, Addr
         Address address = AddrConvert.INSTANCE.convert(addrUpdateQuery);
         Address dbAddress = getById(address.getId());
         boolean result = updateById(address);
-        if (result){
-            cacheClear(Lists.newArrayList(address,dbAddress));
+        if (result) {
+            cacheClear(Lists.newArrayList(address, dbAddress));
         }
         return null;
     }
 
     /**
      * 默认开启了ReadThrough,读取不到会自动查询数据库
+     *
      * @param query
      * @return
      */
@@ -110,6 +113,7 @@ public class AddressServiceImpl extends MpAllCacheService<Address, AddrDTO, Addr
      * 删除需要手动操作缓存,更新类似
      * 1.如果更新不更新key相关字段,直接删除缓存
      * 2.如果更新
+     *
      * @param id
      * @return
      */
@@ -139,17 +143,21 @@ public class AddressServiceImpl extends MpAllCacheService<Address, AddrDTO, Addr
 //    public List<SFunction<Address, ?>> cacheDefineDOMapKeys() {
 //        return Lists.newArrayList(Address::getCode, Address::getName);
 //    }
+
     /**
      * 缓存Service:
+     *
      * @return
      */
     @Override
     public SFunction<Address, ?> cacheDefineDOMapKey() {
         return Address::getCode;
     }
+
     /**
      * 自动装载Service:
      * 定义code->AddrDTO自动装载
+     *
      * @return
      */
     @Override

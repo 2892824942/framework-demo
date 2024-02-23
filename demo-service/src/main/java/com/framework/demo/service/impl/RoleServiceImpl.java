@@ -11,7 +11,6 @@ import com.framework.demo.mapper.RoleMapper;
 import com.framework.demo.pojo.role.RoleQuery;
 import com.framework.demo.pojo.role.RoleSaveQuery;
 import com.framework.demo.service.IRoleService;
-import com.ty.mid.framework.common.entity.BaseIdDO;
 import com.ty.mid.framework.common.pojo.PageResult;
 import com.ty.mid.framework.lock.annotation.FailFastLock;
 import com.ty.mid.framework.service.integrate.GenericAutoWrapService;
@@ -19,7 +18,6 @@ import com.ty.mid.framework.service.wrapper.AutoWrapService;
 import com.ty.mid.framework.service.wrapper.core.AutoWrapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
@@ -27,7 +25,6 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
-import java.util.function.Function;
 import java.util.stream.Collectors;
 
 /**

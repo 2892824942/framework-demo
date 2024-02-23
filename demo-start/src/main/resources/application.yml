@@ -123,7 +123,7 @@ framework:
     author: suyouliang
     version: 1.0.0
     description: domo项目接口文档
-    title:  接口文档
-    url:  http://127.0.0.1:8080/swagger-ui/index.html
+    title: 接口文档
+    url: http://127.0.0.1:8080/swagger-ui/index.html
     license-url: license-url
     email: 282824942@qq.com

@@ -2,7 +2,6 @@ package com.framework.demo.service.impl;
 
 
 import cn.hutool.core.collection.CollUtil;
-import cn.hutool.core.collection.CollectionUtil;
 import com.framework.demo.coverter.UserConvert;
 import com.framework.demo.coverter.out.UserDTOConvert;
 import com.framework.demo.dto.UserFullDTO;
@@ -19,7 +18,6 @@ import com.ty.mid.framework.service.integrate.GenericAutoWrapService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
