@@ -1,17 +1,4 @@
-management:
-  endpoint:
-    health:
-      show-details: always
-  endpoints:
-    web:
-      exposure:
-        include: '*'
-  server:
-    port: 8081
-server:
-  port: 8888
-  servlet:
-    context-path: /test
+#↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓Spring核心配置↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓
 spring:
   main:
     allow-circular-references: true
@@ -68,8 +55,38 @@ spring:
         max-idle: 8
         max-wait: -1
         min-idle: 4
+#日志配置
+logging:
+  level:
+    com.ty.mid.framework.lock: debug
 
+#↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓监控相关配置↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓
+management:
+  endpoint:
+    health:
+      show-details: always
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  server:
+    port: 8081
+server:
+  port: 8888
+  servlet:
+    context-path: /test
 
+#↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓第三方组件相关配置↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓
+#knife4j相关配置,swagger增强
+knife4j:
+  enable: true
+  setting:
+    language: zh_cn
+# Mybatis Plus join相关配置项
+mybatis-plus-join:
+  banner: false # 关闭控制台的 Banner 打印
+  #关闭副表逻辑删除 mysql join语法是先过滤后join,如果开启,副表逻辑删除where会过滤left join出来的null,必须关掉
+  sub-table-logic: false
 
 # MyBatis Plus 的配置项
 mybatis-plus:
@@ -87,24 +104,8 @@ mybatis-plus:
       logic-delete-value: 1 # 逻辑已删除值(默认为 1)
       logic-not-delete-value: 0 # 逻辑未删除值(默认为 0)
     banner: false # 关闭控制台的 Banner 打印
-
   encryptor:
     password: XDV71a+xqStEA3WH # 加解密的秘钥，可使用 https://www.imaegoo.com/2020/aes-key-generator/ 网站生成
-
-mybatis-plus-join:
-  banner: false # 关闭控制台的 Banner 打印
-  #关闭副表逻辑删除 mysql join语法是先过滤后join,如果开启,副表逻辑删除where会过滤left join出来的null,必须关掉
-  sub-table-logic: false
-
-logging:
-  level:
-    com.ty.mid.framework.lock: debug
-#knife4j相关配置,swagger增强
-knife4j:
-  enable: true
-  setting:
-    language: zh_cn
-
 
 #↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓框架相关配置↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓
 framework:
@@ -124,7 +125,6 @@ framework:
         controller: '**'
     xss:
       enable: true
-
   swagger:
     author: suyouliang
     version: 1.0.0

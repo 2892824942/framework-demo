@@ -21,6 +21,7 @@ import com.framework.demo.pojo.role.RoleQuery;
 import com.framework.demo.pojo.role.RoleSaveQuery;
 import com.framework.demo.service.IRoleService;
 import com.ty.mid.framework.common.pojo.BaseResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -54,7 +55,7 @@ public class RoleController {
 
 
     @PostMapping("/save")
-    public BaseResult<Boolean> save(@RequestBody RoleSaveQuery query) {
+    public BaseResult<Boolean> save(@Validated @RequestBody RoleSaveQuery query) {
         return BaseResult.success(roleService.save(query));
     }
 

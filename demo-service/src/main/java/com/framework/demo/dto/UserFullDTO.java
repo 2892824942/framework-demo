@@ -1,6 +1,10 @@
 package com.framework.demo.dto;
 
+import com.ty.mid.framework.common.annotation.desensitize.ChineseNameDesensitize;
+import com.ty.mid.framework.common.annotation.desensitize.EmailDesensitize;
+import com.ty.mid.framework.common.annotation.desensitize.PasswordDesensitize;
 import com.ty.mid.framework.common.dto.AbstractNameDTO;
+
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 import lombok.Setter;
@@ -25,15 +29,18 @@ public class UserFullDTO extends AbstractNameDTO implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Schema(description = "姓名")
+    @ChineseNameDesensitize
     private String name;
 
     @Schema(description = "密码")
+    @PasswordDesensitize
     private String password;
 
     @Schema(description = "年龄")
     private Integer age;
 
     @Schema(description = "邮箱")
+    @EmailDesensitize
     private String email;
 
     @Schema(description = "角色信息")
@@ -41,6 +48,5 @@ public class UserFullDTO extends AbstractNameDTO implements Serializable {
 
     @Schema(description = "用户地址code")
     private AddrDTO addrInfo;
-
 
 }

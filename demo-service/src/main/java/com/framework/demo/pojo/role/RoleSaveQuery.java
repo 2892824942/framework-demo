@@ -1,6 +1,8 @@
 package com.framework.demo.pojo.role;
 
 import com.framework.demo.entity.Role;
+import com.framework.demo.enums.RoleTypeEnum;
+import com.ty.mid.framework.common.annotation.validation.InEnum;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 import lombok.Setter;
@@ -26,6 +28,10 @@ public class RoleSaveQuery {
 
     @Schema(description = "角色标识")
     private String code;
+
+    @Schema(description = "角色类型")
+    @InEnum(RoleTypeEnum.class)
+    private Integer roleType;
 
     @Schema(description = "角色排序")
     private Integer sort;

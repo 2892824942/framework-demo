@@ -53,15 +53,20 @@
             <groupId>com.ty</groupId>
             <artifactId>ty-framework-lock-starter</artifactId>
         </dependency>
-        <!-- swagger-->
 
+        <!-- swagger-->
         <dependency>
-            <groupId>org.springdoc</groupId>  <!-- 接口文档 -->
+            <groupId>org.springdoc</groupId>
             <artifactId>springdoc-openapi-ui</artifactId>
         </dependency>
         <dependency>
-            <groupId>com.github.xiaoymin</groupId> <!-- 接口文档 -->
+            <groupId>com.github.xiaoymin</groupId>
             <artifactId>knife4j-openapi3-spring-boot-starter</artifactId>
+        </dependency>
+        <!--web 框架依赖  主要是需要脱敏相关的注解,后续优化下依赖-->
+        <dependency>
+            <groupId>com.ty</groupId>
+            <artifactId>ty-framework-web</artifactId>
         </dependency>
 
         <!--mapstruct-->
@@ -117,6 +122,7 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
+
     </dependencies>
 
 

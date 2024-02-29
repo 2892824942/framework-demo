@@ -1,5 +1,7 @@
 package com.framework.demo.dto;
 
+import com.framework.demo.enums.RoleTypeEnum;
+import com.ty.mid.framework.common.annotation.validation.InEnum;
 import com.ty.mid.framework.common.entity.BaseIdDO;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
