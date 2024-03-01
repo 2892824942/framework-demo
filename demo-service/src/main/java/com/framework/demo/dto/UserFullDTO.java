@@ -1,10 +1,10 @@
 package com.framework.demo.dto;
 
-import com.ty.mid.framework.common.annotation.desensitize.ChineseNameDesensitize;
-import com.ty.mid.framework.common.annotation.desensitize.EmailDesensitize;
-import com.ty.mid.framework.common.annotation.desensitize.PasswordDesensitize;
 import com.ty.mid.framework.common.dto.AbstractNameDTO;
 
+import com.ty.mid.framework.web.annotation.desensitize.ChineseNameDesensitize;
+import com.ty.mid.framework.web.annotation.desensitize.EmailDesensitize;
+import com.ty.mid.framework.web.annotation.desensitize.PasswordDesensitize;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 import lombok.Setter;
