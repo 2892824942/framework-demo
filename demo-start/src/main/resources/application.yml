@@ -9,7 +9,7 @@ spring:
   mvc:
     #处理spring mvc请求地址不存在
     throw-exception-if-no-handler-found: true
-    static-path-pattern:  /doc.html
+    static-path-pattern:  /**.**
   datasource:
     username: suyouliang
     password: '%M5sCQXNUq'
