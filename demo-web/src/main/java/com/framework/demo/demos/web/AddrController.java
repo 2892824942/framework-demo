@@ -23,6 +23,7 @@ import com.ty.mid.framework.common.pojo.BaseResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import javax.cache.CacheManager;
 import java.util.List;
 
 /**

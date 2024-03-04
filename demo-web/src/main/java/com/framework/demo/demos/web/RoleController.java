@@ -21,6 +21,9 @@ import com.framework.demo.pojo.role.RoleQuery;
 import com.framework.demo.pojo.role.RoleSaveQuery;
 import com.framework.demo.service.IRoleService;
 import com.ty.mid.framework.common.pojo.BaseResult;
+import com.ty.mid.framework.common.util.SafeGetUtil;
+import org.springframework.cache.Cache;
+import org.springframework.cache.CacheManager;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -33,13 +36,29 @@ import java.util.List;
 @RestController("角色控制器")
 @RequestMapping("role")
 public class RoleController {
+    @Resource
+    private CacheManager cacheManager;
 
     @Resource
     private IRoleService roleService;
 
+
+
     @PostMapping("/test")
     public BaseResult<Boolean> test(@RequestBody RoleSaveQuery query) {
         return BaseResult.success(roleService.test(query));
+    }
+
+    @PostMapping("/cache/get")
+    public BaseResult<RoleDTO> cacheGetByCode(@RequestParam String code) {
+        Cache roleDTOCache = cacheManager.getCache("test");
+
+        RoleDTO result = SafeGetUtil.getOrDefault(roleDTOCache.get(code, RoleDTO.class), () -> {
+            RoleDTO roleDTO = roleService.getByCode(code);
+            roleDTOCache.put(code, roleDTO);
+            return roleDTO;
+        });
+        return BaseResult.success(result);
     }
 
     @GetMapping("/getByCode")

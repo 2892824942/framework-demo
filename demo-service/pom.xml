@@ -69,6 +69,12 @@
             <artifactId>ty-framework-web</artifactId>
         </dependency>
 
+        <!--cache 框架依赖-->
+        <dependency>
+            <groupId>com.ty</groupId>
+            <artifactId>ty-framework-cache-starter</artifactId>
+        </dependency>
+
         <!--mapstruct-->
         <dependency>
             <groupId>org.mapstruct</groupId>
