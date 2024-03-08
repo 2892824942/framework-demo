@@ -79,8 +79,8 @@ public class AddressServiceImpl extends MpAllCacheService<Address, AddrDTO, Addr
     }
 
     /**
-     * 1.更新不会更新key相关字段,直接删除缓存即可
-     * 2.更新会更新key相关字段,需要先查询数据库原始数据,update后需要删除前后两个值已达到缓存重新加载的目的
+     * 1.如更新不会更新key相关字段,直接删除缓存即可
+     * 2.如更新会更新key相关字段,则需要先查询数据库原始数据,update后需要删除前后两个值已达到缓存重新加载的目的
      *
      * @param addrUpdateQuery
      * @return
@@ -111,9 +111,6 @@ public class AddressServiceImpl extends MpAllCacheService<Address, AddrDTO, Addr
 
     /**
      * 删除需要手动操作缓存,更新类似
-     * 1.如果更新不更新key相关字段,直接删除缓存
-     * 2.如果更新
-     *
      * @param id
      * @return
      */
@@ -146,6 +143,7 @@ public class AddressServiceImpl extends MpAllCacheService<Address, AddrDTO, Addr
 
     /**
      * 缓存Service:
+     * 缓存key和自动装载字段一致,自动装载将走缓存
      *
      * @return
      */

@@ -47,6 +47,4 @@ public interface UserMapper extends BaseMapperX<User, Long> {
 
         return selectPage(userQuery, wrapper);
     }
-
-    ;
 }

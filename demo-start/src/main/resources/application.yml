@@ -141,6 +141,6 @@ framework:
   cache:
     multi-enable: true
     redis:
-      cache-names: "test"
+      cache-names: test
       store-type: hash
     type: redis,caffeine
