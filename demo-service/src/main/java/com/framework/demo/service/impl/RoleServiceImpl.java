@@ -2,8 +2,6 @@ package com.framework.demo.service.impl;
 
 
 import cn.hutool.core.collection.CollUtil;
-import com.framework.demo.coverter.RoleConvert;
-import com.framework.demo.coverter.out.RoleDTOConvert;
 import com.framework.demo.dto.RoleDTO;
 import com.framework.demo.dto.RoleSimpleDTO;
 import com.framework.demo.entity.Role;
@@ -13,7 +11,6 @@ import com.framework.demo.pojo.role.RoleSaveQuery;
 import com.framework.demo.service.IRoleService;
 import com.ty.mid.framework.common.pojo.PageResult;
 import com.ty.mid.framework.lock.annotation.FailFastLock;
-import com.ty.mid.framework.service.integrate.GenericAutoWrapService;
 import com.ty.mid.framework.service.wrapper.AutoWrapService;
 import com.ty.mid.framework.service.wrapper.core.AutoWrapper;
 import org.springframework.context.annotation.Bean;
@@ -24,8 +21,6 @@ import javax.annotation.Resource;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -36,7 +31,7 @@ import java.util.stream.Collectors;
  * @since 2023-11-27
  */
 @Service
-public class RoleServiceImpl extends GenericAutoWrapService<Role, RoleDTO, RoleMapper> implements IRoleService {
+public class RoleServiceImpl extends AutoWrapService<Role, RoleDTO, RoleMapper> implements IRoleService {
 
     @Resource
     private RoleMapper roleMapper;
@@ -47,13 +42,13 @@ public class RoleServiceImpl extends GenericAutoWrapService<Role, RoleDTO, RoleM
 
     @Override
     public RoleDTO getByCode(String code) {
-        return RoleDTOConvert.INSTANCE.convert(roleMapper.selectOne(Role::getCode, code));
+        return convert(roleMapper.selectOne(Role::getCode, code));
     }
 
     @Override
     public PageResult<RoleDTO> getPage(RoleQuery roleQuery) {
         PageResult<Role> rolePageResult = roleMapper.selectPage(roleQuery);
-        return covertPage(rolePageResult, RoleDTOConvert.INSTANCE::convert);
+        return covertPage(rolePageResult);
     }
 
 
@@ -64,7 +59,7 @@ public class RoleServiceImpl extends GenericAutoWrapService<Role, RoleDTO, RoleM
         }
 
         List<Role> roleList = roleMapper.selectList(Role::getId, roleIdList);
-        return RoleDTOConvert.INSTANCE.convert(roleList);
+        return convert(roleList, RoleDTO.class);
     }
 
     @Override
@@ -73,7 +68,7 @@ public class RoleServiceImpl extends GenericAutoWrapService<Role, RoleDTO, RoleM
     @FailFastLock(keys = "#query.code")
     public Boolean save(RoleSaveQuery query) {
 
-        Role role = RoleConvert.INSTANCE.convert(query);
+        Role role = convert(query);
         return roleMapper.insert(role) > 0;
     }
 
@@ -89,7 +84,7 @@ public class RoleServiceImpl extends GenericAutoWrapService<Role, RoleDTO, RoleM
         if (CollUtil.isEmpty(queryList)) {
             return;
         }
-        List<Role> roleList = queryList.stream().map(RoleConvert.INSTANCE::convert).collect(Collectors.toList());
+        List<Role> roleList = convert(queryList, Role.class);
 
         roleMapper.insertBatch(roleList);
     }
@@ -101,15 +96,9 @@ public class RoleServiceImpl extends GenericAutoWrapService<Role, RoleDTO, RoleM
 
 
     @Bean
-    public AutoWrapper<Role> roleSimpleDTOAutoWrapper() {
+    public AutoWrapper<Role, RoleSimpleDTO> roleSimpleDTOAutoWrapper() {
         //注意:不可以省略后面的泛型否则报错
         return new AutoWrapService<Role, RoleSimpleDTO, RoleMapper>() {
-            @Override
-            public Map<?, RoleSimpleDTO> autoWrap(Collection<?> collection) {
-                //return this.convert(collection);  //BeanUtil复制
-                return this.convert(collection, RoleDTOConvert.INSTANCE::convert2Simple);
-            }
-
         };
     }
 

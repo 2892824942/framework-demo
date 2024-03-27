@@ -6,7 +6,7 @@ import com.framework.demo.entity.User;
 import com.framework.demo.entity.bo.UserFullBO;
 import com.framework.demo.pojo.user.UserQuery;
 import com.ty.mid.framework.common.pojo.PageResult;
-import com.ty.mid.framework.mybatisplus.core.mapper.BaseMapperX;
+import com.ty.mid.framework.mybatisplus.core.mapper.MPJBaseMapperX;
 import com.ty.mid.framework.mybatisplus.core.query.LambdaQueryWrapperX;
 import com.ty.mid.framework.mybatisplus.core.query.MPJLambdaWrapperX;
 import org.apache.ibatis.annotations.Mapper;
@@ -21,7 +21,7 @@ import org.apache.ibatis.annotations.Param;
  * @since 2023-11-27
  */
 @Mapper
-public interface UserMapper extends BaseMapperX<User, Long> {
+public interface UserMapper extends MPJBaseMapperX<User, Long> {
 
     default PageResult<UserFullBO> selectJoinPage(@Param("userPageQuery") UserQuery userQuery) {
         MPJLambdaWrapperX<User> wrapper = new MPJLambdaWrapperX<User>()

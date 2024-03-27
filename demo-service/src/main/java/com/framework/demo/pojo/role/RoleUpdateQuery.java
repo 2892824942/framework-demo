@@ -1,6 +1,8 @@
 package com.framework.demo.pojo.role;
 
+import com.framework.demo.entity.Role;
 import com.framework.demo.entity.Role.Extra;
+import io.github.linpeilie.annotations.AutoMapper;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 import lombok.Setter;
@@ -18,6 +20,7 @@ import java.util.Set;
 @Schema(description = "角色修改对象")
 @Getter
 @Setter
+@AutoMapper(target = Role.class, reverseConvertGenerate = false)
 public class RoleUpdateQuery {
 
     @Schema(description = "主键ID")

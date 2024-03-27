@@ -3,8 +3,6 @@ package com.framework.demo.service.impl;
 
 import com.alibaba.nacos.shaded.com.google.common.collect.Lists;
 import com.baomidou.mybatisplus.core.toolkit.support.SFunction;
-import com.framework.demo.coverter.AddrConvert;
-import com.framework.demo.coverter.out.AddrDTOConvert;
 import com.framework.demo.dto.AddrDTO;
 import com.framework.demo.entity.Address;
 import com.framework.demo.mapper.AddressMapper;
@@ -15,12 +13,14 @@ import com.framework.demo.service.IAddressService;
 import com.ty.mid.framework.common.pojo.PageParam;
 import com.ty.mid.framework.common.pojo.PageResult;
 import com.ty.mid.framework.common.util.GenericsUtil;
-import com.ty.mid.framework.service.cache.mybatisplus.MpAllCacheService;
+import com.ty.mid.framework.service.cache.mybatisplus.AllCacheAutoWrapService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.*;
-import java.util.function.Function;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -31,12 +31,11 @@ import java.util.function.Function;
  * @since 2023-11-27
  */
 @Service
-public class AddressServiceImpl extends MpAllCacheService<Address, AddrDTO, AddressMapper> implements IAddressService {
+public class AddressServiceImpl extends AllCacheAutoWrapService<Address, AddrDTO, AddressMapper> implements IAddressService {
 
     @Override
     public AddrDTO getByCode(String code) {
-        Address address = selectOne(Address::getCode, code);
-        return AddrDTOConvert.INSTANCE.convert(address);
+        return selectOneDTO(Address::getCode, code);
     }
 
     @Override
@@ -54,10 +53,7 @@ public class AddressServiceImpl extends MpAllCacheService<Address, AddrDTO, Addr
     public List<AddrDTO> getList(AddrQuery addrQuery) {
         addrQuery.setPageNo(PageParam.PAGE_SIZE_NONE);
         PageResult<Address> pageResult = baseMapper.getPage(addrQuery);
-        if (pageResult.isEmpty()) {
-            return Collections.emptyList();
-        }
-        return AddrDTOConvert.INSTANCE.convert(pageResult.getList());
+        return convert(pageResult.getList(), AddrDTO.class);
     }
 
 
@@ -74,7 +70,7 @@ public class AddressServiceImpl extends MpAllCacheService<Address, AddrDTO, Addr
 
     @Override
     public Boolean save(AddrSaveQuery query) {
-        Address address = AddrConvert.INSTANCE.convert(query);
+        Address address = convert(query, Address.class);
         return save(address);
     }
 
@@ -88,7 +84,7 @@ public class AddressServiceImpl extends MpAllCacheService<Address, AddrDTO, Addr
     @Override
     @Transactional
     public Boolean update(AddrUpdateQuery addrUpdateQuery) {
-        Address address = AddrConvert.INSTANCE.convert(addrUpdateQuery);
+        Address address = convert(addrUpdateQuery, Address.class);
         Address dbAddress = getById(address.getId());
         boolean result = updateById(address);
         if (result) {
@@ -105,12 +101,13 @@ public class AddressServiceImpl extends MpAllCacheService<Address, AddrDTO, Addr
      */
     @Override
     public void saveBatch(List<AddrSaveQuery> query) {
-        List<Address> dataList = AddrConvert.INSTANCE.convert(query);
+        List<Address> dataList = convert(query, Address.class);
         super.saveBatch(dataList);
     }
 
     /**
      * 删除需要手动操作缓存,更新类似
+     *
      * @param id
      * @return
      */
@@ -160,8 +157,7 @@ public class AddressServiceImpl extends MpAllCacheService<Address, AddrDTO, Addr
      */
     @Override
     public Map<?, AddrDTO> autoWrap(Collection<?> collection) {
-        Function<List<Address>, List<AddrDTO>> function = AddrDTOConvert.INSTANCE::convert;
-        return convert(GenericsUtil.check2Collection(collection), Address::getCode, AddrDTO::getCode, function);
+        return convertMap(GenericsUtil.check2Collection(collection), Address::getCode, AddrDTO::getCode);
     }
 
 }

@@ -3,6 +3,7 @@ package com.framework.demo.pojo.role;
 import com.framework.demo.entity.Role;
 import com.framework.demo.enums.RoleTypeEnum;
 import com.ty.mid.framework.common.annotation.validation.InEnum;
+import io.github.linpeilie.annotations.AutoMapper;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 import lombok.Setter;
@@ -20,6 +21,7 @@ import java.util.Set;
 @Schema(description = "用户分保存对象")
 @Getter
 @Setter
+@AutoMapper(target = Role.class, reverseConvertGenerate = false)
 public class RoleSaveQuery {
 
     @Schema(description = "角色名称")

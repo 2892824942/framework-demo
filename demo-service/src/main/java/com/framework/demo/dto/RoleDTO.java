@@ -1,8 +1,8 @@
 package com.framework.demo.dto;
 
-import com.framework.demo.enums.RoleTypeEnum;
-import com.ty.mid.framework.common.annotation.validation.InEnum;
+import com.framework.demo.entity.Role;
 import com.ty.mid.framework.common.entity.BaseIdDO;
+import io.github.linpeilie.annotations.AutoMapper;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 import lombok.Setter;
@@ -17,6 +17,7 @@ import lombok.Setter;
 @Schema(description = "角色基本对象")
 @Getter
 @Setter
+@AutoMapper(target = Role.class)
 public class RoleDTO implements BaseIdDO<Long> {
 
     private static final long serialVersionUID = 1L;

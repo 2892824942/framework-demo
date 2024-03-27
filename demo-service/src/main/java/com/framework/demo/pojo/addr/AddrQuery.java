@@ -1,6 +1,8 @@
 package com.framework.demo.pojo.addr;
 
+import com.framework.demo.entity.Address;
 import com.ty.mid.framework.common.pojo.PageParam;
+import io.github.linpeilie.annotations.AutoMapper;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -18,6 +20,7 @@ import java.util.List;
 @EqualsAndHashCode(callSuper = true)
 @Schema(description = "角色分页查询对象")
 @Data
+@AutoMapper(target = Address.class)
 public class AddrQuery extends PageParam {
 
     @Schema(description = "id")

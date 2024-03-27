@@ -9,7 +9,7 @@ import com.ty.mid.framework.mybatisplus.core.dataobject.BaseDO;
 import com.ty.mid.framework.mybatisplus.core.type.DefaultTypeHandler;
 import com.ty.mid.framework.mybatisplus.core.type.EncryptTypeHandler;
 import com.ty.mid.framework.mybatisplus.core.type.LongListTypeHandler;
-import com.ty.mid.framework.service.wrapper.core.BMapping;
+import com.ty.mid.framework.service.wrapper.core.AutoWrap;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 import lombok.Setter;
@@ -43,7 +43,7 @@ public class User extends BaseDO {
 
     @Schema(description = "角色id列表,多个使用,号隔开")
     @TableField(value = "`role_ids`", typeHandler = LongListTypeHandler.class)
-    @BMapping(values = {RoleDTO.class, RoleSimpleDTO.class})
+    @AutoWrap(values = {RoleDTO.class, RoleSimpleDTO.class})
     private List<Long> roleIds;
 
     @Schema(description = "年龄")
@@ -55,6 +55,6 @@ public class User extends BaseDO {
 
     @Schema(description = "用户地址code")
     @TableField(value = "`addr_code`")
-    @BMapping(values = AddrDTO.class)
+    @AutoWrap(values = AddrDTO.class)
     private String addrCode;
 }

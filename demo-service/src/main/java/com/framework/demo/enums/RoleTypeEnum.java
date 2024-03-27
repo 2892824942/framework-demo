@@ -7,16 +7,16 @@ import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
-public enum RoleTypeEnum implements KVResp<Integer,String> {
+public enum RoleTypeEnum implements KVResp<Integer, String> {
 
     /**
      * 内置角色
      */
-    SYSTEM(1,"内置角色"),
+    SYSTEM(1, "内置角色"),
     /**
      * 自定义角色
      */
-    CUSTOM(2,"自定义角色");
+    CUSTOM(2, "自定义角色");
 
     private final Integer type;
 

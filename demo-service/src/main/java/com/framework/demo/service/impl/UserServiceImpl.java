@@ -2,8 +2,6 @@ package com.framework.demo.service.impl;
 
 
 import cn.hutool.core.collection.CollUtil;
-import com.framework.demo.coverter.UserConvert;
-import com.framework.demo.coverter.out.UserDTOConvert;
 import com.framework.demo.dto.UserFullDTO;
 import com.framework.demo.dto.UserInfoDTO;
 import com.framework.demo.entity.User;
@@ -14,11 +12,15 @@ import com.framework.demo.pojo.user.UserSaveQuery;
 import com.framework.demo.service.IUserService;
 import com.ty.mid.framework.common.pojo.PageParam;
 import com.ty.mid.framework.common.pojo.PageResult;
-import com.ty.mid.framework.service.integrate.GenericAutoWrapService;
+import com.ty.mid.framework.service.wrapper.AutoWrapService;
+import com.ty.mid.framework.service.wrapper.UserNameTranslation;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
@@ -30,7 +32,7 @@ import java.util.stream.Collectors;
  * @since 2023-11-27
  */
 @Service
-public class UserServiceImpl extends GenericAutoWrapService<User, UserFullDTO, UserMapper> implements IUserService {
+public class UserServiceImpl extends AutoWrapService<User, UserFullDTO, UserMapper> implements IUserService, UserNameTranslation {
 
     @Resource
     private UserMapper userMapper;
@@ -40,7 +42,7 @@ public class UserServiceImpl extends GenericAutoWrapService<User, UserFullDTO, U
         if (isNegative(id)) {
             return null;
         }
-        return UserDTOConvert.INSTANCE.convert(userMapper.selectById(id));
+        return convert(userMapper.selectById(id));
     }
 
     @Override
@@ -52,19 +54,19 @@ public class UserServiceImpl extends GenericAutoWrapService<User, UserFullDTO, U
     public List<UserFullDTO> getFullList(UserQuery userQuery) {
         userQuery.openSelectAll();
         PageResult<User> userPageResult = userMapper.selectPage(userQuery);
-        return UserDTOConvert.INSTANCE.convert(userPageResult.getList());
+        return convert(userPageResult.getList(), UserFullDTO.class);
     }
 
     @Override
     public List<UserInfoDTO> getInfoList(UserQuery userQuery) {
         userQuery.setPageNo(PageParam.PAGE_SIZE_NONE);
         PageResult<User> userPageResult = userMapper.selectPage(userQuery);
-        return UserDTOConvert.INSTANCE.convert2Info(userPageResult.getList());
+        return convert(userPageResult.getList(), UserInfoDTO.class);
     }
 
     @Override
     public Boolean save(UserSaveQuery query) {
-        User user = UserConvert.INSTANCE.convert(query);
+        User user = convert(query);
         return userMapper.insert(user) > 0;
     }
 
@@ -73,7 +75,7 @@ public class UserServiceImpl extends GenericAutoWrapService<User, UserFullDTO, U
         if (CollUtil.isEmpty(queryList)) {
             return;
         }
-        List<User> userList = queryList.stream().map(UserConvert.INSTANCE::convert).collect(Collectors.toList());
+        List<User> userList = convert(queryList, User.class);
 
         userMapper.insertBatch(userList);
     }
@@ -83,5 +85,18 @@ public class UserServiceImpl extends GenericAutoWrapService<User, UserFullDTO, U
         return userMapper.deleteById(id) > 0;
     }
 
-
+    /**
+     * 业务暂时使用接口方式
+     *
+     * @param collection
+     * @return
+     */
+    @Override
+    public Map<Long, String> getUserNameMap(Collection<Long> collection) {
+        List<User> userList = userMapper.selectList(User::getId, collection);
+        if (CollUtil.isEmpty(userList)) {
+            return Collections.emptyMap();
+        }
+        return userList.stream().collect(Collectors.toMap(User::getId, User::getName, (a, b) -> a));
+    }
 }

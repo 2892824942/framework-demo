@@ -1,6 +1,8 @@
 package com.framework.demo.pojo.user;
 
 import com.baomidou.mybatisplus.annotation.TableField;
+import com.framework.demo.entity.User;
+import io.github.linpeilie.annotations.AutoMapper;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 import lombok.Setter;
@@ -16,6 +18,7 @@ import lombok.Setter;
 @Schema(description = "用户分页查询对象")
 @Getter
 @Setter
+@AutoMapper(target = User.class, reverseConvertGenerate = false)
 public class UserUpdateQuery {
 
     @Schema(description = "主键ID")

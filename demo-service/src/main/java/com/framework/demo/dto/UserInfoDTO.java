@@ -1,6 +1,9 @@
 package com.framework.demo.dto;
 
+import com.framework.demo.entity.User;
 import com.ty.mid.framework.common.dto.AbstractNameDTO;
+import com.ty.mid.framework.web.annotation.desensitize.PasswordDesensitize;
+import io.github.linpeilie.annotations.AutoMapper;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 import lombok.Setter;
@@ -20,6 +23,7 @@ import java.util.List;
 @Schema(description = "用户简单对象")
 @Getter
 @Setter
+@AutoMapper(target = User.class)
 public class UserInfoDTO extends AbstractNameDTO implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -28,6 +32,7 @@ public class UserInfoDTO extends AbstractNameDTO implements Serializable {
     private String name;
 
     @Schema(description = "密码")
+    @PasswordDesensitize
     private String password;
 
     @Schema(description = "角色信息")

@@ -142,5 +142,9 @@ framework:
     multi-enable: true
     redis:
       cache-names: test
+      #除了存储格式不同外,hash过期时间不会续期,key-value访问会续期
       store-type: hash
-    type: redis,caffeine
+      time-to-live: 20s
+      key-prefix: prefix
+      enable-statistics: true
+    type: redis

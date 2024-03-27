@@ -2,6 +2,7 @@ package com.framework.demo.dto;
 
 import com.ty.mid.framework.common.entity.BaseIdDO;
 import com.ty.mid.framework.common.pojo.KVResp;
+import io.github.linpeilie.annotations.AutoMapper;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 import lombok.Setter;
@@ -16,6 +17,7 @@ import lombok.Setter;
 @Schema(description = "角色简单对象")
 @Getter
 @Setter
+@AutoMapper(target = RoleDTO.class)
 public class RoleSimpleDTO implements BaseIdDO<Long> {
 
     private static final long serialVersionUID = 1L;

@@ -29,6 +29,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * @author
@@ -55,7 +56,9 @@ public class RoleController {
 
         RoleDTO result = SafeGetUtil.getOrDefault(roleDTOCache.get(code, RoleDTO.class), () -> {
             RoleDTO roleDTO = roleService.getByCode(code);
-            roleDTOCache.put(code, roleDTO);
+            if (Objects.nonNull(roleDTO)){
+                roleDTOCache.put(code, roleDTO);
+            }
             return roleDTO;
         });
         return BaseResult.success(result);
