@@ -53,16 +53,6 @@ public class RoleServiceImpl extends AutoWrapService<Role, RoleDTO, RoleMapper> 
 
 
     @Override
-    public List<RoleDTO> covertRole(Collection<Long> roleIdList) {
-        if (CollUtil.isEmpty(roleIdList)) {
-            return Collections.emptyList();
-        }
-
-        List<Role> roleList = roleMapper.selectList(Role::getId, roleIdList);
-        return convert(roleList, RoleDTO.class);
-    }
-
-    @Override
     //@Transactional(propagation = Propagation.REQUIRES_NEW)
     @Transactional(rollbackFor = Exception.class)
     @FailFastLock(keys = "#query.code")

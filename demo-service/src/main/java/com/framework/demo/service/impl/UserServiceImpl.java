@@ -42,7 +42,7 @@ public class UserServiceImpl extends AutoWrapService<User, UserFullDTO, UserMapp
         if (isNegative(id)) {
             return null;
         }
-        return convert(userMapper.selectById(id));
+        return selectOneDTO(User::getId, id);
     }
 
     @Override

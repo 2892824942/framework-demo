@@ -2,11 +2,13 @@ package com.framework.demo.enums;
 
 
 import com.ty.mid.framework.common.pojo.KVResp;
+import io.github.linpeilie.annotations.AutoEnumMapper;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
+@AutoEnumMapper("key")
 public enum RoleTypeEnum implements KVResp<Integer, String> {
 
     /**

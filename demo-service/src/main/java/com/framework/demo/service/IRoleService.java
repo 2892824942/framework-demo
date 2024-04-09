@@ -23,7 +23,6 @@ public interface IRoleService {
 
     PageResult<RoleDTO> getPage(RoleQuery roleQuery);
 
-    List<RoleDTO> covertRole(Collection<Long> roleIdList);
 
     Boolean save(RoleSaveQuery query);
 

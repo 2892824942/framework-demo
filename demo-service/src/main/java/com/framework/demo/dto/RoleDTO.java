@@ -1,6 +1,7 @@
 package com.framework.demo.dto;
 
 import com.framework.demo.entity.Role;
+import com.framework.demo.enums.RoleTypeEnum;
 import com.ty.mid.framework.common.entity.BaseIdDO;
 import io.github.linpeilie.annotations.AutoMapper;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -29,6 +30,9 @@ public class RoleDTO implements BaseIdDO<Long> {
 
     @Schema(description = "角色标识")
     private String code;
+
+    @Schema(description = "角色类型:1内置角色 2自定义角色")
+    private RoleTypeEnum roleType;
 
     @Schema(description = "角色排序")
     private Integer sort;

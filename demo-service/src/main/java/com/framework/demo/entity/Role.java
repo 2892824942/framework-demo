@@ -4,8 +4,10 @@ package com.framework.demo.entity;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.extension.handlers.JacksonTypeHandler;
+import com.framework.demo.enums.RoleTypeEnum;
 import com.ty.mid.framework.mybatisplus.core.dataobject.BaseDO;
 import com.ty.mid.framework.mybatisplus.core.type.JsonLongSetTypeHandler;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -32,6 +34,11 @@ public class Role extends BaseDO {
      * 角色排序
      */
     private Integer sort;
+
+    /**
+     * 角色类型:1内置角色 2自定义角色
+     */
+    private Integer roleType;
     /**
      * 角色状态
      * <p>
