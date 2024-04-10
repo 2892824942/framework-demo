@@ -6,7 +6,6 @@ import com.framework.demo.pojo.role.RoleQuery;
 import com.framework.demo.pojo.role.RoleSaveQuery;
 import com.ty.mid.framework.common.pojo.PageResult;
 
-import java.util.Collection;
 import java.util.List;
 
 /**

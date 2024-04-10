@@ -44,7 +44,6 @@ public class RoleController {
     private IRoleService roleService;
 
 
-
     @PostMapping("/test")
     public BaseResult<Boolean> test(@RequestBody RoleSaveQuery query) {
         return BaseResult.success(roleService.test(query));
@@ -56,7 +55,7 @@ public class RoleController {
 
         RoleDTO result = SafeGetUtil.getOrDefault(roleDTOCache.get(code, RoleDTO.class), () -> {
             RoleDTO roleDTO = roleService.getByCode(code);
-            if (Objects.nonNull(roleDTO)){
+            if (Objects.nonNull(roleDTO)) {
                 roleDTOCache.put(code, roleDTO);
             }
             return roleDTO;

@@ -18,8 +18,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
-import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
 
 /**
@@ -32,10 +30,8 @@ import java.util.List;
  */
 @Service
 public class RoleServiceImpl extends AutoWrapService<Role, RoleDTO, RoleMapper> implements IRoleService {
-
     @Resource
     private RoleMapper roleMapper;
-
     @Resource
     private IRoleService _self;
 
