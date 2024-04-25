@@ -23,6 +23,10 @@
         </dependency>
         <dependency>
             <groupId>com.ty</groupId>
+            <artifactId>ty-framework-security-starter</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.ty</groupId>
             <artifactId>ty-framework-lock-starter</artifactId>
         </dependency>
         <dependency>
