@@ -16,18 +16,22 @@
  */
 package com.framework.demo.demos.nacosdiscoveryconsumer;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
+@Tag(name = "OpenFeign测试控制器",description = "OpenFeign测试控制器")
 public class OpenFeignController {
 
     @Autowired
     private EchoService echoService;
 
     @GetMapping("/feign/echo/{message}")
+    @Operation(summary = "测试openFeign")
     public String feignEcho(@PathVariable String message) {
         return echoService.echo(message);
     }

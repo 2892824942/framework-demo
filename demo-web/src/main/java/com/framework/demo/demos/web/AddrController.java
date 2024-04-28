@@ -19,6 +19,8 @@ package com.framework.demo.demos.web;
 import com.framework.demo.dto.AddrDTO;
 import com.framework.demo.service.IAddressService;
 import com.ty.mid.framework.common.pojo.BaseResult;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -27,6 +29,7 @@ import java.util.List;
 /**
  * 地址控制器
  */
+@Tag(name = "地址控制器",description = "地址相关操作")
 @RestController("地址控制器")
 @RequestMapping("addr")
 public class AddrController {
@@ -35,11 +38,13 @@ public class AddrController {
     private IAddressService addressService;
 
     @GetMapping("/getByCode")
+    @Operation(summary = "通过code获取地址")
     public BaseResult<AddrDTO> getByCode(@RequestParam String code) {
         return BaseResult.success(addressService.getByCodeFromCache(code));
     }
 
     @GetMapping("/getByCodes")
+    @Operation(summary = "通过codes获取地址")
     public BaseResult<List<AddrDTO>> getByCodes(@RequestBody List<String> codes) {
         return BaseResult.success(addressService.getByCodesFromCache(codes));
     }

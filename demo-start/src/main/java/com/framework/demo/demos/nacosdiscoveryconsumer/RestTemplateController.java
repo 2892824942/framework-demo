@@ -16,6 +16,8 @@
  */
 package com.framework.demo.demos.nacosdiscoveryconsumer;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.context.annotation.Bean;
@@ -25,6 +27,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
 @RestController
+@Tag(name = "Rest测试控制器",description = "Rest测试控制器")
 public class RestTemplateController {
 
     @LoadBalanced
@@ -38,6 +41,7 @@ public class RestTemplateController {
     }
 
     @GetMapping("/call/echo/{message}")
+    @Operation(summary = "测试Rest")
     public String callEcho(@PathVariable String message) {
         // 访问应用 nacos-service 的 REST "/echo/{message}"
         return restTemplate.getForObject("http://demo/echo/" + message, String.class);

@@ -22,6 +22,8 @@ import com.framework.demo.pojo.role.RoleSaveQuery;
 import com.framework.demo.service.IRoleService;
 import com.ty.mid.framework.common.pojo.BaseResult;
 import com.ty.mid.framework.common.util.SafeGetUtil;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.cache.Cache;
 import org.springframework.cache.CacheManager;
 import org.springframework.validation.annotation.Validated;
@@ -34,6 +36,7 @@ import java.util.Objects;
 /**
  * 角色控制器
  */
+@Tag(name = "角色控制器",description = "角色相关接口")
 @RestController("角色控制器")
 @RequestMapping("role")
 public class RoleController {
@@ -44,12 +47,14 @@ public class RoleController {
     private IRoleService roleService;
 
 
-    @PostMapping("/test")
+    @PostMapping("/test/transaction")
+    @Operation(summary = "保存角色",description = "通过事务嵌套,测试缓存")
     public BaseResult<Boolean> test(@RequestBody RoleSaveQuery query) {
         return BaseResult.success(roleService.test(query));
     }
 
     @PostMapping("/cache/get")
+    @Operation(summary = "通过code获取角色",description = "方法底层走缓存")
     public BaseResult<RoleDTO> cacheGetByCode(@RequestParam String code) {
         Cache roleDTOCache = cacheManager.getCache("test");
 
@@ -64,29 +69,34 @@ public class RoleController {
     }
 
     @GetMapping("/getByCode")
+    @Operation(summary = "通过code获取角色")
     public BaseResult<RoleDTO> getByCode(@RequestParam String code) {
         return BaseResult.success(roleService.getByCode(code));
     }
 
 
     @PostMapping("/getPage")
+    @Operation(summary = "分页查询角色")
     public BaseResult<List<RoleDTO>> getPage(@RequestBody RoleQuery query) {
         return BaseResult.successPage(roleService.getPage(query));
     }
 
 
     @PostMapping("/save")
+    @Operation(summary = "保存角色")
     public BaseResult<Boolean> save(@Validated @RequestBody RoleSaveQuery query) {
         return BaseResult.success(roleService.save(query));
     }
 
 
     @PostMapping("/saveBatch")
+    @Operation(summary = "批量保存角色")
     public void saveBatch(@RequestBody List<RoleSaveQuery> query) {
         roleService.saveBatch(query);
     }
 
     @DeleteMapping("/delete/{id}")
+    @Operation(summary = "通过id删除角色")
     public BaseResult<Boolean> delete(@PathVariable(value = "id") Long id) {
         return BaseResult.success(roleService.deleteById(id));
     }

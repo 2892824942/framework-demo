@@ -124,7 +124,11 @@ sa-token:
 #↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓框架相关配置↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓
 framework:
   security:
-    isAnnotation: true
+    enable-annotation: true
+    #是否开启token伪装能力
+    enable-guise: true
+    #token伪装能力白名单,默认:所有用户均为白名单 设置后:则仅设置的用户可使用token伪装能力
+    enable-guise-user-ids: 10001
   lock:
     enable: true
     implementer: redis

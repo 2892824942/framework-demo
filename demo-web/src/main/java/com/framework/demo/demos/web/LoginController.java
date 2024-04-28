@@ -5,6 +5,9 @@ import cn.dev33.satoken.stp.SaTokenInfo;
 import cn.dev33.satoken.stp.StpUtil;
 import com.ty.mid.framework.common.lang.NeverNull;
 import com.ty.mid.framework.common.pojo.BaseResult;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -14,13 +17,15 @@ import javax.validation.constraints.NotNull;
 /**
  * 登录测试 
  */
+@Tag(name = "登录操作",description = "登录相关操作")
 @RestController
 @RequestMapping("/login/")
 public class LoginController {
 
     @SaIgnore
-    @RequestMapping("doLogin")
+    @GetMapping("doLogin")
     @Valid
+    @Operation(summary = "用户名密码登录")
     public BaseResult<String> doLogin(@NotNull String name, @NotNull String pwd) {
         // 此处仅作模拟示例，真实项目需要从数据库中查询数据进行比对 
         if("zhang".equals(name) && "123456".equals(pwd)) {
@@ -30,20 +35,23 @@ public class LoginController {
         return BaseResult.fail("登录失败");
     }
 
-    // 查询登录状态  ---- http://localhost:8081/acc/isLogin
-    @RequestMapping("isLogin")
+    @SaIgnore
+    @GetMapping("isLogin")
+    @Operation(summary = "是否登录")
     public BaseResult<String> isLogin() {
         return BaseResult.success("是否登录：" + StpUtil.isLogin());
     }
-    
-    // 查询 Token 信息  ---- http://localhost:8081/acc/tokenInfo
-    @RequestMapping("tokenInfo")
+
+    @SaIgnore
+    @GetMapping("tokenInfo")
+    @Operation(summary = "用户token详情")
     public BaseResult<SaTokenInfo> tokenInfo() {
         return BaseResult.success(StpUtil.getTokenInfo());
     }
-    
-    // 测试注销  ---- http://localhost:8081/acc/logout
-    @RequestMapping("logout")
+
+    @SaIgnore
+    @GetMapping("logout")
+    @Operation(summary = "登出")
     public BaseResult<Void> logout() {
         StpUtil.logout();
         return BaseResult.success();
