@@ -12,6 +12,7 @@ import com.ty.mid.framework.common.pojo.BaseResult;
 import com.ty.mid.framework.common.util.AssertUtil;
 import com.ty.mid.framework.security.utils.LoginHelper;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -41,7 +42,8 @@ public class LoginController {
     @GetMapping("doLogin")
     @Valid
     @Operation(summary = "用户名密码登录")
-    public BaseResult<LoginUser> doLogin(@NotBlank(message = "用户名不能为空") String name, @NotBlank(message = "密码不能为空") String pwd) {
+    public BaseResult<LoginUser> doLogin(@Schema(description = "用户名") @NotBlank(message = "用户名不能为空") String name
+            , @Schema(description = "密码") @NotBlank(message = "密码不能为空") String pwd) {
         UserFullDTO userFullDTO = userService.getByUserName(name);
         AssertUtil.notEmpty(userFullDTO, ErrorCodeEnum.LOGIN_FAIL);
         AssertUtil.equals(userFullDTO.getPassword(), pwd, ErrorCodeEnum.LOGIN_FAIL);
