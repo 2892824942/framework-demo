@@ -11,6 +11,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.io.Serializable;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -46,7 +47,7 @@ public class UserFullDTO extends AbstractNameDTO implements Serializable {
     private String email;
 
     @Schema(description = "角色信息")
-    private List<RoleDTO> roleInfos;
+    private List<RoleDTO> roleInfos = Collections.emptyList();
 
     @Schema(description = "用户地址code")
     private AddrDTO addrInfo;

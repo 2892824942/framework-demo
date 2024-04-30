@@ -1,8 +1,7 @@
 package com.framework.demo.demos.web;
 
+import cn.dev33.satoken.annotation.SaCheckRole;
 import cn.dev33.satoken.annotation.SaIgnore;
-import cn.dev33.satoken.stp.SaTokenInfo;
-import cn.dev33.satoken.stp.StpLogic;
 import cn.dev33.satoken.stp.StpUtil;
 import com.ty.mid.framework.common.pojo.BaseResult;
 import com.ty.mid.framework.common.pojo.Result;
@@ -16,12 +15,13 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
 /**
- * 登录测试 
+ * 登录测试
  */
-@Tag(name = "系统管理操作",description = "给系统开发者提供的便携接口")
+@Tag(name = "系统管理操作", description = "给系统开发者提供的便携接口")
 @RestController
 @RequestMapping("/login/")
 @Valid
+@SaCheckRole(value = "admin")
 public class OpsController {
 
     @SaIgnore
@@ -32,16 +32,23 @@ public class OpsController {
     }
 
     @GetMapping("switchTo")
-    @Operation(summary = "当前用户伪装为另一个用户",description = "这个接口一定注意安全,防止恶意利用")
+    @Operation(summary = "当前用户伪装为另一个用户", description = "这个接口一定注意安全,防止恶意利用,确保security配置enableGuise开启,否则无效")
     public BaseResult<String> switchTo(@NotNull(message = "切换的用户id不能为空") String userId) {
         StpUtil.switchTo(userId);
-        StpUtil.getTokenInfo();
-        return BaseResult.success("切换userId：" + userId+"成功");
+        return BaseResult.success("切换userId：" + userId + "成功");
     }
+
     @GetMapping("endSwitch")
-    @Operation(summary = "结束伪装为另一个用户",description = "这个接口一定注意安全,防止恶意利用")
+    @Operation(summary = "结束伪装为另一个用户", description = "这个接口一定注意安全,防止恶意利用,确保security配置enableGuise开启,否则无效")
     public BaseResult<String> endSwitch(@NotNull(message = "切换的用户id不能为空") String userId) {
         StpUtil.endSwitch();
-        return BaseResult.success("结束切换userId：" + userId+"成功");
+        return BaseResult.success("结束切换userId：" + userId + "成功");
+    }
+
+    @GetMapping("kickOut")
+    @Operation(summary = "会话踢下线")
+    public BaseResult<String> kickOut(@NotNull(message = "踢下线用户id不能为空") String userId) {
+        StpUtil.kickout(userId);
+        return BaseResult.success("用户userId：" + userId + "踢下线成功");
     }
 }

@@ -17,6 +17,8 @@ import com.ty.mid.framework.service.wrapper.UserNameTranslation;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
@@ -32,6 +34,7 @@ import java.util.stream.Collectors;
  * @since 2023-11-27
  */
 @Service
+@Valid
 public class UserServiceImpl extends AutoWrapService<User, UserFullDTO, UserMapper> implements IUserService, UserNameTranslation {
 
     @Resource
@@ -83,6 +86,12 @@ public class UserServiceImpl extends AutoWrapService<User, UserFullDTO, UserMapp
     @Override
     public Boolean deleteById(Long id) {
         return userMapper.deleteById(id) > 0;
+    }
+
+    @Override
+    public UserFullDTO getByUserName(@NotNull String name) {
+        return selectOneDTO(User::getName, name);
+
     }
 
     /**

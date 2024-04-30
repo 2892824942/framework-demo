@@ -33,4 +33,6 @@ public interface IUserService {
     void saveBatch(List<UserSaveQuery> query);
 
     Boolean deleteById(Long id);
+
+    UserFullDTO getByUserName(String name);
 }
