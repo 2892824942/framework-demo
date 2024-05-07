@@ -33,11 +33,6 @@ import java.util.stream.Collectors;
 public class LoginController {
     private final IUserService userService;
 
-    public static void main(String[] args) {
-        Object loginIdByToken = StpUtil.getLoginIdByToken("eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJsb2dpblR5cGUiOiJsb2dpbiIsImxvZ2luSWQiOjEwMDAxLCJyblN0ciI6IkVEM2hxVnk3RGNwRkZVQnc2aFZtWUFNa3V1UW9TSjFnIn0.Wt3N2zWQBWUiUC6yrVdtcOKMRY9PbMCszRUPbWq4f0I");
-        System.out.println(loginIdByToken);
-    }
-
     @SaIgnore
     @GetMapping("doLogin")
     @Valid

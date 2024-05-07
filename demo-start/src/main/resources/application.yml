@@ -114,12 +114,13 @@ mybatis-plus:
 
 sa-token:
   tokenName: token
-  is-log: true
+  is-log: false
   is-print: false
   jwtSecretKey: test123456
   #是否允许同一账号多地同时登录
   is-concurrent: false
   token-style: simple-uuid
+  is-read-cookie: false
 
 #↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓框架相关配置↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓
 framework:
