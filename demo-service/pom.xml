@@ -66,22 +66,27 @@
             <artifactId>ty-framework-cache-starter</artifactId>
         </dependency>
 
-        <!--mybatis-plus-join 依赖-->
+        <!--mybatis-plus-join 增强依赖-->
         <dependency>
             <groupId>com.github.yulichang</groupId>
             <artifactId>mybatis-plus-join-boot-starter</artifactId>
         </dependency>
 
-
+        <!--mybatis-plus 依赖 -->
         <dependency>
             <groupId>com.ty</groupId>
             <artifactId>ty-framework-mybatis-plus</artifactId>
             <version>${ty-framework.version}</version>
         </dependency>
+        <!--加密组件依赖-->
+        <dependency>
+            <groupId>com.ty</groupId>
+            <artifactId>ty-framework-encrypt</artifactId>
+            <version>${ty-framework.version}</version>
+        </dependency>
         <dependency>
             <groupId>com.baomidou</groupId>
             <artifactId>mybatis-plus-generator</artifactId>
-            <version>3.5.4.1</version>
             <scope>test</scope>
         </dependency>
 

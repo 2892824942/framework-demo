@@ -109,8 +109,6 @@ mybatis-plus:
       logic-delete-value: 1 # 逻辑已删除值(默认为 1)
       logic-not-delete-value: 0 # 逻辑未删除值(默认为 0)
     banner: false # 关闭控制台的 Banner 打印
-  encryptor:
-    password: XDV71a+xqStEA3WH # 加解密的秘钥，可使用 https://www.imaegoo.com/2020/aes-key-generator/ 网站生成
 
 sa-token:
   tokenName: token
@@ -130,6 +128,10 @@ framework:
     enable-guise: true
     #token伪装能力白名单,默认:所有用户均为白名单 设置后:则仅设置的用户可使用token伪装能力
     enable-guise-user-ids: 10001
+  encrypt:
+    enable: true
+    password: XDV71a+xqStEA3WH
+
   lock:
     enable: true
     implementer: redis

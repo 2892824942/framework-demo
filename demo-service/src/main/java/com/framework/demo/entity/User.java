@@ -5,9 +5,10 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import com.framework.demo.dto.AddrDTO;
 import com.framework.demo.dto.RoleDTO;
 import com.framework.demo.dto.RoleSimpleDTO;
+import com.ty.mid.framework.encrypt.annotation.EncryptField;
+import com.ty.mid.framework.encrypt.enumd.AlgorithmType;
 import com.ty.mid.framework.mybatisplus.core.dataobject.BaseDO;
 import com.ty.mid.framework.mybatisplus.core.type.DefaultTypeHandler;
-import com.ty.mid.framework.mybatisplus.core.type.EncryptTypeHandler;
 import com.ty.mid.framework.mybatisplus.core.type.LongListTypeHandler;
 import com.ty.mid.framework.service.wrapper.core.AutoWrap;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -38,7 +39,7 @@ public class User extends BaseDO {
     private String name;
 
     @Schema(description = "密码")
-    @TableField(value = "`password`", typeHandler = EncryptTypeHandler.class)
+    @EncryptField(algorithm= AlgorithmType.AES)
     private String password;
 
     @Schema(description = "角色id列表,多个使用,号隔开")
