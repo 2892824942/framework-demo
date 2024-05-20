@@ -148,7 +148,7 @@ framework:
       enable: true
     #hashId配置
     hash-id:
-      enable: false
+      enable: true
       min-length: 4
       salt: 'test111'
   swagger:

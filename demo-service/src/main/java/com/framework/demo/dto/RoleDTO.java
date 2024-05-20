@@ -3,6 +3,7 @@ package com.framework.demo.dto;
 import com.framework.demo.entity.Role;
 import com.framework.demo.enums.RoleTypeEnum;
 import com.ty.mid.framework.common.entity.BaseIdDO;
+import com.ty.mid.framework.web.annotation.desensitize.HashedId;
 import io.github.linpeilie.annotations.AutoMapper;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
@@ -23,6 +24,7 @@ public class RoleDTO implements BaseIdDO<Long> {
 
     private static final long serialVersionUID = 1L;
     @Schema(description = "id")
+    @HashedId
     private Long id;
 
     @Schema(description = "角色名称")

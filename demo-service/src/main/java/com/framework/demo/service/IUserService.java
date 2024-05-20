@@ -22,6 +22,8 @@ public interface IUserService {
 
     UserFullDTO getById(Long id);
 
+    List<UserFullDTO>  getByIds(List<Long> ids);
+
     PageResult<UserFullBO> getPage(UserQuery userQuery);
 
     List<UserFullDTO> getFullList(UserQuery userQuery);
@@ -29,6 +31,8 @@ public interface IUserService {
     List<UserInfoDTO> getInfoList(UserQuery userQuery);
 
     Boolean save(UserSaveQuery query);
+
+    Boolean updatePassWord(String password,Long userId);
 
     void saveBatch(List<UserSaveQuery> query);
 

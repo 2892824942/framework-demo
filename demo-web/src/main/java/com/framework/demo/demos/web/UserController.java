@@ -24,12 +24,16 @@ import com.framework.demo.pojo.user.UserSaveQuery;
 import com.framework.demo.service.IUserService;
 import com.ty.mid.framework.common.pojo.BaseResult;
 import com.ty.mid.framework.common.pojo.PageResult;
+import com.ty.mid.framework.common.util.HashIdUtil;
+import com.ty.mid.framework.web.annotation.desensitize.HashedId;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 /**
@@ -46,10 +50,15 @@ public class UserController {
 
     @GetMapping("/getById")
     @Operation(summary = "通过id获取用户")
-    public BaseResult<UserFullDTO> getById(@RequestParam Long id) {
+    public BaseResult<UserFullDTO> getById(@RequestParam @HashedId Long id) {
         return BaseResult.success(userService.getById(id));
     }
 
+    @GetMapping("/test")
+    @Operation(summary = "测试List形式HashId")
+    public BaseResult<List<UserFullDTO>> getById(@RequestParam @HashedId List<Long> ids) {
+        return BaseResult.success(userService.getByIds(ids));
+    }
 
     @PostMapping("/getPage")
     @Operation(summary = "分页查询用户")
@@ -77,6 +86,16 @@ public class UserController {
     public BaseResult<Boolean> save(@RequestBody UserSaveQuery query) {
         return BaseResult.success(userService.save(query));
     }
+
+
+    @PostMapping("/updatePassword")
+    @Operation(summary = "修改密码")
+    public BaseResult<Boolean> save(@RequestParam @NotBlank(message = "新密码不能为空") String password
+            , @NotNull(message = "用户id不能为空")@RequestParam Long userId) {
+        return BaseResult.success(userService.updatePassWord(password,userId));
+    }
+
+
 
 
     @PostMapping("/saveBatch")

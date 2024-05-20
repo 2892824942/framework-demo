@@ -1,9 +1,12 @@
 package com.framework.demo.pojo.user;
 
 import com.ty.mid.framework.common.pojo.PageParam;
+import com.ty.mid.framework.web.annotation.desensitize.HashedId;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+
+import java.util.List;
 
 /**
  * <p>
@@ -19,7 +22,12 @@ import lombok.EqualsAndHashCode;
 public class UserQuery extends PageParam {
 
     @Schema(description = "主键ID")
+    @HashedId
     private Long id;
+
+    @Schema(description = "主键ID List")
+    @HashedId
+    private List<Long> ids;
 
     @Schema(description = "姓名")
     private String name;

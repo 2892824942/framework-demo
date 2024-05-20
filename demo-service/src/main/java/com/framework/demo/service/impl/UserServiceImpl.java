@@ -2,6 +2,8 @@ package com.framework.demo.service.impl;
 
 
 import cn.hutool.core.collection.CollUtil;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.framework.demo.dto.UserFullDTO;
 import com.framework.demo.dto.UserInfoDTO;
 import com.framework.demo.entity.User;
@@ -49,6 +51,12 @@ public class UserServiceImpl extends AutoWrapService<User, UserFullDTO, UserMapp
     }
 
     @Override
+    public List<UserFullDTO> getByIds(List<Long> ids) {
+        List<User> userList = listByIds(ids);
+        return convert2DTO(userList);
+    }
+
+    @Override
     public PageResult<UserFullBO> getPage(UserQuery userQuery) {
         return userMapper.selectJoinPage(userQuery);
     }
@@ -72,6 +80,12 @@ public class UserServiceImpl extends AutoWrapService<User, UserFullDTO, UserMapp
         User user = convert(query);
         return userMapper.insert(user) > 0;
     }
+
+    @Override
+    public Boolean updatePassWord(String password,Long userId) {
+        return update(new LambdaUpdateWrapper<User>().eq(User::getId, userId).set(User::getPassword,password));
+    }
+
 
     @Override
     public void saveBatch(List<UserSaveQuery> queryList) {

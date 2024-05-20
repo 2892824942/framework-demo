@@ -30,6 +30,7 @@ public interface UserMapper extends MPJBaseMapperX<User, Long> {
                 .leftJoin(Address.class, "addr", on -> on
                         .eq(Address::getCode, User::getAddrCode))
                 .eqIfPresent(User::getCreator, userQuery.getId())
+                .inIfPresent(User::getCreator, userQuery.getIds())
                 .likeIfPresent(User::getName, userQuery.getName())
                 .eqIfPresent(User::getAge, userQuery.getAge());
 
