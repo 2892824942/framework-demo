@@ -128,6 +128,7 @@ framework:
     enable-guise: true
     #token伪装能力白名单,默认:所有用户均为白名单 设置后:则仅设置的用户可使用token伪装能力
     enable-guise-user-ids: 10001
+  #开启加解密能力,此能力可在1.web序列化时使用 2.mybatis入库出库使用 3.日常加解密对应api使用,增强能力,如使用需手动添加jar包并开启此配置
   encrypt:
     enable: true
     password: XDV71a+xqStEA3WH
