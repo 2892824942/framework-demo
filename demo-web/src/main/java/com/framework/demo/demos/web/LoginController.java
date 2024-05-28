@@ -44,11 +44,13 @@ public class LoginController {
         AssertUtil.equals(userFullDTO.getPassword(), pwd, ErrorCodeEnum.LOGIN_FAIL);
         // 校验通过,开始登录
         LoginUser loginUser = new LoginUser();
+
         loginUser.setUserId(userFullDTO.getId());
         loginUser.setLoginId(userFullDTO.getId());
         loginUser.setUsername(userFullDTO.getName());
         loginUser.setRolePermission(userFullDTO.getRoleInfos().stream().map(RoleDTO::getCode).collect(Collectors.toSet()));
         LoginHelper.login(loginUser);
+        loginUser.setToken(StpUtil.getTokenValue());
         return BaseResult.success(loginUser);
     }
 

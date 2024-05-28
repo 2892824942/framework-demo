@@ -1,8 +1,13 @@
 #↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓Spring核心配置↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓
 spring:
   main:
-    allow-circular-references: true
     banner-mode: off
+    allow-circular-references: true
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 10MB
+      max-request-size: 10MB
   profiles:
     active: ${SPRING_PROFILES}
   application:
@@ -76,6 +81,8 @@ server:
   port: 8888
   servlet:
     context-path: /test
+  tomcat:
+    basedir: /home/temp
 
 #↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓第三方组件相关配置↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓
 #knife4j相关配置,swagger增强
@@ -118,7 +125,7 @@ sa-token:
   #是否允许同一账号多地同时登录
   is-concurrent: false
   token-style: simple-uuid
-  is-read-cookie: false
+  is-read-cookie: true
 
 #↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓框架相关配置↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓
 framework:

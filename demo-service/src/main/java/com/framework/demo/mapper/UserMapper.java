@@ -29,8 +29,8 @@ public interface UserMapper extends MPJBaseMapperX<User, Long> {
                 .selectAs(Address::getName, UserFullBO::getAddrName)
                 .leftJoin(Address.class, "addr", on -> on
                         .eq(Address::getCode, User::getAddrCode))
-                .eqIfPresent(User::getCreator, userQuery.getId())
-                .inIfPresent(User::getCreator, userQuery.getIds())
+                .eqIfPresent(User::getId, userQuery.getId())
+                .inIfPresent(User::getId, userQuery.getIds())
                 .likeIfPresent(User::getName, userQuery.getName())
                 .eqIfPresent(User::getAge, userQuery.getAge());
 

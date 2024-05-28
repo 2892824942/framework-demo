@@ -1,11 +1,13 @@
 package com.framework.demo.dto;
 
+import com.alibaba.nacos.shaded.com.google.common.collect.Lists;
 import com.framework.demo.entity.User;
 import com.ty.mid.framework.common.dto.BaseNameDTO;
 import com.ty.mid.framework.web.annotation.desensitize.ChineseNameDesensitize;
 import com.ty.mid.framework.web.annotation.desensitize.EmailDesensitize;
 import com.ty.mid.framework.web.annotation.desensitize.HashedId;
 import com.ty.mid.framework.web.annotation.desensitize.PasswordDesensitize;
+import com.ty.mid.framework.web.core.model.vo.BaseNameVO;
 import io.github.linpeilie.annotations.AutoMapper;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
@@ -28,7 +30,7 @@ import java.util.List;
 @Getter
 @Setter
 @AutoMapper(target = User.class)
-public class UserFullDTO extends BaseNameDTO implements Serializable {
+public class UserFullDTO extends BaseNameVO implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -52,5 +54,9 @@ public class UserFullDTO extends BaseNameDTO implements Serializable {
 
     @Schema(description = "用户地址code")
     private AddrDTO addrInfo;
+
+    @HashedId
+    @Schema(description = "测试的ids")
+    List<Long> ids= Lists.newArrayList(1L,2L,3L);
 
 }

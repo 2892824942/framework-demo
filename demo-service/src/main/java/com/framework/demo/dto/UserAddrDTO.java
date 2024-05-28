@@ -2,6 +2,7 @@ package com.framework.demo.dto;
 
 import com.framework.demo.entity.User;
 import com.ty.mid.framework.common.dto.BaseNameDTO;
+import com.ty.mid.framework.web.core.model.vo.BaseNameVO;
 import io.github.linpeilie.annotations.AutoMapper;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
@@ -23,7 +24,7 @@ import java.util.List;
 @Getter
 @Setter
 @AutoMapper(target = User.class)
-public class UserAddrDTO extends BaseNameDTO implements Serializable {
+public class UserAddrDTO extends BaseNameVO implements Serializable {
 
     private static final long serialVersionUID = 1L;
 

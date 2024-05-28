@@ -28,20 +28,22 @@ import com.ty.mid.framework.common.util.HashIdUtil;
 import com.ty.mid.framework.web.annotation.desensitize.HashedId;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import java.util.List;
+import java.util.*;
 
 /**
  * user控制器
  */
 @Tag(name = "user控制器",description = "用户相关接口")
-@Controller("user控制器")
-@ResponseBody
+@RestController("user控制器")
+
 @RequestMapping("user")
 public class UserController {
 
@@ -56,7 +58,19 @@ public class UserController {
 
     @GetMapping("/test")
     @Operation(summary = "测试List形式HashId")
-    public BaseResult<List<UserFullDTO>> getById(@RequestParam @HashedId List<Long> ids) {
+    public BaseResult<List<UserFullDTO>> getByIdsWithGet(@RequestParam @HashedId Long[] ids) {
+        return BaseResult.success(userService.getByIds(Collections.emptyList()));
+    }
+
+    @PostMapping(value = "/testFormUrl",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    @Operation(summary = "测试Form-data List形式HashId")
+    public BaseResult<List<UserFullDTO>> getByIdsWithForm(@RequestParam @HashedId List<Long> ids) {
+        return BaseResult.success(userService.getByIds(ids));
+    }
+
+    @PostMapping(value = "/testFormData", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    @Operation(summary = "测试Form-data List形式HashId")
+    public BaseResult<List<UserFullDTO>> getByIdsWithForm(@RequestParam @HashedId List<Long> ids,@RequestPart  MultipartFile file) {
         return BaseResult.success(userService.getByIds(ids));
     }
 

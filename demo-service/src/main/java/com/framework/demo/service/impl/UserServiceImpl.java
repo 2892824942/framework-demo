@@ -52,8 +52,7 @@ public class UserServiceImpl extends AutoWrapService<User, UserFullDTO, UserMapp
 
     @Override
     public List<UserFullDTO> getByIds(List<Long> ids) {
-        List<User> userList = listByIds(ids);
-        return convert2DTO(userList);
+        return selectListByIdsDTO(ids);
     }
 
     @Override
