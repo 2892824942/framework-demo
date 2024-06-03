@@ -2,11 +2,10 @@ package com.framework.demo.dto;
 
 import com.alibaba.nacos.shaded.com.google.common.collect.Lists;
 import com.framework.demo.entity.User;
-import com.ty.mid.framework.common.dto.BaseNameDTO;
-import com.ty.mid.framework.web.annotation.desensitize.ChineseNameDesensitize;
-import com.ty.mid.framework.web.annotation.desensitize.EmailDesensitize;
-import com.ty.mid.framework.web.annotation.desensitize.HashedId;
-import com.ty.mid.framework.web.annotation.desensitize.PasswordDesensitize;
+import com.ty.mid.framework.encrypt.annotation.ChineseNameDesensitize;
+import com.ty.mid.framework.encrypt.annotation.EmailDesensitize;
+import com.ty.mid.framework.encrypt.annotation.HashedId;
+import com.ty.mid.framework.encrypt.annotation.PasswordDesensitize;
 import com.ty.mid.framework.web.core.model.vo.BaseNameVO;
 import io.github.linpeilie.annotations.AutoMapper;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -35,18 +34,15 @@ public class UserFullDTO extends BaseNameVO implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Schema(description = "姓名")
-    @ChineseNameDesensitize
     private String name;
 
     @Schema(description = "密码")
-    @PasswordDesensitize
     private String password;
 
     @Schema(description = "年龄")
     private Integer age;
 
     @Schema(description = "邮箱")
-    @EmailDesensitize
     private String email;
 
     @Schema(description = "角色信息")

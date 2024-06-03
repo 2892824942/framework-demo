@@ -1,7 +1,7 @@
 package com.framework.demo.pojo.user;
 
 import com.ty.mid.framework.common.pojo.PageParam;
-import com.ty.mid.framework.web.annotation.desensitize.HashedId;
+import com.ty.mid.framework.encrypt.annotation.HashedId;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.EqualsAndHashCode;

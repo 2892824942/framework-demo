@@ -1,8 +1,7 @@
 package com.framework.demo.dto;
 
 import com.framework.demo.entity.User;
-import com.ty.mid.framework.common.dto.BaseNameDTO;
-import com.ty.mid.framework.web.annotation.desensitize.PasswordDesensitize;
+import com.ty.mid.framework.encrypt.annotation.PasswordDesensitize;
 import com.ty.mid.framework.web.core.model.vo.BaseNameVO;
 import io.github.linpeilie.annotations.AutoMapper;
 import io.swagger.v3.oas.annotations.media.Schema;

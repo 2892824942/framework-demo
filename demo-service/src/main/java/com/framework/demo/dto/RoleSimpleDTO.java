@@ -2,7 +2,7 @@ package com.framework.demo.dto;
 
 import com.ty.mid.framework.common.entity.BaseIdDO;
 import com.ty.mid.framework.common.pojo.KVResp;
-import com.ty.mid.framework.web.annotation.desensitize.HashedId;
+import com.ty.mid.framework.encrypt.annotation.HashedId;
 import io.github.linpeilie.annotations.AutoMapper;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;

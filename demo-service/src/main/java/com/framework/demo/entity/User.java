@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import com.framework.demo.dto.AddrDTO;
 import com.framework.demo.dto.RoleDTO;
 import com.framework.demo.dto.RoleSimpleDTO;
+import com.ty.mid.framework.encrypt.annotation.ChineseNameDesensitize;
 import com.ty.mid.framework.encrypt.annotation.EncryptField;
 import com.ty.mid.framework.encrypt.enumd.AlgorithmType;
 import com.ty.mid.framework.mybatisplus.core.dataobject.BaseDO;
@@ -36,6 +37,7 @@ public class User extends BaseDO {
 
     @Schema(description = "姓名")
     @TableField("`name`")
+    @ChineseNameDesensitize
     private String name;
 
     @Schema(description = "密码")

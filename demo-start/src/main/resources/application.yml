@@ -139,7 +139,11 @@ framework:
   encrypt:
     enable: true
     password: XDV71a+xqStEA3WH
-
+    # hashId配
+    hash-id:
+      enable: true
+      min-length: 4
+      salt: test111
   lock:
     enable: true
     implementer: redis
@@ -156,11 +160,6 @@ framework:
         controller: '**'
     xss:
       enable: true
-    #hashId配置
-    hash-id:
-      enable: true
-      min-length: 4
-      salt: 'test111'
   swagger:
     author: suyouliang
     version: 1.0.0
