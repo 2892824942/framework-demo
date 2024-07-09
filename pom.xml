@@ -18,7 +18,7 @@
         <spring.cloud.version>2021.0.5</spring.cloud.version>
         <mysql.version>8.0.33</mysql.version>
         <swagger-annotation.version>1.5.20</swagger-annotation.version>
-        <ty-framework.version>0.0.7-SNAPSHOT</ty-framework.version>
+        <ty-framework.version>0.1.0-SNAPSHOT</ty-framework.version>
         <springdoc.version>1.6.15</springdoc.version>
         <remote.debug.port>50005</remote.debug.port>
         <mapstruct.version>1.5.5.Final</mapstruct.version>
