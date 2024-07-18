@@ -81,6 +81,7 @@ public class UserController {
         return BaseResult.successPage(page);
     }
 
+
     @PostMapping("/getList")
     @Operation(summary = "查询用户list")
     public BaseResult<List<UserFullDTO>> getList(@RequestBody UserQuery query) {

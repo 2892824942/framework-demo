@@ -18,8 +18,8 @@ spring:
     static-path-pattern: /**.**
   datasource:
     username: suyouliang
-    password: '%M5sCQXNUq'
-    url: jdbc:mysql://121.40.156.55:3306/test_db?useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull
+    password: '用来占位'
+    url: jdbc:mysql://121.40.156.55:3306/test_encrypt_db?useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull
     driver-class-name: com.mysql.cj.jdbc.Driver
     #hikari数据库连接池
     hikari:
@@ -53,7 +53,6 @@ spring:
     database: 0
     host: 121.40.156.55
     port: 6379
-    password: '7g4QmjBwDU'
     timeout: 1200
     lettuce:
       pool:
