@@ -53,7 +53,6 @@ public class User extends BaseDO {
      */
     @Schema(description = "角色id列表,多个使用,号隔开")
     @TableField(value = "`role_ids`", typeHandler = StringListTypeHandler.class)
-    @HashedId
     @AutoWrap(values = {RoleDTO.class, RoleSimpleDTO.class})
     private List<String> roleIds;
 

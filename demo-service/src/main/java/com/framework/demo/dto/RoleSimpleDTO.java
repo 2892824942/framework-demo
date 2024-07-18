@@ -23,7 +23,6 @@ public class RoleSimpleDTO implements BaseIdDO<Long> {
 
     private static final long serialVersionUID = 1L;
     @Schema(description = "id")
-    @HashedId
     private Long id;
 
     @Schema(description = "角色名称")

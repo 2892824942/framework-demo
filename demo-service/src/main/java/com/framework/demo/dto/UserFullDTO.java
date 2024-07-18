@@ -51,7 +51,6 @@ public class UserFullDTO extends BaseNameVO implements Serializable {
     @Schema(description = "用户地址code")
     private AddrDTO addrInfo;
 
-    @HashedId
     @Schema(description = "测试的ids")
     List<Long> ids= Lists.newArrayList(1L,2L,3L);
 

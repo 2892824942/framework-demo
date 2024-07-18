@@ -22,11 +22,9 @@ import java.util.List;
 public class UserQuery extends PageParam {
 
     @Schema(description = "主键ID")
-    @HashedId
     private Long id;
 
     @Schema(description = "主键ID List")
-    @HashedId
     private List<Long> ids;
 
     @Schema(description = "姓名")
