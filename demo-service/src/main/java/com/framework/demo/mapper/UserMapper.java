@@ -42,6 +42,7 @@ public interface UserMapper extends MPJBaseMapperX<User, Long> {
     default PageResult<User> selectPage(@Param("userPageQuery") UserQuery userQuery) {
         LambdaQueryWrapperX<User> wrapper = new LambdaQueryWrapperX<User>()
                 .eqIfPresent(User::getId, userQuery.getId())
+                .inIfPresent(User::getId, userQuery.getIds())
                 .likeIfPresent(User::getName, userQuery.getName())
                 .eqIfPresent(User::getAge, userQuery.getAge())
                 .eqIfPresent(User::getAddrCode, userQuery.getAddrCode());

@@ -2,7 +2,6 @@ package com.framework.demo.service.impl;
 
 
 import cn.hutool.core.collection.CollUtil;
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.framework.demo.dto.UserFullDTO;
 import com.framework.demo.dto.UserInfoDTO;
@@ -12,10 +11,13 @@ import com.framework.demo.mapper.UserMapper;
 import com.framework.demo.pojo.user.UserQuery;
 import com.framework.demo.pojo.user.UserSaveQuery;
 import com.framework.demo.service.IUserService;
+import com.ty.mid.framework.common.exception.FrameworkException;
 import com.ty.mid.framework.common.pojo.PageParam;
 import com.ty.mid.framework.common.pojo.PageResult;
 import com.ty.mid.framework.service.wrapper.AutoWrapService;
 import com.ty.mid.framework.service.wrapper.UserNameTranslation;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.scheduling.annotation.AsyncResult;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -25,6 +27,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.Future;
 import java.util.stream.Collectors;
 
 /**
@@ -36,6 +39,7 @@ import java.util.stream.Collectors;
  * @since 2023-11-27
  */
 @Service
+@Slf4j
 @Valid
 public class UserServiceImpl extends AutoWrapService<User, UserFullDTO, UserMapper> implements IUserService, UserNameTranslation {
 
@@ -48,6 +52,26 @@ public class UserServiceImpl extends AutoWrapService<User, UserFullDTO, UserMapp
             return null;
         }
         return selectOneDTO(User::getId, id);
+    }
+
+    @Override
+    public Future<List<UserFullDTO>> getByIdAsync(List<Long> ids) {
+        log.info("开始执行异步");
+        if (1 == 1) {
+            log.info("测试异常出发");
+            throw new FrameworkException("测试异常");
+        }
+
+        return AsyncResult.forValue(getByIds(ids));
+    }
+
+    @Override
+    public void getByIdAsync2(List<Long> ids) {
+        log.info("开始执行异步");
+        if (1 == 1) {
+            log.info("测试异常触发");
+            throw new FrameworkException("测试异常");
+        }
     }
 
     @Override
@@ -81,8 +105,8 @@ public class UserServiceImpl extends AutoWrapService<User, UserFullDTO, UserMapp
     }
 
     @Override
-    public Boolean updatePassWord(String password,Long userId) {
-        return update(new LambdaUpdateWrapper<User>().eq(User::getId, userId).set(User::getPassword,password));
+    public Boolean updatePassWord(String password, Long userId) {
+        return update(new LambdaUpdateWrapper<User>().eq(User::getId, userId).set(User::getPassword, password));
     }
 
 

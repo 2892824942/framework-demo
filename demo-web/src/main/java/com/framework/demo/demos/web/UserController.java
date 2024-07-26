@@ -27,23 +27,28 @@ import com.ty.mid.framework.common.pojo.PageResult;
 import com.ty.mid.framework.encrypt.annotation.HashedId;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
-import org.springframework.stereotype.Controller;
+import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import java.util.*;
+import java.util.Collections;
+import java.util.List;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Future;
 
 /**
  * user控制器
  */
-@Tag(name = "user控制器",description = "用户相关接口")
+@Tag(name = "user控制器", description = "用户相关接口")
 @RestController("user控制器")
 
 @RequestMapping("user")
+@Slf4j
 public class UserController {
 
     @Resource
@@ -61,7 +66,7 @@ public class UserController {
         return BaseResult.success(userService.getByIds(Collections.emptyList()));
     }
 
-    @PostMapping(value = "/testFormUrl",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    @PostMapping(value = "/testFormUrl", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @Operation(summary = "测试Form-data List形式HashId")
     public BaseResult<List<UserFullDTO>> getByIdsWithForm(@RequestParam @HashedId List<Long> ids) {
         return BaseResult.success(userService.getByIds(ids));
@@ -69,8 +74,55 @@ public class UserController {
 
     @PostMapping(value = "/testFormData", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     @Operation(summary = "测试Form-data List形式HashId")
-    public BaseResult<List<UserFullDTO>> getByIdsWithForm(@RequestParam @HashedId List<Long> ids,@RequestPart  MultipartFile file) {
+    public BaseResult<List<UserFullDTO>> getByIdsWithForm(@RequestParam @HashedId List<Long> ids, @RequestPart MultipartFile file) {
         return BaseResult.success(userService.getByIds(ids));
+    }
+
+    @PostMapping(value = "/getByIdAsync")
+    @Operation(summary = "异步通过id获取用户(回调方式)")
+    public BaseResult<List<UserFullDTO>> getByIdAsync(@RequestParam @HashedId List<Long> ids) {
+        log.info("开始调用执行异步:异步通过id获取用户(回调方式)");
+        Future<List<UserFullDTO>> futureResult = userService.getByIdAsync(ids);
+        try {
+            List<UserFullDTO> userFullDTOS = futureResult.get();
+            return BaseResult.success(userFullDTOS);
+        } catch (InterruptedException | ExecutionException e) {
+            log.error("异步执行异常:", e);
+            throw new RuntimeException(e);
+        }
+    }
+
+    @PostMapping(value = "/asyncTest1")
+    @Operation(summary = "异步测试(非回调方式)")
+    public BaseResult<Void> asyncTest1(@RequestParam @HashedId List<Long> ids) {
+        log.info("开始调用执行异步:异步测试(非回调方式)");
+        userService.getByIdAsync2(ids);
+        return BaseResult.success();
+    }
+
+    @PostMapping(value = "/asyncTest2")
+    @Operation(summary = "异步测试(手动启线程方式)")
+    public BaseResult<Void> asyncTest2(@RequestParam @HashedId List<Long> ids) {
+        log.info("开始调用执行异步:异步测试(手动启线程方式)");
+        Runnable runnable = () -> log.info("异步测试(手动启线程方式)内部逻辑执行");
+        runnable.run();
+        return BaseResult.success();
+    }
+
+    /**
+     * 注意,此方式官方有支持的插件:apm-jdk-threadpool-plugin
+     * 如需支持需要手动将agent的bootstrap-plugins 目录下的apm-jdk-threadpool-plugin-xx.jar 拷贝到plugins下并重启生效
+     * @param ids
+     * @return
+     */
+    @PostMapping(value = "/asyncTest3")
+    @Operation(summary = "异步测试(线程池方式)")
+    public BaseResult<List<UserFullDTO>> asyncTest3(@RequestParam @HashedId List<Long> ids) {
+        log.info("开始调用执行异步:异步测试(线程池方式)");
+        ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
+        executor.initialize();
+        executor.execute(() -> log.info("异步测试(线程池方式)内部逻辑执行"));
+        return BaseResult.success();
     }
 
     @PostMapping("/getPage")
@@ -89,7 +141,7 @@ public class UserController {
     }
 
     @PostMapping("/getInfoList")
-    @Operation(summary = "查询用户listInfo",description = "用户角色附带详情")
+    @Operation(summary = "查询用户listInfo", description = "用户角色附带详情")
     public BaseResult<List<UserInfoDTO>> getInfoList(@RequestBody UserQuery query) {
         return BaseResult.success(userService.getInfoList(query));
     }
@@ -105,11 +157,9 @@ public class UserController {
     @PostMapping("/updatePassword")
     @Operation(summary = "修改密码")
     public BaseResult<Boolean> save(@RequestParam @NotBlank(message = "新密码不能为空") String password
-            , @NotNull(message = "用户id不能为空")@RequestParam Long userId) {
-        return BaseResult.success(userService.updatePassWord(password,userId));
+            , @NotNull(message = "用户id不能为空") @RequestParam Long userId) {
+        return BaseResult.success(userService.updatePassWord(password, userId));
     }
-
-
 
 
     @PostMapping("/saveBatch")

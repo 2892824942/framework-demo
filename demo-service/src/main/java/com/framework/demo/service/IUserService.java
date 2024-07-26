@@ -7,8 +7,10 @@ import com.framework.demo.entity.bo.UserFullBO;
 import com.framework.demo.pojo.user.UserQuery;
 import com.framework.demo.pojo.user.UserSaveQuery;
 import com.ty.mid.framework.common.pojo.PageResult;
+import org.springframework.scheduling.annotation.Async;
 
 import java.util.List;
+import java.util.concurrent.Future;
 
 /**
  * <p>
@@ -21,6 +23,11 @@ import java.util.List;
 public interface IUserService {
 
     UserFullDTO getById(Long id);
+    @Async
+    Future<List<UserFullDTO>> getByIdAsync(List<Long> ids);
+
+    @Async
+    void getByIdAsync2(List<Long> ids);
 
     List<UserFullDTO>  getByIds(List<Long> ids);
 
